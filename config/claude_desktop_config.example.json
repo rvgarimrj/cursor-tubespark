@@ -1,0 +1,112 @@
+{
+  "mcpServers": {
+    "basic-mcp-example": {
+      "command": "python",
+      "args": ["/path/to/your/project/examples/basic-mcp-server.py"],
+      "env": {
+        "DEBUG": "true",
+        "LOG_LEVEL": "INFO"
+      }
+    },
+    "file-manager-server": {
+      "command": "python",
+      "args": ["/path/to/your/project/examples/file-manager-server.py"],
+      "env": {
+        "ALLOWED_EXTENSIONS": ".txt,.json,.py,.md",
+        "BASE_DIRECTORY": "/safe/base/directory",
+        "MAX_FILE_SIZE": "1048576"
+      }
+    },
+    "web-api-server": {
+      "command": "python",
+      "args": ["/path/to/your/project/examples/web-api-server.py"],
+      "env": {
+        "ALLOWED_DOMAINS": "api.example.com,jsonplaceholder.typicode.com",
+        "DEFAULT_TIMEOUT": "30",
+        "RATE_LIMIT": "100"
+      }
+    },
+    "data-processing-server": {
+      "command": "python",
+      "args": ["/path/to/your/project/examples/data-processing-server.py"],
+      "env": {
+        "MAX_DATA_SIZE": "10485760",
+        "ENABLE_CACHING": "true"
+      }
+    },
+    "filesystem-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/allowed/path"],
+      "env": {}
+    },
+    "git-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "/path/to/repo"],
+      "env": {}
+    },
+    "sqlite-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite", "/path/to/database.db"],
+      "env": {}
+    },
+    "postgres-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://user:password@localhost/db"],
+      "env": {}
+    },
+    "github-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "your-github-token-here"
+      }
+    },
+    "google-drive-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gdrive"],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/credentials.json"
+      }
+    },
+    "slack-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "xoxb-your-bot-token",
+        "SLACK_TEAM_ID": "your-team-id"
+      }
+    },
+    "puppeteer-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "env": {}
+    },
+    "brave-search-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "your-brave-api-key-here"
+      }
+    },
+    "everart-official": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-everart"],
+      "env": {
+        "EVERART_API_KEY": "your-everart-api-key-here"
+      }
+    }
+  },
+  "globalShortcuts": {
+    "claude": "Cmd+Shift+Space"
+  },
+  "allowAnalyticsCollection": false,
+  "ui": {
+    "theme": "dark",
+    "fontSize": 14,
+    "fontFamily": "Monaco, 'Cascadia Code', 'JetBrains Mono', monospace"
+  },
+  "experimental": {
+    "enableAdvancedFeatures": true,
+    "debugMode": false
+  }
+}
