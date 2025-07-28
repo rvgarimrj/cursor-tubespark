@@ -35,8 +35,8 @@ TubeSpark is an AI-powered platform that helps YouTubers generate viral video id
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd tubespark
+git clone https://github.com/rvgarimrj/cursor-tubespark.git
+cd cursor-tubespark
 ```
 
 ### 2. Install dependencies
@@ -247,8 +247,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/tubespark/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/tubespark/discussions)
+- **Issues**: [GitHub Issues](https://github.com/rvgarimrj/cursor-tubespark/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/rvgarimrj/cursor-tubespark/discussions)
 - **Email**: support@tubespark.ai
 
 ## 🎯 Roadmap
