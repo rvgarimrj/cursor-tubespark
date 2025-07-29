@@ -12,8 +12,8 @@ export interface User {
 }
 
 export interface UserProfile extends User {
-  subscription_plan: 'free' | 'pro' | 'enterprise';
-  subscription_status: 'active' | 'cancelled' | 'expired';
+  subscription_plan: "free" | "pro" | "enterprise";
+  subscription_status: "active" | "cancelled" | "expired";
   usage_count: number;
   usage_limit: number;
 }
@@ -78,15 +78,21 @@ export interface VideoIdea {
   best_posting_time?: string;
   created_at: string;
   updated_at: string;
-  status: 'draft' | 'planned' | 'in_progress' | 'published' | 'archived';
+  status: "draft" | "planned" | "in_progress" | "published" | "archived";
 }
 
 export interface IdeaGenerationRequest {
   channel_id?: string;
   niche: string;
   target_audience: string;
-  content_style: 'educational' | 'entertainment' | 'review' | 'vlog' | 'tutorial' | 'news';
-  duration_preference: 'shorts' | 'medium' | 'long';
+  content_style:
+    | "educational"
+    | "entertainment"
+    | "review"
+    | "vlog"
+    | "tutorial"
+    | "news";
+  duration_preference: "shorts" | "medium" | "long";
   trending_topics?: boolean;
   competitor_analysis?: boolean;
   seo_focus?: boolean;
@@ -106,8 +112,8 @@ export interface TrendingTopic {
   id: string;
   keyword: string;
   search_volume: number;
-  competition_level: 'low' | 'medium' | 'high';
-  trend_direction: 'rising' | 'stable' | 'declining';
+  competition_level: "low" | "medium" | "high";
+  trend_direction: "rising" | "stable" | "declining";
   related_keywords: string[];
   youtube_videos_count: number;
   avg_views: number;
@@ -135,7 +141,7 @@ export interface ContentCalendar {
   video_idea_id: string;
   scheduled_date: string;
   posting_time: string;
-  status: 'scheduled' | 'posted' | 'cancelled';
+  status: "scheduled" | "posted" | "cancelled";
   notes?: string;
   actual_post_date?: string;
   performance_metrics?: {
@@ -148,7 +154,7 @@ export interface ContentCalendar {
 
 // AI Configuration Types
 export interface AIProvider {
-  name: 'openai' | 'anthropic' | 'groq';
+  name: "openai" | "anthropic" | "groq";
   model: string;
   api_key?: string;
   enabled: boolean;
@@ -196,28 +202,28 @@ export interface Database {
     Tables: {
       users: {
         Row: User;
-        Insert: Omit<User, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<User, 'id' | 'created_at'>>;
+        Insert: Omit<User, "id" | "created_at" | "updated_at">;
+        Update: Partial<Omit<User, "id" | "created_at">>;
       };
       youtube_channels: {
         Row: YouTubeChannel;
-        Insert: Omit<YouTubeChannel, 'created_at'>;
+        Insert: Omit<YouTubeChannel, "created_at">;
         Update: Partial<YouTubeChannel>;
       };
       video_ideas: {
         Row: VideoIdea;
-        Insert: Omit<VideoIdea, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<VideoIdea, 'id' | 'created_at'>>;
+        Insert: Omit<VideoIdea, "id" | "created_at" | "updated_at">;
+        Update: Partial<Omit<VideoIdea, "id" | "created_at">>;
       };
       trending_topics: {
         Row: TrendingTopic;
-        Insert: Omit<TrendingTopic, 'id'>;
+        Insert: Omit<TrendingTopic, "id">;
         Update: Partial<TrendingTopic>;
       };
       content_calendar: {
         Row: ContentCalendar;
-        Insert: Omit<ContentCalendar, 'id'>;
-        Update: Partial<Omit<ContentCalendar, 'id'>>;
+        Insert: Omit<ContentCalendar, "id">;
+        Update: Partial<Omit<ContentCalendar, "id">>;
       };
       user_analytics: {
         Row: UserAnalytics;
@@ -232,12 +238,18 @@ export interface Database {
       [_ in never]: never;
     };
     Enums: {
-      subscription_plan: 'free' | 'pro' | 'enterprise';
-      subscription_status: 'active' | 'cancelled' | 'expired';
-      content_style: 'educational' | 'entertainment' | 'review' | 'vlog' | 'tutorial' | 'news';
-      duration_preference: 'shorts' | 'medium' | 'long';
-      competition_level: 'low' | 'medium' | 'high';
-      trend_direction: 'rising' | 'stable' | 'declining';
+      subscription_plan: "free" | "pro" | "enterprise";
+      subscription_status: "active" | "cancelled" | "expired";
+      content_style:
+        | "educational"
+        | "entertainment"
+        | "review"
+        | "vlog"
+        | "tutorial"
+        | "news";
+      duration_preference: "shorts" | "medium" | "long";
+      competition_level: "low" | "medium" | "high";
+      trend_direction: "rising" | "stable" | "declining";
     };
   };
 }

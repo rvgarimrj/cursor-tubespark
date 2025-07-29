@@ -1,11 +1,11 @@
-import { Suspense } from 'react';
-import { Metadata } from 'next';
-import { Play, Sparkles, TrendingUp, Users, Zap } from 'lucide-react';
-import Link from 'next/link';
+import { Play, Sparkles, TrendingUp, Users, Zap } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Generate viral video ideas for your YouTube channel using AI',
+  title: "Home",
+  description: "Generate viral video ideas for your YouTube channel using AI",
 };
 
 export default function HomePage() {
@@ -20,19 +20,28 @@ export default function HomePage() {
             </div>
             <span className="text-xl font-bold">TubeSpark</span>
           </div>
-          
+
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="#features" className="text-sm font-medium hover:text-primary">
+            <Link
+              href="#features"
+              className="text-sm font-medium hover:text-primary"
+            >
               Features
             </Link>
-            <Link href="#pricing" className="text-sm font-medium hover:text-primary">
+            <Link
+              href="#pricing"
+              className="text-sm font-medium hover:text-primary"
+            >
               Pricing
             </Link>
-            <Link href="#about" className="text-sm font-medium hover:text-primary">
+            <Link
+              href="#about"
+              className="text-sm font-medium hover:text-primary"
+            >
               About
             </Link>
           </nav>
-          
+
           <div className="flex items-center space-x-4">
             <Link
               href="/auth/signin"
@@ -55,15 +64,16 @@ export default function HomePage() {
         <div className="container max-w-6xl text-center">
           <div className="mx-auto max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              Generate{' '}
+              Generate{" "}
               <span className="youtube-gradient bg-clip-text text-transparent">
                 Viral Video Ideas
-              </span>{' '}
+              </span>{" "}
               with AI
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Stop struggling with writer's block. TubeSpark analyzes your YouTube channel, 
-              current trends, and competitors to generate personalized video ideas that drive engagement and growth.
+              Stop struggling with writer's block. TubeSpark analyzes your
+              YouTube channel, current trends, and competitors to generate
+              personalized video ideas that drive engagement and growth.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
@@ -80,7 +90,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          
+
           {/* Stats */}
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
@@ -124,11 +134,12 @@ export default function HomePage() {
               Everything you need to create viral content
             </h2>
             <p className="mt-6 text-lg text-gray-600">
-              Our AI analyzes your channel data, trending topics, and competitor strategies 
-              to generate personalized video ideas that your audience will love.
+              Our AI analyzes your channel data, trending topics, and competitor
+              strategies to generate personalized video ideas that your audience
+              will love.
             </p>
           </div>
-          
+
           <div className="mx-auto mt-16 max-w-7xl">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {/* Feature 1 */}
@@ -138,10 +149,11 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-6 text-lg font-semibold">AI-Powered Ideas</h3>
                 <p className="mt-2 text-gray-600">
-                  Generate unlimited video ideas tailored to your niche, audience, and content style using advanced AI models.
+                  Generate unlimited video ideas tailored to your niche,
+                  audience, and content style using advanced AI models.
                 </p>
               </div>
-              
+
               {/* Feature 2 */}
               <div className="relative overflow-hidden rounded-2xl border bg-white p-8 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
@@ -149,21 +161,25 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-6 text-lg font-semibold">Trend Analysis</h3>
                 <p className="mt-2 text-gray-600">
-                  Stay ahead of the curve with real-time trend analysis and viral topic suggestions based on current data.
+                  Stay ahead of the curve with real-time trend analysis and
+                  viral topic suggestions based on current data.
                 </p>
               </div>
-              
+
               {/* Feature 3 */}
               <div className="relative overflow-hidden rounded-2xl border bg-white p-8 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
                   <Users className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold">Competitor Insights</h3>
+                <h3 className="mt-6 text-lg font-semibold">
+                  Competitor Insights
+                </h3>
                 <p className="mt-2 text-gray-600">
-                  Analyze what's working for similar channels and discover content gaps you can fill.
+                  Analyze what's working for similar channels and discover
+                  content gaps you can fill.
                 </p>
               </div>
-              
+
               {/* Feature 4 */}
               <div className="relative overflow-hidden rounded-2xl border bg-white p-8 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
@@ -171,10 +187,11 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-6 text-lg font-semibold">SEO Optimization</h3>
                 <p className="mt-2 text-gray-600">
-                  Get title suggestions, tags, and descriptions optimized for YouTube's algorithm and search rankings.
+                  Get title suggestions, tags, and descriptions optimized for
+                  YouTube's algorithm and search rankings.
                 </p>
               </div>
-              
+
               {/* Feature 5 */}
               <div className="relative overflow-hidden rounded-2xl border bg-white p-8 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
@@ -182,10 +199,11 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-6 text-lg font-semibold">Channel Analysis</h3>
                 <p className="mt-2 text-gray-600">
-                  Connect your YouTube channel to get personalized insights and recommendations based on your performance data.
+                  Connect your YouTube channel to get personalized insights and
+                  recommendations based on your performance data.
                 </p>
               </div>
-              
+
               {/* Feature 6 */}
               <div className="relative overflow-hidden rounded-2xl border bg-white p-8 shadow-sm">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
@@ -193,7 +211,8 @@ export default function HomePage() {
                 </div>
                 <h3 className="mt-6 text-lg font-semibold">Content Calendar</h3>
                 <p className="mt-2 text-gray-600">
-                  Plan and schedule your content with an intelligent calendar that suggests optimal posting times.
+                  Plan and schedule your content with an intelligent calendar
+                  that suggests optimal posting times.
                 </p>
               </div>
             </div>
@@ -209,7 +228,8 @@ export default function HomePage() {
               Ready to create viral content?
             </h2>
             <p className="mt-6 text-lg text-gray-600">
-              Join thousands of creators who are already using TubeSpark to grow their YouTube channels.
+              Join thousands of creators who are already using TubeSpark to grow
+              their YouTube channels.
             </p>
             <div className="mt-10">
               <Link

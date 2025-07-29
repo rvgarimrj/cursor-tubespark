@@ -5,8 +5,7 @@
       "recommended": true,
       "style": {
         "noUnusedTemplateLiteral": "error",
-        "useConst": "error",
-        "useShorthandPropertyAssignment": "error"
+        "useConst": "error"
       },
       "correctness": {
         "noUnusedVariables": "error",
@@ -33,11 +32,6 @@
     "enabled": true
   },
   "files": {
-    "ignore": [
-      "node_modules/**",
-      ".next/**",
-      "dist/**",
-      "**/*.min.js"
-    ]
+    "ignore": ["node_modules/**", ".next/**", "dist/**", "**/*.min.js"]
   }
 }

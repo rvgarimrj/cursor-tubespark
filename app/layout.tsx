@@ -1,58 +1,59 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: {
-    default: 'TubeSpark - AI Video Idea Generator for YouTubers',
-    template: '%s | TubeSpark',
+    default: "TubeSpark - AI Video Idea Generator for YouTubers",
+    template: "%s | TubeSpark",
   },
-  description: 'Generate viral video ideas for your YouTube channel using AI. Analyze trends, competitors, and optimize for SEO automatically.',
+  description:
+    "Generate viral video ideas for your YouTube channel using AI. Analyze trends, competitors, and optimize for SEO automatically.",
   keywords: [
-    'YouTube',
-    'AI',
-    'video ideas',
-    'content creation',
-    'viral videos',
-    'SEO optimization',
-    'creator tools',
+    "YouTube",
+    "AI",
+    "video ideas",
+    "content creation",
+    "viral videos",
+    "SEO optimization",
+    "creator tools",
   ],
-  authors: [{ name: 'TubeSpark Team' }],
-  creator: 'TubeSpark',
-  publisher: 'TubeSpark',
+  authors: [{ name: "TubeSpark Team" }],
+  creator: "TubeSpark",
+  publisher: "TubeSpark",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://tubespark.ai'),
+  metadataBase: new URL("https://tubespark.ai"),
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://tubespark.ai',
-    title: 'TubeSpark - AI Video Idea Generator for YouTubers',
-    description: 'Generate viral video ideas for your YouTube channel using AI',
-    siteName: 'TubeSpark',
+    type: "website",
+    locale: "en_US",
+    url: "https://tubespark.ai",
+    title: "TubeSpark - AI Video Idea Generator for YouTubers",
+    description: "Generate viral video ideas for your YouTube channel using AI",
+    siteName: "TubeSpark",
     images: [
       {
-        url: '/og-image.png',
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: 'TubeSpark - AI Video Idea Generator',
+        alt: "TubeSpark - AI Video Idea Generator",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'TubeSpark - AI Video Idea Generator for YouTubers',
-    description: 'Generate viral video ideas for your YouTube channel using AI',
-    images: ['/og-image.png'],
-    creator: '@tubespark',
+    card: "summary_large_image",
+    title: "TubeSpark - AI Video Idea Generator for YouTubers",
+    description: "Generate viral video ideas for your YouTube channel using AI",
+    images: ["/og-image.png"],
+    creator: "@tubespark",
   },
   robots: {
     index: true,
@@ -60,13 +61,13 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   verification: {
-    google: 'google-site-verification-code',
+    google: "google-site-verification-code",
   },
 };
 

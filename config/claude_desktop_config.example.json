@@ -36,22 +36,39 @@
     },
     "filesystem-official": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/allowed/path"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/allowed/path"
+      ],
       "env": {}
     },
     "git-official": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "/path/to/repo"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-git",
+        "--repository",
+        "/path/to/repo"
+      ],
       "env": {}
     },
     "sqlite-official": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sqlite", "/path/to/database.db"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "/path/to/database.db"
+      ],
       "env": {}
     },
     "postgres-official": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-postgres", "postgresql://user:password@localhost/db"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://user:password@localhost/db"
+      ],
       "env": {}
     },
     "github-official": {

@@ -73,11 +73,11 @@
   .youtube-gradient {
     @apply bg-gradient-to-r from-youtube-red to-red-600;
   }
-  
+
   .glass-morphism {
     @apply backdrop-blur-md bg-white/10 border border-white/20;
   }
-  
+
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }

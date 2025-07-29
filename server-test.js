@@ -4,18 +4,18 @@
  * Servidor de teste simples para verificar se a aplicação funciona básicamente
  */
 
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
 // Carregar variáveis de ambiente
-const envFile = fs.readFileSync('.env.local', 'utf8');
+const envFile = fs.readFileSync(".env.local", "utf8");
 const envVars = {};
-envFile.split('\n').forEach(line => {
-  if (line.trim() && !line.startsWith('#')) {
-    const [key, ...valueParts] = line.split('=');
+envFile.split("\n").forEach((line) => {
+  if (line.trim() && !line.startsWith("#")) {
+    const [key, ...valueParts] = line.split("=");
     if (key && valueParts.length > 0) {
-      process.env[key.trim()] = valueParts.join('=').trim();
+      process.env[key.trim()] = valueParts.join("=").trim();
     }
   }
 });
@@ -24,18 +24,18 @@ const PORT = 3001;
 
 const server = http.createServer((req, res) => {
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     res.writeHead(200);
     res.end();
     return;
   }
 
-  if (req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+  if (req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text/html" });
     res.end(`
 <!DOCTYPE html>
 <html>
@@ -63,27 +63,27 @@ const server = http.createServer((req, res) => {
         <h2>📊 Configurações Verificadas:</h2>
         
         <div class="status success">
-            ✅ Supabase: ${process.env.NEXT_PUBLIC_SUPABASE_URL ? 'Configurado' : 'Não configurado'}
+            ✅ Supabase: ${process.env.NEXT_PUBLIC_SUPABASE_URL ? "Configurado" : "Não configurado"}
         </div>
         
         <div class="status success">
-            ✅ YouTube API: ${process.env.YOUTUBE_API_KEY ? 'Configurado' : 'Não configurado'}
+            ✅ YouTube API: ${process.env.YOUTUBE_API_KEY ? "Configurado" : "Não configurado"}
         </div>
         
         <div class="status success">
-            ✅ OpenAI: ${process.env.OPENAI_API_KEY ? 'Configurado' : 'Não configurado'}
+            ✅ OpenAI: ${process.env.OPENAI_API_KEY ? "Configurado" : "Não configurado"}
         </div>
         
         <div class="status success">
-            ✅ Anthropic: ${process.env.ANTHROPIC_API_KEY ? 'Configurado' : 'Não configurado'}
+            ✅ Anthropic: ${process.env.ANTHROPIC_API_KEY ? "Configurado" : "Não configurado"}
         </div>
         
         <div class="status success">
-            ✅ Stack Auth: ${process.env.STACK_AUTH_PROJECT_ID ? 'Configurado' : 'Não configurado'}
+            ✅ Stack Auth: ${process.env.STACK_AUTH_PROJECT_ID ? "Configurado" : "Não configurado"}
         </div>
         
         <div class="status success">
-            ✅ Stripe: ${process.env.STRIPE_PUBLISHABLE_KEY ? 'Configurado' : 'Não configurado'}
+            ✅ Stripe: ${process.env.STRIPE_PUBLISHABLE_KEY ? "Configurado" : "Não configurado"}
         </div>
         
         <h2>🧪 Testes de API:</h2>
@@ -180,54 +180,73 @@ nvm use 18
 </body>
 </html>
     `);
-  } else if (req.url === '/api/test-youtube') {
+  } else if (req.url === "/api/test-youtube") {
     // Teste da YouTube API
     const apiKey = process.env.YOUTUBE_API_KEY;
-    
-    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=test&key=${apiKey}&maxResults=1`)
-      .then(response => response.json())
-      .then(data => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+
+    fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=test&key=${apiKey}&maxResults=1`,
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
         if (data.items) {
-          res.end(JSON.stringify({ success: true, message: 'YouTube API funcionando' }));
+          res.end(
+            JSON.stringify({
+              success: true,
+              message: "YouTube API funcionando",
+            }),
+          );
         } else {
-          res.end(JSON.stringify({ success: false, error: data.error?.message || 'Erro desconhecido' }));
+          res.end(
+            JSON.stringify({
+              success: false,
+              error: data.error?.message || "Erro desconhecido",
+            }),
+          );
         }
       })
-      .catch(error => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+      .catch((error) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ success: false, error: error.message }));
       });
-  } else if (req.url === '/api/test-openai') {
+  } else if (req.url === "/api/test-openai") {
     // Teste da OpenAI API
     const apiKey = process.env.OPENAI_API_KEY;
-    
-    fetch('https://api.openai.com/v1/models', {
+
+    fetch("https://api.openai.com/v1/models", {
       headers: {
-        'Authorization': `Bearer ${apiKey}`
-      }
+        Authorization: `Bearer ${apiKey}`,
+      },
     })
-      .then(response => response.json())
-      .then(data => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+      .then((response) => response.json())
+      .then((data) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
         if (data.data) {
           res.end(JSON.stringify({ success: true, models: data.data.length }));
         } else {
-          res.end(JSON.stringify({ success: false, error: data.error?.message || 'Erro desconhecido' }));
+          res.end(
+            JSON.stringify({
+              success: false,
+              error: data.error?.message || "Erro desconhecido",
+            }),
+          );
         }
       })
-      .catch(error => {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
+      .catch((error) => {
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ success: false, error: error.message }));
       });
   } else {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('Not found');
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not found");
   }
 });
 
 server.listen(PORT, () => {
   console.log(`🚀 Servidor de teste rodando em: http://localhost:${PORT}`);
-  console.log('📊 Verifique todas as configurações no navegador');
-  console.log('🔧 Use este servidor para testar as APIs enquanto resolve problemas de dependências');
+  console.log("📊 Verifique todas as configurações no navegador");
+  console.log(
+    "🔧 Use este servidor para testar as APIs enquanto resolve problemas de dependências",
+  );
 });
