@@ -3,22 +3,32 @@
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { stackClientApp } from "@/lib/auth/client";
 
 export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("");
     
     try {
-      // TODO: Implement password reset
-      console.log("Send password reset email to:", email);
+      const result = await stackClientApp.sendForgotPasswordEmail(email, {
+        callbackUrl: `${window.location.origin}/auth/reset-password`
+      });
+      
+      if (result.status === 'error') {
+        throw new Error(result.error.message);
+      }
+      
       setIsSubmitted(true);
     } catch (error) {
       console.error("Password reset error:", error);
+      setError(error instanceof Error ? error.message : "Failed to send reset email. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -107,6 +117,11 @@ export default function ForgotPasswordPage() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {error && (
+              <div className="rounded-md bg-red-50 p-4">
+                <div className="text-sm text-red-700">{error}</div>
+              </div>
+            )}
             <div>
               <label
                 htmlFor="email"

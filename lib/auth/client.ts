@@ -11,6 +11,8 @@ export const stackClientApp = new StackClientApp({
     afterSignUp: "/dashboard",
     afterSignOut: "/",
     home: "/dashboard",
+    forgotPassword: "/auth/forgot-password",
+    passwordReset: "/auth/reset-password",
   },
   projectId: process.env.NEXT_PUBLIC_STACK_PROJECT_ID!,
   publishableClientKey: process.env.NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY!,

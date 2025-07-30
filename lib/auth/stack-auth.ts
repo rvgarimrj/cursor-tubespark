@@ -9,6 +9,8 @@ export const stackServerApp = new StackServerApp({
     afterSignUp: "/dashboard",
     afterSignOut: "/",
     home: "/dashboard",
+    forgotPassword: "/auth/forgot-password",
+    passwordReset: "/auth/reset-password",
   },
   projectId: process.env.NEXT_PUBLIC_STACK_PROJECT_ID!,
   clientKey: process.env.NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY!,
