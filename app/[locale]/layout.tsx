@@ -1,44 +1,34 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
-import { locales } from '@/lib/i18n/config';
+import { ThemeProvider } from '@/lib/theme/theme-provider';
+import { AuthProvider } from '@/lib/auth/provider';
+
+const locales = ['pt', 'en', 'es', 'fr'];
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params: { locale }
-}: {
-  params: { locale: string }
-}) {
-  const t = await getTranslations({ locale, namespace: 'dashboard.home' });
-
-  return {
-    title: t('title'),
-    description: t('subtitle')
-  };
-}
-
-export default async function LocaleLayout({
+export default function LocaleLayout({
   children,
   params: { locale }
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Validate that the incoming `locale` parameter is valid
+  // Basic validation
   if (!locales.includes(locale as any)) {
-    notFound();
+    return <div>Invalid locale: {locale}</div>;
   }
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
-
   return (
-    <NextIntlClientProvider messages={messages}>
-      {children}
-    </NextIntlClientProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <div className="relative flex min-h-screen flex-col">
+          <div className="flex-1">
+            <div className="text-xs bg-blue-100 p-2">Providers Working - Locale: {locale}</div>
+            {children}
+          </div>
+        </div>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
