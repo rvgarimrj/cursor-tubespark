@@ -1,5 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config, { dev, isServer }) => {
+    if (!dev) {
+      config.cache = {
+        type: 'filesystem',
+        compression: 'gzip',
+        maxMemoryGenerations: 1,
+        idleTimeout: 60000,
+        maxAge: 5184000000,
+        allowCollectingMemory: true,
+        memoryCacheUnaffected: true,
+        buildDependencies: {
+          config: [__filename],
+        },
+      };
+    }
+    return config;
+  },
   images: {
     remotePatterns: [
       {
