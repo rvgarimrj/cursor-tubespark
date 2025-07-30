@@ -14,30 +14,33 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/auth";
+import { useTranslation } from "@/lib/i18n/use-translation";
 import { clsx } from "clsx";
 
-const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Generate Ideas", href: "/ideas", icon: Lightbulb },
-  { name: "Content Calendar", href: "/calendar", icon: Calendar },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Settings", href: "/settings", icon: Settings },
-  { name: "Billing", href: "/billing", icon: CreditCard },
-];
 
 export function DashboardSidebar() {
   const pathname = usePathname();
   const { user, signOut } = useAuth();
+  const { locale, tDashboard } = useTranslation();
+
+  const navigation = [
+    { name: tDashboard('sidebar.navigation.dashboard'), href: `/${locale}/dashboard`, icon: Home },
+    { name: tDashboard('sidebar.navigation.generateIdeas'), href: `/${locale}/ideas`, icon: Lightbulb },
+    { name: tDashboard('sidebar.navigation.contentCalendar'), href: `/${locale}/calendar`, icon: Calendar },
+    { name: tDashboard('sidebar.navigation.analytics'), href: `/${locale}/analytics`, icon: BarChart3 },
+    { name: tDashboard('sidebar.navigation.settings'), href: `/${locale}/settings`, icon: Settings },
+    { name: tDashboard('sidebar.navigation.billing'), href: `/${locale}/billing`, icon: CreditCard },
+  ];
 
   return (
     <div className="flex w-64 flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-colors">
       {/* Logo */}
       <div className="flex h-16 items-center px-6 border-b border-gray-200 dark:border-gray-700">
-        <Link href="/dashboard" className="flex items-center space-x-2">
+        <Link href={`/${locale}/dashboard`} className="flex items-center space-x-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg youtube-gradient">
             <Sparkles className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900 dark:text-white">TubeSpark</span>
+          <span className="text-xl font-bold text-gray-900 dark:text-white">{tDashboard('sidebar.logo')}</span>
         </Link>
       </div>
 
@@ -87,7 +90,7 @@ export function DashboardSidebar() {
           className="flex w-full items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
           <LogOut className="mr-3 h-4 w-4 text-gray-400 dark:text-gray-500" />
-          Sign out
+          {tDashboard('sidebar.user.signOut')}
         </button>
       </div>
     </div>

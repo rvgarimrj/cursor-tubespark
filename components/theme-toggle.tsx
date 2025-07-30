@@ -2,10 +2,12 @@
 
 import { Sun, Moon, Monitor, ChevronDown } from "lucide-react";
 import { useTheme } from "@/lib/theme/use-theme";
+import { useTranslation } from "@/lib/i18n/use-translation";
 import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
   const { theme, setLightTheme, setDarkTheme, setSystemTheme, isLight, isDark, isSystem } = useTheme();
+  const { tTheme } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,29 +43,29 @@ export function ThemeToggle() {
   };
 
   const getLabel = () => {
-    if (isLight) return "Modo claro";
-    if (isDark) return "Modo escuro";
-    return "Seguir sistema";
+    if (isLight) return tTheme('light');
+    if (isDark) return tTheme('dark');
+    return tTheme('system');
   };
 
   const themeOptions = [
     { 
       key: 'light', 
-      label: 'Modo claro', 
+      label: tTheme('light'), 
       icon: <Sun className="h-4 w-4" />, 
       action: setLightTheme,
       active: isLight
     },
     { 
       key: 'dark', 
-      label: 'Modo escuro', 
+      label: tTheme('dark'), 
       icon: <Moon className="h-4 w-4" />, 
       action: setDarkTheme,
       active: isDark
     },
     { 
       key: 'system', 
-      label: 'Seguir sistema', 
+      label: tTheme('system'), 
       icon: <Monitor className="h-4 w-4" />, 
       action: setSystemTheme,
       active: isSystem
@@ -74,8 +76,8 @@ export function ThemeToggle() {
     <div className="relative" data-theme-toggle>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        title="Selecionar tema"
-        aria-label={`Selecionar tema. Tema atual: ${getLabel()}`}
+        title={tTheme('select')}
+        aria-label={`${tTheme('select')}. Tema atual: ${getLabel()}`}
         aria-expanded={isOpen}
         className="h-9 px-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors duration-200 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
       >

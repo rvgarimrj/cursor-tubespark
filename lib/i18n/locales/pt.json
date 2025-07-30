@@ -1,0 +1,142 @@
+{
+  "auth": {
+    "signin": {
+      "title": "Entrar na sua conta",
+      "subtitle": "Entre com sua conta para acessar o TubeSpark",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "forgotPassword": "Esqueceu a senha?",
+      "noAccount": "Não tem uma conta?",
+      "createAccount": "Criar conta",
+      "orDivider": "ou",
+      "errors": {
+        "invalid": "Credenciais inválidas",
+        "required": "Este campo é obrigatório",
+        "emailFormat": "E-mail inválido"
+      }
+    },
+    "signup": {
+      "title": "Criar sua conta",
+      "subtitle": "Comece a gerar ideias virais para seu canal",
+      "name": "Nome completo",
+      "email": "E-mail",
+      "password": "Senha",
+      "confirmPassword": "Confirmar senha",
+      "submit": "Criar conta",
+      "hasAccount": "Já tem uma conta?",
+      "signin": "Entrar",
+      "terms": "Ao criar uma conta, você concorda com nossos",
+      "termsLink": "Termos de Serviço",
+      "and": "e",
+      "privacyLink": "Política de Privacidade"
+    },
+    "forgotPassword": {
+      "title": "Redefinir senha",
+      "subtitle": "Digite seu e-mail para receber instruções",
+      "email": "E-mail",
+      "submit": "Enviar instruções",
+      "backToLogin": "Voltar ao login",
+      "success": "Instruções enviadas para seu e-mail"
+    },
+    "resetPassword": {
+      "title": "Nova senha",
+      "subtitle": "Digite sua nova senha",
+      "password": "Nova senha",
+      "confirmPassword": "Confirmar nova senha",
+      "submit": "Redefinir senha",
+      "success": "Senha redefinida com sucesso"
+    }
+  },
+  "dashboard": {
+    "header": {
+      "search": "Buscar ideias, tendências ou competidores...",
+      "usageIndicator": "{{used}}/{{total}} ideias usadas",
+      "notifications": "Notificações",
+      "userMenu": "Menu do usuário",
+      "freePlan": "Plano Gratuito"
+    },
+    "sidebar": {
+      "logo": "TubeSpark",
+      "navigation": {
+        "dashboard": "Dashboard",
+        "generateIdeas": "Gerar Ideias",
+        "contentCalendar": "Calendário",
+        "analytics": "Analytics",
+        "settings": "Configurações",
+        "billing": "Cobrança"
+      },
+      "user": {
+        "signOut": "Sair"
+      }
+    },
+    "home": {
+      "title": "Dashboard",
+      "subtitle": "Visão geral do seu canal e atividades recentes",
+      "welcomeBack": "Bem-vindo de volta",
+      "stats": {
+        "ideasGenerated": "Ideias Geradas",
+        "videosPlanned": "Vídeos Planejados", 
+        "trendsTracked": "Tendências Rastreadas",
+        "competitors": "Competidores"
+      },
+      "quickActions": {
+        "title": "Ações Rápidas",
+        "generateIdea": "Gerar Nova Ideia",
+        "analyzeChannel": "Analisar Canal",
+        "checkTrends": "Ver Tendências",
+        "scheduleVideo": "Agendar Vídeo"
+      },
+      "recentIdeas": {
+        "title": "Ideias Recentes",
+        "viewAll": "Ver todas",
+        "noIdeas": "Nenhuma ideia gerada ainda",
+        "generateFirst": "Gere sua primeira ideia para começar"
+      }
+    }
+  },
+  "ideas": {
+    "title": "Gerador de Ideias",
+    "subtitle": "Use IA para criar ideias virais para seu canal",
+    "generate": "Gerar Ideias",
+    "generating": "Gerando ideias...",
+    "noIdeas": "Nenhuma ideia gerada ainda",
+    "placeholder": "Descreva seu nicho ou tópico..."
+  },
+  "theme": {
+    "light": "Modo claro",
+    "dark": "Modo escuro", 
+    "system": "Seguir sistema",
+    "select": "Selecionar tema"
+  },
+  "language": {
+    "select": "Selecionar idioma",
+    "current": "Idioma atual"
+  },
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "warning": "Aviso",
+    "info": "Informação",
+    "close": "Fechar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "continue": "Continuar",
+    "confirm": "Confirmar",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "errors": {
+    "notFound": "Página não encontrada",
+    "serverError": "Erro interno do servidor",
+    "unauthorized": "Não autorizado",
+    "forbidden": "Acesso negado",
+    "tryAgain": "Tente novamente"
+  }
+}

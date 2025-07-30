@@ -1,0 +1,142 @@
+{
+  "auth": {
+    "signin": {
+      "title": "Sign in to your account",
+      "subtitle": "Sign in to your account to access TubeSpark",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create account",
+      "orDivider": "or",
+      "errors": {
+        "invalid": "Invalid credentials",
+        "required": "This field is required",
+        "emailFormat": "Invalid email"
+      }
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Start generating viral ideas for your channel",
+      "name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "signin": "Sign In",
+      "terms": "By creating an account, you agree to our",
+      "termsLink": "Terms of Service",
+      "and": "and",
+      "privacyLink": "Privacy Policy"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email to receive instructions",
+      "email": "Email",
+      "submit": "Send Instructions",
+      "backToLogin": "Back to login",
+      "success": "Instructions sent to your email"
+    },
+    "resetPassword": {
+      "title": "New password",
+      "subtitle": "Enter your new password",
+      "password": "New password",
+      "confirmPassword": "Confirm new password",
+      "submit": "Reset Password",
+      "success": "Password reset successfully"
+    }
+  },
+  "dashboard": {
+    "header": {
+      "search": "Search ideas, trends, or competitors...",
+      "usageIndicator": "{{used}}/{{total}} ideas used",
+      "notifications": "Notifications",
+      "userMenu": "User menu",
+      "freePlan": "Free Plan"
+    },
+    "sidebar": {
+      "logo": "TubeSpark",
+      "navigation": {
+        "dashboard": "Dashboard",
+        "generateIdeas": "Generate Ideas",
+        "contentCalendar": "Calendar",
+        "analytics": "Analytics",
+        "settings": "Settings",
+        "billing": "Billing"
+      },
+      "user": {
+        "signOut": "Sign Out"
+      }
+    },
+    "home": {
+      "title": "Dashboard",
+      "subtitle": "Overview of your channel and recent activities",
+      "welcomeBack": "Welcome back",
+      "stats": {
+        "ideasGenerated": "Ideas Generated",
+        "videosPlanned": "Videos Planned",
+        "trendsTracked": "Trends Tracked",
+        "competitors": "Competitors"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "generateIdea": "Generate New Idea",
+        "analyzeChannel": "Analyze Channel",
+        "checkTrends": "Check Trends",
+        "scheduleVideo": "Schedule Video"
+      },
+      "recentIdeas": {
+        "title": "Recent Ideas",
+        "viewAll": "View all",
+        "noIdeas": "No ideas generated yet",
+        "generateFirst": "Generate your first idea to get started"
+      }
+    }
+  },
+  "ideas": {
+    "title": "Idea Generator",
+    "subtitle": "Use AI to create viral ideas for your channel",
+    "generate": "Generate Ideas",
+    "generating": "Generating ideas...",
+    "noIdeas": "No ideas generated yet",
+    "placeholder": "Describe your niche or topic..."
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "system": "Follow system",
+    "select": "Select theme"
+  },
+  "language": {
+    "select": "Select language",
+    "current": "Current language"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "serverError": "Internal server error",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Access denied",
+    "tryAgain": "Try again"
+  }
+}

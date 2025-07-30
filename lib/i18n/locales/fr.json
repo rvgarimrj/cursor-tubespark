@@ -1,0 +1,142 @@
+{
+  "auth": {
+    "signin": {
+      "title": "Connectez-vous à votre compte",
+      "subtitle": "Connectez-vous à votre compte pour accéder à TubeSpark",
+      "email": "Email",
+      "password": "Mot de passe",
+      "submit": "Se Connecter",
+      "forgotPassword": "Mot de passe oublié ?",
+      "noAccount": "Pas de compte ?",
+      "createAccount": "Créer un compte",
+      "orDivider": "ou",
+      "errors": {
+        "invalid": "Identifiants invalides",
+        "required": "Ce champ est obligatoire",
+        "emailFormat": "Email invalide"
+      }
+    },
+    "signup": {
+      "title": "Créer votre compte",
+      "subtitle": "Commencez à générer des idées virales pour votre chaîne",
+      "name": "Nom complet",
+      "email": "Email",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Créer un Compte",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signin": "Se Connecter",
+      "terms": "En créant un compte, vous acceptez nos",
+      "termsLink": "Conditions de Service",
+      "and": "et",
+      "privacyLink": "Politique de Confidentialité"
+    },
+    "forgotPassword": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Entrez votre email pour recevoir les instructions",
+      "email": "Email",
+      "submit": "Envoyer les Instructions",
+      "backToLogin": "Retour à la connexion",
+      "success": "Instructions envoyées à votre email"
+    },
+    "resetPassword": {
+      "title": "Nouveau mot de passe",
+      "subtitle": "Entrez votre nouveau mot de passe",
+      "password": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le nouveau mot de passe",
+      "submit": "Réinitialiser le Mot de Passe",
+      "success": "Mot de passe réinitialisé avec succès"
+    }
+  },
+  "dashboard": {
+    "header": {
+      "search": "Rechercher des idées, tendances ou concurrents...",
+      "usageIndicator": "{{used}}/{{total}} idées utilisées",
+      "notifications": "Notifications",
+      "userMenu": "Menu utilisateur",
+      "freePlan": "Plan Gratuit"
+    },
+    "sidebar": {
+      "logo": "TubeSpark",
+      "navigation": {
+        "dashboard": "Tableau de bord",
+        "generateIdeas": "Générer des Idées",
+        "contentCalendar": "Calendrier",
+        "analytics": "Analyses",
+        "settings": "Paramètres",
+        "billing": "Facturation"
+      },
+      "user": {
+        "signOut": "Se Déconnecter"
+      }
+    },
+    "home": {
+      "title": "Tableau de bord",
+      "subtitle": "Vue d'ensemble de votre chaîne et activités récentes",
+      "welcomeBack": "Bon retour",
+      "stats": {
+        "ideasGenerated": "Idées Générées",
+        "videosPlanned": "Vidéos Planifiées",
+        "trendsTracked": "Tendances Suivies",
+        "competitors": "Concurrents"
+      },
+      "quickActions": {
+        "title": "Actions Rapides",
+        "generateIdea": "Générer une Nouvelle Idée",
+        "analyzeChannel": "Analyser la Chaîne",
+        "checkTrends": "Voir les Tendances",
+        "scheduleVideo": "Programmer une Vidéo"
+      },
+      "recentIdeas": {
+        "title": "Idées Récentes",
+        "viewAll": "Voir toutes",
+        "noIdeas": "Aucune idée générée pour le moment",
+        "generateFirst": "Générez votre première idée pour commencer"
+      }
+    }
+  },
+  "ideas": {
+    "title": "Générateur d'Idées",
+    "subtitle": "Utilisez l'IA pour créer des idées virales pour votre chaîne",
+    "generate": "Générer des Idées",
+    "generating": "Génération des idées...",
+    "noIdeas": "Aucune idée générée pour le moment",
+    "placeholder": "Décrivez votre niche ou sujet..."
+  },
+  "theme": {
+    "light": "Mode clair",
+    "dark": "Mode sombre",
+    "system": "Suivre le système",
+    "select": "Sélectionner le thème"
+  },
+  "language": {
+    "select": "Sélectionner la langue",
+    "current": "Langue actuelle"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "warning": "Avertissement",
+    "info": "Information",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "continue": "Continuer",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "errors": {
+    "notFound": "Page non trouvée",
+    "serverError": "Erreur interne du serveur",
+    "unauthorized": "Non autorisé",
+    "forbidden": "Accès refusé",
+    "tryAgain": "Réessayer"
+  }
+}
