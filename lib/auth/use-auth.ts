@@ -10,25 +10,18 @@ export function useAuth() {
 
   const signOut = async () => {
     try {
-      // TODO: Implement proper sign out
-      console.log("Sign out attempt");
+      await stackApp.signOut();
+      console.log("Sign out successful");
       router.push("/");
     } catch (error) {
       console.error("Sign out error:", error);
     }
   };
 
-  // For development, use mock user if Stack Auth user is not available
-  const mockUser = {
-    id: "mock-user-id",
-    displayName: "Demo User",
-    email: "demo@example.com",
-  };
-
-  const isAuthenticated = !!user || true; // Always authenticated for development
+  const isAuthenticated = !!user;
 
   return {
-    user: user || mockUser,
+    user,
     signOut,
     isAuthenticated,
     isLoading: false,
