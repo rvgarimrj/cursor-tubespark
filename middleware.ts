@@ -2,7 +2,8 @@ import { stackServerApp } from "@/lib/auth/stack-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const user = await stackServerApp.getUser();
+  try {
+    const user = await stackServerApp.getUser();
   const pathname = request.nextUrl.pathname;
 
   // Define protected routes
@@ -39,6 +40,10 @@ export async function middleware(request: NextRequest) {
   }
 
   return NextResponse.next();
+  } catch (error) {
+    console.error("Middleware error:", error);
+    return NextResponse.next();
+  }
 }
 
 export const config = {

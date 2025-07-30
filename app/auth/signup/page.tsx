@@ -51,10 +51,20 @@ export default function SignUpPage() {
     setIsLoading(true);
     
     try {
-      // TODO: Implement proper Stack Auth sign up
-      console.log("Sign up attempt:", formData);
-      // Temporary redirect for development
-      router.push("/dashboard");
+      const result = await stackApp.signUpWithCredential({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          displayName: formData.name,
+        },
+      });
+      
+      if (result.user) {
+        console.log("Sign up successful:", result.user);
+        router.push("/dashboard");
+      } else {
+        setError("Failed to create account");
+      }
     } catch (error: any) {
       console.error("Sign up error:", error);
       setError(error.message || "Failed to create account. Please try again.");
@@ -66,13 +76,11 @@ export default function SignUpPage() {
   const handleGoogleSignUp = async () => {
     setIsLoading(true);
     try {
-      // TODO: Implement Google OAuth signup
-      console.log("Google sign up attempt");
-      router.push("/dashboard");
+      await stackApp.signInWithOAuth("google");
+      // OAuth redirect is handled by Stack Auth automatically
     } catch (error: any) {
       console.error("Google sign up error:", error);
       setError(error.message || "Failed to sign up with Google.");
-    } finally {
       setIsLoading(false);
     }
   };

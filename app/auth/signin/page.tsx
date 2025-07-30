@@ -28,10 +28,17 @@ export default function SignInPage() {
     setError("");
     
     try {
-      // TODO: Implement proper Stack Auth sign in
-      console.log("Sign in attempt:", { email, password });
-      // Temporary redirect for development
-      router.push("/dashboard");
+      const result = await stackApp.signInWithCredential({
+        email,
+        password,
+      });
+      
+      if (result.user) {
+        console.log("Sign in successful:", result.user);
+        router.push("/dashboard");
+      } else {
+        setError("Invalid email or password");
+      }
     } catch (error: any) {
       console.error("Sign in error:", error);
       setError(error.message || "Failed to sign in. Please try again.");
@@ -43,13 +50,11 @@ export default function SignInPage() {
   const handleGoogleSignIn = async () => {
     setIsLoading(true);
     try {
-      // TODO: Implement Google OAuth
-      console.log("Google sign in attempt");
-      router.push("/dashboard");
+      await stackApp.signInWithOAuth("google");
+      // OAuth redirect is handled by Stack Auth automatically
     } catch (error: any) {
       console.error("Google sign in error:", error);
       setError(error.message || "Failed to sign in with Google.");
-    } finally {
       setIsLoading(false);
     }
   };
