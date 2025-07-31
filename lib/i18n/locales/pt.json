@@ -107,7 +107,8 @@
     "light": "Modo claro",
     "dark": "Modo escuro", 
     "system": "Seguir sistema",
-    "select": "Selecionar tema"
+    "select": "Selecionar tema",
+    "current": "Tema atual"
   },
   "language": {
     "select": "Selecionar idioma",
@@ -130,7 +131,9 @@
     "continue": "Continuar",
     "confirm": "Confirmar",
     "yes": "Sim",
-    "no": "Não"
+    "no": "Não",
+    "user": "Usuário",
+    "email": "exemplo@email.com"
   },
   "errors": {
     "notFound": "Página não encontrada",

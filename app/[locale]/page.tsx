@@ -1,11 +1,15 @@
 import { Play, Sparkles, TrendingUp, Users, Zap } from "lucide-react";
 import Link from "next/link";
+import { landingTranslations, type LandingTranslationKey } from "@/lib/i18n/translations";
+import type { Locale } from "@/lib/i18n/config";
 
 export default function LocaleHomePage({
   params: { locale }
 }: {
   params: { locale: string };
 }) {
+  const validLocale = locale as Locale;
+  const t = (key: LandingTranslationKey) => landingTranslations[validLocale]?.[key] || landingTranslations.pt[key];
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
@@ -23,19 +27,19 @@ export default function LocaleHomePage({
               href="#features"
               className="text-sm font-medium hover:text-primary dark:text-gray-300 dark:hover:text-white"
             >
-              Features
+              {t('features')}
             </Link>
             <Link
               href="#pricing"
               className="text-sm font-medium hover:text-primary dark:text-gray-300 dark:hover:text-white"
             >
-              Pricing
+              {t('pricing')}
             </Link>
             <Link
               href="#about"
               className="text-sm font-medium hover:text-primary dark:text-gray-300 dark:hover:text-white"
             >
-              About
+              {t('about')}
             </Link>
           </nav>
 
@@ -44,13 +48,13 @@ export default function LocaleHomePage({
               href={`/${locale}/auth/signin`}
               className="text-sm font-medium hover:text-primary dark:text-gray-300 dark:hover:text-white"
             >
-              Sign In
+              {t('signIn')}
             </Link>
             <Link
               href={`/${locale}/auth/signup`}
               className="inline-flex h-9 items-center justify-center rounded-md youtube-gradient px-4 py-2 text-sm font-medium text-white shadow transition-colors hover:opacity-90"
             >
-              Get Started
+              {t('getStarted')}
             </Link>
           </div>
         </div>
@@ -61,29 +65,23 @@ export default function LocaleHomePage({
         <div className="container max-w-6xl text-center">
           <div className="mx-auto max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl dark:text-white">
-              Generate{" "}
-              <span className="youtube-gradient bg-clip-text text-transparent">
-                Viral Video Ideas
-              </span>{" "}
-              with AI
+              {t('title')}
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              Stop struggling with writer's block. TubeSpark analyzes your
-              YouTube channel, current trends, and competitors to generate
-              personalized video ideas that drive engagement and growth.
+              {t('subtitle')}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href={`/${locale}/auth/signup`}
                 className="rounded-md youtube-gradient px-8 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                Start Creating Ideas
+                {t('startCreating')}
               </Link>
               <Link
                 href="#demo"
                 className="text-sm font-semibold leading-6 text-gray-900 hover:text-primary dark:text-gray-300 dark:hover:text-white"
               >
-                Watch Demo <span aria-hidden="true">→</span>
+                {t('watchDemo')} <span aria-hidden="true">→</span>
               </Link>
             </div>
           </div>
@@ -94,7 +92,7 @@ export default function LocaleHomePage({
               <div className="flex flex-col gap-y-3 border-l border-gray-900/10 dark:border-gray-100/10 pl-6">
                 <dt className="flex items-center gap-x-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
                   <Users className="h-5 w-5 text-gray-400" />
-                  Active Creators
+                  {t('activeCreators')}
                 </dt>
                 <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   10,000+
@@ -103,7 +101,7 @@ export default function LocaleHomePage({
               <div className="flex flex-col gap-y-3 border-l border-gray-900/10 dark:border-gray-100/10 pl-6">
                 <dt className="flex items-center gap-x-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
                   <Sparkles className="h-5 w-5 text-gray-400" />
-                  Ideas Generated
+                  {t('ideasGenerated')}
                 </dt>
                 <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   500K+
@@ -112,7 +110,7 @@ export default function LocaleHomePage({
               <div className="flex flex-col gap-y-3 border-l border-gray-900/10 dark:border-gray-100/10 pl-6">
                 <dt className="flex items-center gap-x-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
                   <TrendingUp className="h-5 w-5 text-gray-400" />
-                  Viral Videos Created
+                  {t('viralVideos')}
                 </dt>
                 <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
                   25,000+
@@ -128,12 +126,10 @@ export default function LocaleHomePage({
         <div className="container px-4">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl dark:text-white">
-              Everything you need to create viral content
+              {t('featuresTitle')}
             </h2>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
-              Our AI analyzes your channel data, trending topics, and competitor
-              strategies to generate personalized video ideas that your audience
-              will love.
+              {t('featuresSubtitle')}
             </p>
           </div>
 
@@ -144,10 +140,9 @@ export default function LocaleHomePage({
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
                   <Sparkles className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold dark:text-white">AI-Powered Ideas</h3>
+                <h3 className="mt-6 text-lg font-semibold dark:text-white">{t('aiPowered')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Generate unlimited video ideas tailored to your niche,
-                  audience, and content style using advanced AI models.
+                  {t('aiPoweredDesc')}
                 </p>
               </div>
 
@@ -156,10 +151,9 @@ export default function LocaleHomePage({
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
                   <TrendingUp className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold dark:text-white">Trend Analysis</h3>
+                <h3 className="mt-6 text-lg font-semibold dark:text-white">{t('trendAnalysis')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Stay ahead of the curve with real-time trend analysis and
-                  viral topic suggestions based on current data.
+                  {t('trendAnalysisDesc')}
                 </p>
               </div>
 
@@ -169,11 +163,10 @@ export default function LocaleHomePage({
                   <Users className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="mt-6 text-lg font-semibold dark:text-white">
-                  Competitor Insights
+                  {t('competitorInsights')}
                 </h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Analyze what's working for similar channels and discover
-                  content gaps you can fill.
+                  {t('competitorInsightsDesc')}
                 </p>
               </div>
 
@@ -182,10 +175,9 @@ export default function LocaleHomePage({
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
                   <Zap className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold dark:text-white">SEO Optimization</h3>
+                <h3 className="mt-6 text-lg font-semibold dark:text-white">{t('seoOptimization')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Get title suggestions, tags, and descriptions optimized for
-                  YouTube's algorithm and search rankings.
+                  {t('seoOptimizationDesc')}
                 </p>
               </div>
 
@@ -194,10 +186,9 @@ export default function LocaleHomePage({
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
                   <Play className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold dark:text-white">Channel Analysis</h3>
+                <h3 className="mt-6 text-lg font-semibold dark:text-white">{t('channelAnalysis')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Connect your YouTube channel to get personalized insights and
-                  recommendations based on your performance data.
+                  {t('channelAnalysisDesc')}
                 </p>
               </div>
 
@@ -206,10 +197,9 @@ export default function LocaleHomePage({
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg youtube-gradient">
                   <Users className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="mt-6 text-lg font-semibold dark:text-white">Content Calendar</h3>
+                <h3 className="mt-6 text-lg font-semibold dark:text-white">{t('contentCalendar')}</h3>
                 <p className="mt-2 text-gray-600 dark:text-gray-300">
-                  Plan and schedule your content with an intelligent calendar
-                  that suggests optimal posting times.
+                  {t('contentCalendarDesc')}
                 </p>
               </div>
             </div>
@@ -222,18 +212,17 @@ export default function LocaleHomePage({
         <div className="container px-4">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl dark:text-white">
-              Ready to create viral content?
+              {t('ctaTitle')}
             </h2>
             <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
-              Join thousands of creators who are already using TubeSpark to grow
-              their YouTube channels.
+              {t('ctaSubtitle')}
             </p>
             <div className="mt-10">
               <Link
                 href={`/${locale}/auth/signup`}
                 className="rounded-md youtube-gradient px-8 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-90"
               >
-                Get Started for Free
+                {t('ctaButton')}
               </Link>
             </div>
           </div>
@@ -251,7 +240,7 @@ export default function LocaleHomePage({
               <span className="font-semibold dark:text-white">TubeSpark</span>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              © 2025 TubeSpark. All rights reserved.
+              {t('copyright')}
             </p>
           </div>
         </div>

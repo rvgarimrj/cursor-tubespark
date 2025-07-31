@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@/lib/theme/theme-provider';
-import { AuthProvider } from '@/lib/auth/provider';
 
 const locales = ['pt', 'en', 'es', 'fr'];
 
@@ -21,14 +20,11 @@ export default function LocaleLayout({
 
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <div className="relative flex min-h-screen flex-col">
-          <div className="flex-1">
-            <div className="text-xs bg-blue-100 p-2">Providers Working - Locale: {locale}</div>
-            {children}
-          </div>
+      <div className="relative flex min-h-screen flex-col">
+        <div className="flex-1">
+          {children}
         </div>
-      </AuthProvider>
+      </div>
     </ThemeProvider>
   );
 }

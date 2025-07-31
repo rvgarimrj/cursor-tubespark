@@ -4,10 +4,12 @@ import { Bell, Search, Menu } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useTranslation } from "@/lib/i18n/use-translation";
 
 export function DashboardHeader() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const { user } = useAuth();
+  const { tDashboard } = useTranslation();
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 h-16 flex items-center justify-between px-6 transition-colors">
@@ -32,8 +34,8 @@ export function DashboardHeader() {
             />
           </div>
           <input
-            type="text"
-            placeholder="Search ideas, trends, or competitors..."
+            type="text" 
+            placeholder={tDashboard('header.search')}
             className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:placeholder-gray-400 dark:focus:placeholder-gray-300 focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm transition-colors"
             onFocus={() => setIsSearchFocused(true)}
             onBlur={() => setIsSearchFocused(false)}
@@ -47,7 +49,7 @@ export function DashboardHeader() {
         <div className="hidden sm:flex items-center space-x-2 px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full transition-colors">
           <div className="h-2 w-2 bg-green-500 rounded-full"></div>
           <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-            7/10 ideas used
+            {tDashboard('header.usageIndicator').replace('{{used}}', '7').replace('{{total}}', '10')}
           </span>
         </div>
 
@@ -74,7 +76,7 @@ export function DashboardHeader() {
               {user?.displayName || "User"}
             </span>
             <span className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">
-              Free Plan
+              {tDashboard('header.freePlan')}
             </span>
           </div>
           <div className="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center">

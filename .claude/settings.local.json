@@ -32,7 +32,9 @@
       "Bash(sudo chown:*)",
       "Bash(yarn add next-themes next-intl)",
       "Bash(npm:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(true)",
+      "mcp__upstash-context-7-mcp__resolve-library-id"
     ],
     "deny": []
   }

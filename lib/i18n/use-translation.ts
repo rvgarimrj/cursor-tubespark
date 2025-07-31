@@ -1,14 +1,15 @@
 "use client";
 
-import { useTranslations, useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { locales, type Locale, localeNames, localeFlags } from './config';
+import { t as translate } from './translations';
 
 export function useTranslation() {
-  const t = useTranslations();
-  const locale = useLocale() as Locale;
   const router = useRouter();
   const pathname = usePathname();
+  
+  // Extract locale from pathname
+  const locale = (pathname.split('/')[1] as Locale) || 'pt';
 
   const changeLocale = (newLocale: Locale) => {
     // Remove current locale from pathname and add new one
@@ -28,6 +29,9 @@ export function useTranslation() {
       isActive: loc === locale
     }));
   };
+
+  // Manual translation function using our manual system
+  const t = (key: string) => translate(key as any, locale);
 
   // Scoped translation functions for common sections
   const tAuth = (key: string) => t(`auth.${key}`);
@@ -53,6 +57,3 @@ export function useTranslation() {
     tError,
   };
 }
-
-// Re-export from next-intl for convenience
-export { useTranslations, useLocale } from 'next-intl';

@@ -77,7 +77,7 @@ export function ThemeToggle() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         title={tTheme('select')}
-        aria-label={`${tTheme('select')}. Tema atual: ${getLabel()}`}
+        aria-label={`${tTheme('select')}. ${tTheme('current')}: ${getLabel()}`}
         aria-expanded={isOpen}
         className="h-9 px-3 rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2 transition-colors duration-200 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
       >
