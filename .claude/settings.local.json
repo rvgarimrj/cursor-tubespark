@@ -34,7 +34,8 @@
       "Bash(npm:*)",
       "Bash(test:*)",
       "Bash(true)",
-      "mcp__upstash-context-7-mcp__resolve-library-id"
+      "mcp__upstash-context-7-mcp__resolve-library-id",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

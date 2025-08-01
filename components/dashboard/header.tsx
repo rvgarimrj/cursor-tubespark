@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { LanguageSelector } from "@/components/language-selector";
 
 export function DashboardHeader() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -52,6 +53,9 @@ export function DashboardHeader() {
             {tDashboard('header.usageIndicator').replace('{{used}}', '7').replace('{{total}}', '10')}
           </span>
         </div>
+
+        {/* Language Selector */}
+        <LanguageSelector />
 
         {/* Theme Toggle */}
         <ThemeToggle />

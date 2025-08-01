@@ -10,7 +10,7 @@ export function useAuth() {
 
   const signOut = async () => {
     try {
-      await stackApp.signOut();
+      await user?.signOut();
       console.log("Sign out successful");
       router.push("/");
     } catch (error) {

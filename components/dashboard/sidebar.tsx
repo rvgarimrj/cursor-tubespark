@@ -21,7 +21,7 @@ import { clsx } from "clsx";
 export function DashboardSidebar() {
   const pathname = usePathname();
   const { user, signOut } = useAuth();
-  const { locale, tDashboard } = useTranslation();
+  const { locale, tDashboard, tCommon } = useTranslation();
 
   const navigation = [
     { name: tDashboard('sidebar.navigation.dashboard'), href: `/${locale}/dashboard`, icon: Home },

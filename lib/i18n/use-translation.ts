@@ -13,8 +13,10 @@ export function useTranslation() {
 
   const changeLocale = (newLocale: Locale) => {
     // Remove current locale from pathname and add new one
-    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '') || '/';
-    const newPath = newLocale === 'pt' ? pathWithoutLocale : `/${newLocale}${pathWithoutLocale}`;
+    // Match exactly our supported locales (pt, en, es, fr)
+    const pathWithoutLocale = pathname.replace(/^\/(pt|en|es|fr)/, '') || '/';
+    // With localePrefix: 'always', ALL locales need prefix, including 'pt'
+    const newPath = `/${newLocale}${pathWithoutLocale}`;
     router.push(newPath);
   };
 

@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import createIntlMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from './lib/i18n/config';
 
-// Create the intl middleware
+// Create the intl middleware with auto-detection
 const intlMiddleware = createIntlMiddleware({
   locales,
-  defaultLocale: 'pt',
+  defaultLocale: 'pt', // Fallback para usuários brasileiros
   localePrefix: 'always',
-  localeDetection: false // Disable browser language detection
+  localeDetection: true // ✅ Enable browser language detection
 });
 
 export async function middleware(request: NextRequest) {

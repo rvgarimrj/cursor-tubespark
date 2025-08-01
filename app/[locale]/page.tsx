@@ -2,6 +2,7 @@ import { Play, Sparkles, TrendingUp, Users, Zap } from "lucide-react";
 import Link from "next/link";
 import { landingTranslations, type LandingTranslationKey } from "@/lib/i18n/translations";
 import type { Locale } from "@/lib/i18n/config";
+import { LanguageSelector } from "@/components/language-selector";
 
 export default function LocaleHomePage({
   params: { locale }
@@ -44,6 +45,7 @@ export default function LocaleHomePage({
           </nav>
 
           <div className="flex items-center space-x-4">
+            <LanguageSelector />
             <Link
               href={`/${locale}/auth/signin`}
               className="text-sm font-medium hover:text-primary dark:text-gray-300 dark:hover:text-white"

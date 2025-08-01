@@ -1,19 +1,11 @@
 "use client";
 
 import { StackClientApp } from "@stackframe/stack";
+import { defaultAuthUrls } from "./urls";
 
 export const stackClientApp = new StackClientApp({
   tokenStore: "nextjs-cookie",
-  urls: {
-    signIn: "/pt/auth/signin",
-    signUp: "/pt/auth/signup", 
-    afterSignIn: "/pt/dashboard",
-    afterSignUp: "/pt/dashboard",
-    afterSignOut: "/pt",
-    home: "/pt/dashboard",
-    forgotPassword: "/pt/auth/forgot-password",
-    passwordReset: "/pt/auth/reset-password",
-  },
+  urls: defaultAuthUrls,
   projectId: process.env.NEXT_PUBLIC_STACK_PROJECT_ID!,
   publishableClientKey: process.env.NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY!,
 });

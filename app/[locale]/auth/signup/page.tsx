@@ -7,6 +7,7 @@ import { useUser, useStackApp } from "@stackframe/stack";
 import { useRouter } from "next/navigation";
 import { getAuthTranslation, type AuthTranslationKey } from "@/lib/i18n/auth-translations";
 import type { Locale } from "@/lib/i18n/config";
+import { LanguageSelector } from "@/components/language-selector";
 
 export default function SignUpPage({
   params: { locale }
@@ -74,6 +75,10 @@ export default function SignUpPage({
   const handleGoogleSignUp = async () => {
     setIsLoading(true);
     try {
+      // Store current locale in localStorage before OAuth redirect
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('tubespark-oauth-locale', locale);
+      }
       await stackApp.signInWithOAuth("google");
       // OAuth redirect is handled by Stack Auth automatically
     } catch (error: any) {
@@ -85,6 +90,11 @@ export default function SignUpPage({
 
   return (
     <div className="flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
+      {/* Language Selector - Fixed position top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <LanguageSelector />
+      </div>
+      
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <Link href={`/${locale}`} className="flex items-center space-x-2">
