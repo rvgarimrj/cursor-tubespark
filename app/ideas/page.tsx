@@ -1,44 +1,181 @@
 "use client";
 
-import { useState } from "react";
-import { Lightbulb, TrendingUp, Eye, Clock, Plus, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { 
+  Lightbulb, 
+  TrendingUp, 
+  Eye, 
+  Clock, 
+  Plus, 
+  Sparkles, 
+  Star, 
+  Share2, 
+  Copy,
+  FileText,
+  Heart,
+  MessageCircle
+} from "lucide-react";
+import ScriptGenerationModal from "@/components/scripts/ScriptGenerationModal";
+import { useAuth } from "@/lib/auth";
 
 const mockIdeas = [
   {
-    id: 1,
+    id: "1",
     title: "10 AI Tools That Will Change Video Editing Forever",
     description: "Explore the latest AI-powered video editing tools that are revolutionizing content creation for YouTubers.",
     category: "Technology",
+    channelType: "tech" as const,
+    niche: "Technology",
     trendScore: 92,
-    estimatedViews: 45000,
+    estimatedViews: "45K",
+    difficulty: "Médio" as const,
     tags: ["AI", "Video Editing", "Tools", "Tech"],
+    hooks: ["You won't believe what AI can do for video editing now"],
+    duration: "8-12 min",
+    thumbnailIdea: "Split screen showing before/after AI editing",
     createdAt: "2 hours ago",
+    status: "generated" as const,
+    isFavorited: false,
+    engagementScore: 0,
+    timeSpent: 0,
   },
   {
-    id: 2,
+    id: "2", 
     title: "Why Everyone is Switching to This New Social Media Platform",
     description: "Dive into the emerging social media platform that's capturing everyone's attention and what it means for creators.",
     category: "Entertainment",
+    channelType: "entertainment" as const,
+    niche: "Social Media",
     trendScore: 87,
-    estimatedViews: 38000,
+    estimatedViews: "38K",
+    difficulty: "Fácil" as const,
     tags: ["Social Media", "Trends", "Platform"],
+    hooks: ["This new platform is killing Instagram and TikTok"],
+    duration: "6-10 min",
+    thumbnailIdea: "Shocked face with platform logos",
     createdAt: "4 hours ago",
+    status: "generated" as const,
+    isFavorited: false,
+    engagementScore: 0,
+    timeSpent: 0,
   },
   {
-    id: 3,
-    title: "The Secret to Getting 1M Subscribers in 6 Months",
+    id: "3",
+    title: "The Secret to Getting 1M Subscribers in 6 Months", 
     description: "Learn the proven strategies and tactics that successful YouTubers use to rapidly grow their subscriber base.",
     category: "Education",
+    channelType: "educational" as const,
+    niche: "YouTube Growth",
     trendScore: 94,
-    estimatedViews: 62000,
+    estimatedViews: "62K",
+    difficulty: "Médio" as const,
     tags: ["Growth", "YouTube", "Strategy"],
+    hooks: ["I gained 1M subscribers in 6 months - here's exactly how"],
+    duration: "10-15 min",
+    thumbnailIdea: "Before/after subscriber count with arrow",
     createdAt: "1 day ago",
+    status: "generated" as const,
+    isFavorited: true,
+    engagementScore: 15,
+    timeSpent: 0,
   },
 ];
 
 export default function IdeasPage() {
+  const { user } = useAuth();
   const [ideas, setIdeas] = useState(mockIdeas);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showScriptModal, setShowScriptModal] = useState(false);
+  const [selectedIdea, setSelectedIdea] = useState<typeof mockIdeas[0] | null>(null);
+  const [engagementTimers, setEngagementTimers] = useState<Record<string, number>>({});
+
+  // Track time spent on ideas
+  useEffect(() => {
+    const timers = {};
+    ideas.forEach(idea => {
+      if (!engagementTimers[idea.id]) {
+        timers[idea.id] = Date.now();
+      }
+    });
+    setEngagementTimers(prev => ({ ...prev, ...timers }));
+  }, [ideas]);
+
+  const trackEngagement = async (ideaId: string, type: string, value?: any) => {
+    if (!user) return;
+
+    try {
+      await fetch('/api/engagement/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ideaId,
+          engagementType: type,
+          engagementValue: value
+        })
+      });
+    } catch (error) {
+      console.error('Error tracking engagement:', error);
+    }
+  };
+
+  const handleFavorite = async (ideaId: string) => {
+    const idea = ideas.find(i => i.id === ideaId);
+    if (!idea) return;
+
+    const newFavoriteState = !idea.isFavorited;
+    
+    setIdeas(prev => prev.map(i => 
+      i.id === ideaId 
+        ? { ...i, isFavorited: newFavoriteState, engagementScore: newFavoriteState ? i.engagementScore + 5 : i.engagementScore - 5 }
+        : i
+    ));
+
+    await trackEngagement(ideaId, 'favorite', { favorited: newFavoriteState });
+  };
+
+  const handleShare = async (ideaId: string, platform: string = 'copy_link') => {
+    const idea = ideas.find(i => i.id === ideaId);
+    if (!idea) return;
+
+    if (platform === 'copy_link') {
+      await navigator.clipboard.writeText(`Check out this video idea: ${idea.title}`);
+    }
+
+    setIdeas(prev => prev.map(i => 
+      i.id === ideaId ? { ...i, engagementScore: i.engagementScore + 2 } : i
+    ));
+
+    await trackEngagement(ideaId, 'share', { platform });
+  };
+
+  const handleCopy = async (ideaId: string) => {
+    const idea = ideas.find(i => i.id === ideaId);
+    if (!idea) return;
+
+    const textToCopy = `${idea.title}\n\n${idea.description}\n\nTags: ${idea.tags.join(', ')}`;
+    await navigator.clipboard.writeText(textToCopy);
+
+    setIdeas(prev => prev.map(i => 
+      i.id === ideaId ? { ...i, engagementScore: i.engagementScore + 3 } : i
+    ));
+
+    await trackEngagement(ideaId, 'copy', { contentType: 'idea_full' });
+  };
+
+  const handleCreateScript = (idea: typeof mockIdeas[0]) => {
+    setSelectedIdea(idea);
+    setShowScriptModal(true);
+    trackEngagement(idea.id, 'click_script', { fromLocation: 'idea_card' });
+  };
+
+  const handleScriptGenerated = (scriptId: string) => {
+    // Update engagement score for successful script generation
+    if (selectedIdea) {
+      setIdeas(prev => prev.map(i => 
+        i.id === selectedIdea.id ? { ...i, engagementScore: i.engagementScore + 10 } : i
+      ));
+    }
+  };
 
   const generateNewIdea = async () => {
     setIsGenerating(true);
@@ -46,14 +183,24 @@ export default function IdeasPage() {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     const newIdea = {
-      id: Date.now(),
+      id: String(Date.now()),
       title: "How to Use ChatGPT for Content Creation in 2025",
       description: "Discover advanced techniques for leveraging AI to streamline your content creation workflow.",
       category: "Technology",
+      channelType: "tech" as const,
+      niche: "AI Tools",
       trendScore: 89,
-      estimatedViews: 35000,
+      estimatedViews: "35K",
+      difficulty: "Médio" as const,
       tags: ["AI", "ChatGPT", "Content Creation"],
+      hooks: ["ChatGPT just changed the content creation game forever"],
+      duration: "6-10 min",
+      thumbnailIdea: "Person amazed looking at ChatGPT interface",
       createdAt: "Just now",
+      status: "generated" as const,
+      isFavorited: false,
+      engagementScore: 0,
+      timeSpent: 0,
     };
     
     setIdeas([newIdea, ...ideas]);
@@ -90,7 +237,15 @@ export default function IdeasPage() {
       {/* Ideas Grid */}
       <div className="grid gap-6">
         {ideas.map((idea) => (
-          <div key={idea.id} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
+          <div key={idea.id} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow relative">
+            {/* Engagement Score Badge */}
+            {idea.engagementScore > 0 && (
+              <div className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                <Heart className="w-3 h-3" />
+                {idea.engagementScore}
+              </div>
+            )}
+
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
                 <div className="flex items-center space-x-2 mb-2">
@@ -98,6 +253,13 @@ export default function IdeasPage() {
                     {idea.category}
                   </span>
                   <span className="text-xs text-gray-500">{idea.createdAt}</span>
+                  <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    idea.difficulty === 'Fácil' ? 'bg-green-100 text-green-800' :
+                    idea.difficulty === 'Médio' ? 'bg-yellow-100 text-yellow-800' :
+                    'bg-red-100 text-red-800'
+                  }`}>
+                    {idea.difficulty}
+                  </span>
                 </div>
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">{idea.title}</h2>
                 <p className="text-gray-600 mb-4">{idea.description}</p>
@@ -110,6 +272,17 @@ export default function IdeasPage() {
                     </span>
                   ))}
                 </div>
+
+                {/* Hook Preview */}
+                {idea.hooks && idea.hooks.length > 0 && (
+                  <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Lightbulb className="w-4 h-4 text-amber-600" />
+                      <span className="text-sm font-medium text-amber-800">Hook sugerido:</span>
+                    </div>
+                    <p className="text-sm text-amber-700 italic">"{idea.hooks[0]}"</p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -119,23 +292,63 @@ export default function IdeasPage() {
                 <div className="flex items-center">
                   <TrendingUp className="h-4 w-4 mr-1 text-green-500" />
                   <span className="font-medium text-green-600">{idea.trendScore}</span>
-                  <span className="ml-1">Trend Score</span>
+                  <span className="ml-1">Trend</span>
                 </div>
                 <div className="flex items-center">
                   <Eye className="h-4 w-4 mr-1" />
-                  <span className="font-medium">{idea.estimatedViews.toLocaleString()}</span>
+                  <span className="font-medium">{idea.estimatedViews}</span>
                   <span className="ml-1">Est. Views</span>
                 </div>
+                <div className="flex items-center">
+                  <Clock className="h-4 w-4 mr-1" />
+                  <span className="font-medium">{idea.duration}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Engagement Actions */}
+            <div className="flex items-center justify-between pt-4 border-t border-gray-200 mt-4">
+              <div className="flex items-center space-x-2">
+                {/* Favorite Button */}
+                <button 
+                  onClick={() => handleFavorite(idea.id)}
+                  className={`p-2 rounded-lg transition-all ${
+                    idea.isFavorited 
+                      ? 'bg-yellow-100 text-yellow-600 hover:bg-yellow-200' 
+                      : 'text-gray-400 hover:bg-gray-100 hover:text-yellow-500'
+                  }`}
+                  title="Favoritar ideia"
+                >
+                  <Star className={`w-4 h-4 ${idea.isFavorited ? 'fill-current' : ''}`} />
+                </button>
+
+                {/* Share Button */}
+                <button 
+                  onClick={() => handleShare(idea.id)}
+                  className="p-2 text-gray-400 hover:bg-gray-100 hover:text-blue-500 rounded-lg transition-all"
+                  title="Compartilhar ideia"
+                >
+                  <Share2 className="w-4 h-4" />
+                </button>
+
+                {/* Copy Button */}
+                <button 
+                  onClick={() => handleCopy(idea.id)}
+                  className="p-2 text-gray-400 hover:bg-gray-100 hover:text-green-500 rounded-lg transition-all"
+                  title="Copiar conteúdo"
+                >
+                  <Copy className="w-4 h-4" />
+                </button>
               </div>
               
               <div className="flex items-center space-x-2">
-                <button className="inline-flex items-center px-3 py-1 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-                  <Lightbulb className="h-3 w-3 mr-1" />
-                  Save Idea
-                </button>
-                <button className="inline-flex items-center px-3 py-1 bg-red-600 text-white rounded text-sm font-medium hover:bg-red-700 transition-colors">
-                  <Sparkles className="h-3 w-3 mr-1" />
-                  Expand Idea
+                {/* Create Script Button - Main CTA */}
+                <button 
+                  onClick={() => handleCreateScript(idea)}
+                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-medium hover:from-purple-700 hover:to-purple-800 transition-all shadow-md hover:shadow-lg"
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  Criar Roteiro
                 </button>
               </div>
             </div>
@@ -156,6 +369,19 @@ export default function IdeasPage() {
             Generate Your First Idea
           </button>
         </div>
+      )}
+
+      {/* Script Generation Modal */}
+      {selectedIdea && (
+        <ScriptGenerationModal
+          isOpen={showScriptModal}
+          onClose={() => {
+            setShowScriptModal(false);
+            setSelectedIdea(null);
+          }}
+          idea={selectedIdea}
+          onScriptGenerated={handleScriptGenerated}
+        />
       )}
     </div>
   );

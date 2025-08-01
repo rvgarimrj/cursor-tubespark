@@ -81,6 +81,9 @@ export interface VideoIdea {
   status: "draft" | "planned" | "in_progress" | "published" | "archived";
 }
 
+// Re-export from scripts types
+export * from './scripts';
+
 export interface IdeaGenerationRequest {
   channel_id?: string;
   niche: string;
