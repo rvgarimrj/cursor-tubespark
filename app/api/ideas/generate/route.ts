@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateVideoIdeas } from '@/lib/ai/idea-generator';
 import { VideoIdeaInput } from '@/types/ideas';
-import { stackServerApp } from '@/lib/auth/stack-auth';
+import { stackServerApp } from '@/lib/auth/server';
 
 export async function POST(request: NextRequest) {
   try {

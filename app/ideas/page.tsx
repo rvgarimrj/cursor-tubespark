@@ -91,7 +91,7 @@ export default function IdeasPage() {
 
   // Track time spent on ideas
   useEffect(() => {
-    const timers = {};
+    const timers: Record<string, number> = {};
     ideas.forEach(idea => {
       if (!engagementTimers[idea.id]) {
         timers[idea.id] = Date.now();
@@ -179,32 +179,69 @@ export default function IdeasPage() {
 
   const generateNewIdea = async () => {
     setIsGenerating(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
     
-    const newIdea = {
-      id: String(Date.now()),
-      title: "How to Use ChatGPT for Content Creation in 2025",
-      description: "Discover advanced techniques for leveraging AI to streamline your content creation workflow.",
-      category: "Technology",
-      channelType: "tech" as const,
-      niche: "AI Tools",
-      trendScore: 89,
-      estimatedViews: "35K",
-      difficulty: "Médio" as const,
-      tags: ["AI", "ChatGPT", "Content Creation"],
-      hooks: ["ChatGPT just changed the content creation game forever"],
-      duration: "6-10 min",
-      thumbnailIdea: "Person amazed looking at ChatGPT interface",
-      createdAt: "Just now",
-      status: "generated" as const,
-      isFavorited: false,
-      engagementScore: 0,
-      timeSpent: 0,
-    };
-    
-    setIdeas([newIdea, ...ideas]);
-    setIsGenerating(false);
+    try {
+      const response = await fetch('/api/ideas/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          niche: "Technology",
+          channelType: "tech",
+          audienceAge: "18-35",
+          contentStyle: "educational",
+          language: "pt-BR",
+          trendingTopics: ["AI", "Content Creation"],
+          count: 1
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to generate ideas');
+      }
+
+      const data = await response.json();
+      
+      if (data.success && data.ideas && data.ideas.length > 0) {
+        // Save each idea to the database
+        const savedIdeas = [];
+        for (const idea of data.ideas) {
+          try {
+            const saveResponse = await fetch('/api/ideas/save', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ idea }),
+            });
+            
+            if (saveResponse.ok) {
+              const savedData = await saveResponse.json();
+              savedIdeas.push({
+                ...savedData.idea,
+                createdAt: "Just now",
+                status: "generated" as const,
+                isFavorited: false,
+                engagementScore: 0,
+                timeSpent: 0,
+              });
+            }
+          } catch (error) {
+            console.error('Error saving idea:', error);
+          }
+        }
+        
+        if (savedIdeas.length > 0) {
+          setIdeas([...savedIdeas, ...ideas]);
+        }
+      }
+    } catch (error) {
+      console.error('Error generating ideas:', error);
+      alert('Failed to generate ideas. Please try again.');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -379,7 +416,7 @@ export default function IdeasPage() {
             setShowScriptModal(false);
             setSelectedIdea(null);
           }}
-          idea={selectedIdea}
+          idea={selectedIdea as any}
           onScriptGenerated={handleScriptGenerated}
         />
       )}

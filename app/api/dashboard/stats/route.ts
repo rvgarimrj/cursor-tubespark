@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { IdeasService } from '@/lib/supabase/ideas';
-import { stackServerApp } from '@/lib/auth/stack-auth';
+import { stackServerApp } from '@/lib/auth/server';
 
 export async function GET(request: NextRequest) {
   try {
