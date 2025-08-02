@@ -22,6 +22,9 @@ export async function POST(request: NextRequest) {
     let event: Stripe.Event;
 
     try {
+      if (!webhookSecret) {
+        throw new Error('Webhook secret not configured');
+      }
       event = verifyWebhookSignature(body, signature, webhookSecret);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);

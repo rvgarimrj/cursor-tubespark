@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuth } from '@/lib/auth';
+import { getAuth } from '@/lib/auth/server';
 
 // YouTube Data API v3 interface
 interface YouTubeChannelResponse {

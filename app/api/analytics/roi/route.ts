@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
 
       return {
         id: script.id,
-        ideaTitle: script.video_ideas?.title || 'Unknown Idea',
+        ideaTitle: (script.video_ideas as any)?.[0]?.title || 'Unknown Idea',
         scriptUsed: true,
         scriptType: script.script_type,
         videoUrl: script.published_video_url,

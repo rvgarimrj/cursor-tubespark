@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuth } from '@/lib/auth';
+import { getAuth } from '@/lib/auth/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import type { CouponValidationRequest, CouponValidationResponse } from '@/types/creators';
 

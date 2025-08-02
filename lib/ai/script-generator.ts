@@ -390,8 +390,8 @@ export class YouTubeNativeAnalytics {
       'travel': ['viagem', 'destino', 'país', 'cidade', 'cultura', 'aventura', 'mochilão']
     };
     
-    const keywords = nicheKeywords[niche.toLowerCase()] || [];
-    const matches = keywords.filter(keyword => 
+    const keywords = (nicheKeywords as any)[niche.toLowerCase()] || [];
+    const matches = keywords.filter((keyword: string) => 
       hook.toLowerCase().includes(keyword)
     ).length;
     

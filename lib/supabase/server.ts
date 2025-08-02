@@ -35,3 +35,6 @@ export function createClient() {
     },
   );
 }
+
+// Alias for consistency with naming convention
+export const createServerSupabaseClient = createClient;

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import landing page redesign styles */
+@import '../styles/landing.css';
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -74,11 +77,153 @@
     @apply bg-gradient-to-r from-youtube-red to-red-600;
   }
 
+  .youtube-red-gradient {
+    background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+  }
+
+  .youtube-gold-gradient {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  }
+
+  .hero-bg {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #FF0000 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  }
+
   .glass-morphism {
     @apply backdrop-blur-md bg-white/10 border border-white/20;
   }
 
+  .testimonial-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .feature-glow {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+  }
+
+  .pricing-popular {
+    transform: scale(1.05);
+    border: 3px solid #FFD700;
+    position: relative;
+  }
+
+  .pricing-popular::before {
+    content: '🔥 MAIS POPULAR';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: black;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 12px;
+    animation: pulse 2s infinite;
+  }
+
+  .number-counter {
+    background: linear-gradient(45deg, #FF0000, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+  }
+
+  .creator-avatar {
+    border: 3px solid #FFD700;
+    background: linear-gradient(135deg, #FF0000, #FFD700);
+    padding: 3px;
+  }
+
+  .urgent-banner {
+    background: linear-gradient(90deg, #FF0000, #FF4500, #FF0000);
+    animation: pulse 2s infinite;
+  }
+
+  .play-button {
+    width: 0;
+    height: 0;
+    border-left: 20px solid white;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 4px;
+  }
+
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  @keyframes float {
+    0%, 100% { 
+      transform: translateY(0px); 
+    }
+    50% { 
+      transform: translateY(-10px); 
+    }
+  }
+
+  @keyframes fadeIn {
+    0% { 
+      opacity: 0; 
+    }
+    100% { 
+      opacity: 1; 
+    }
+  }
+
+  @keyframes slideUp {
+    0% { 
+      transform: translateY(10px); 
+      opacity: 0; 
+    }
+    100% { 
+      transform: translateY(0); 
+      opacity: 1; 
+    }
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInFromRight 0.3s ease-out;
   }
 }

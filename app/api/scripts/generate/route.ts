@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
 
     // Generate the script using enhanced AI with framework selection
     const script = await generateVideoScript({
-      idea: idea as VideoIdea,
+      idea: idea as any,
       scriptType,
       frameworkType,
       youtubeData,
