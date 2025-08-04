@@ -392,7 +392,7 @@ export function PricingSection({ translations, locale }: { translations: Transla
                         {currency} 0
                       </div>
                       <div className="text-gray-400 mt-2">
-                        {t.perYear}
+                        / month
                       </div>
                       <div className="text-gray-500 text-sm mt-2">
                         {t.freeForever}
@@ -400,20 +400,24 @@ export function PricingSection({ translations, locale }: { translations: Transla
                     </div>
                   ) : (
                     <div className="mb-4">
-                      <div className="text-4xl font-bold text-white mb-2">
-                        {planData ? `${currency} ${formatPrice(getDisplayPrice(planData))}` : plan.annualPrice}
-                      </div>
-                      <div className="text-gray-400">
-                        {t.perYear} 
+                      <div className="text-4xl font-bold text-white mb-2 flex items-center justify-center gap-2">
                         {isAnnual && planData && (
-                          <span className="text-gray-500 line-through ml-2">
-                            {currency}{formatPrice(planData.monthlyPrice * 12)}
+                          <span className="text-gray-500 line-through text-3xl">
+                            {currency}{formatPrice(planData.monthlyPrice)}
                           </span>
                         )}
+                        <span>
+                          {currency}{formatPrice(isAnnual && planData ? planData.annualPrice / 12 : planData?.monthlyPrice || 0)}
+                        </span>
                       </div>
-                      <div className="text-sm text-gray-400 mt-2">
-                        {t.nextYear}: {planData ? `${currency}${formatPrice(getDisplayPrice(planData))}` : plan.annualPrice} {isAnnual && t.annualDiscount}
+                      <div className="text-gray-400">
+                        / month
                       </div>
+                      {isAnnual && (
+                        <div className="text-sm text-gray-400 mt-2">
+                          Billed annually ({t.annualDiscount})
+                        </div>
+                      )}
                       <div className="text-gray-500 text-xs mt-1">
                         {t.cancelAnytime}
                       </div>
