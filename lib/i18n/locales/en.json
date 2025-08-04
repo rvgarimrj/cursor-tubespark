@@ -143,14 +143,177 @@
     "tryAgain": "Try again"
   },
   "landing": {
+    "navigation": {
+      "problem": "The Problem",
+      "solution": "Our Solution",
+      "howItWorks": "How It Works",
+      "results": "Results",
+      "getStarted": "Get Started for Free"
+    },
     "hero": {
-      "badge": "New at TubeSpark",
-      "badgeLink": "See what's new",
-      "title": "Turn your ideas into viral videos",
-      "subtitle": "Use advanced AI to generate personalized video ideas, analyze trends, and grow your YouTube channel faster than ever.",
-      "ctaPrimary": "Start for Free",
-      "ctaSecondary": "Watch demo",
-      "demoVideo": "Demo video"
+      "problemBadge": "Creative block affects 87% of YouTubers",
+      "title": "Never Run Out of",
+      "titleHighlight": "Ideas",
+      "titleEnd": "For Your Videos",
+      "subtitle": "The intelligent tool that solves your creative block, generates personalized ideas and helps you grow organically on YouTube",
+      "demo": {
+        "userPrompt": "I'm out of ideas for my tech channel...",
+        "aiResponse": "TubeSpark suggested:",
+        "suggestion1": "5 Apps Every Dev Needs to Know in 2025",
+        "suggestion2": "Why ChatGPT Is Revolutionizing Programming",
+        "suggestion3": "React vs Vue: The Final Battle (With Practical Examples)"
+      },
+      "ctaPrimary": "Solve My Creative Block",
+      "features": "Free trial • Results in minutes • Personalized for your niche",
+      "stats": {
+        "ideasGenerated": "+2.4M ideas generated",
+        "activeCreators": "10k+ active creators"
+      }
+    },
+    "problem": {
+      "title": "The Problem That",
+      "titleHighlight": "Every YouTuber Faces",
+      "subtitle": "You're not alone. These are the real challenges creators face daily:",
+      "creativeBlock": {
+        "title": "Constant Creative Block",
+        "description": "Spending hours staring at a blank screen, not knowing what to talk about in your next video.",
+        "stat": "87% of creators report this problem"
+      },
+      "timeWasted": {
+        "title": "Time Wasted Researching",
+        "description": "Spending 3-5 hours researching ideas, trends and analyzing competitors for every video.",
+        "stat": "Time that could be spent creating"
+      },
+      "inconsistentViews": {
+        "title": "Inconsistent Views",
+        "description": "Never knowing if a video will go viral or get low views. Lack of predictability in growth.",
+        "stat": "Slow and frustrating growth"
+      },
+      "blankPage": {
+        "title": "Blank Page Syndrome",
+        "description": "Even when you have an idea, not knowing how to structure a script that engages your audience.",
+        "stat": "Scripts without engagement"
+      },
+      "impact": {
+        "title": "The Real Cost of Creative Block",
+        "stat1": "73% of creators abandon YouTube in their first year",
+        "stat2": "15h/week spent researching instead of creating",
+        "stat3": "-40% in views due to lack of consistency"
+      }
+    },
+    "solution": {
+      "title": "Our Solution:",
+      "titleHighlight": "YouTube-Specialized AI",
+      "subtitle": "We developed an artificial intelligence trained specifically to solve the unique problems of YouTube content creators.",
+      "overview": {
+        "title": "How We Transform Block into Creativity",
+        "step1": {
+          "title": "Intelligent Analysis",
+          "description": "Our AI analyzes your channel, niche, audience and current trends in seconds"
+        },
+        "step2": {
+          "title": "Personalized Generation",
+          "description": "We create ideas and scripts specific to your style that your audience will love"
+        },
+        "step3": {
+          "title": "Continuous Optimization",
+          "description": "We learn from your results to suggest increasingly better content"
+        }
+      }
+    },
+    "features": {
+      "title": "Features That",
+      "titleHighlight": "Solve Your Problems",
+      "subtitle": "Every feature was designed to eliminate a specific pain point for creators",
+      "ideaGenerator": {
+        "title": "Intelligent Idea Generator",
+        "description": "Never run out of ideas again. Our AI generates personalized suggestions based on your niche and audience.",
+        "highlight": "Unlimited ideas in seconds"
+      },
+      "scriptWriter": {
+        "title": "Structured Scripts",
+        "description": "Transform ideas into complete scripts with hooks, development and CTAs that actually work.",
+        "highlight": "From concept to ready script"
+      },
+      "trendAnalysis": {
+        "title": "Trend Analysis",
+        "description": "Stay ahead with real-time trend analysis and insights on what's working.",
+        "highlight": "Always on perfect timing"
+      },
+      "competitorInsights": {
+        "title": "Competitor Insights",
+        "description": "See what's working for similar channels and discover unexploited opportunities.",
+        "highlight": "Real competitive advantage"
+      },
+      "seoOptimization": {
+        "title": "SEO Optimization",
+        "description": "Titles, tags and descriptions automatically optimized to maximize reach and discovery.",
+        "highlight": "Maximum discoverability"
+      },
+      "contentCalendar": {
+        "title": "Content Planning",
+        "description": "Organize your editorial calendar and maintain consistency with perfect timing suggestions.",
+        "highlight": "Guaranteed consistency"
+      }
+    },
+    "results": {
+      "title": "Results That",
+      "titleHighlight": "Our Users Achieve",
+      "subtitle": "Real numbers from creators who solved their creative block",
+      "metrics": {
+        "creativeBlock": "87% report end of creative block",
+        "viewsIncrease": "3.2x average increase in views",
+        "timeReduction": "75% reduction in research time",
+        "activeCreators": "10k+ monthly active creators"
+      },
+      "testimonials": {
+        "marina": {
+          "name": "Marina Silva",
+          "channel": "Lifestyle Channel • 45k subs",
+          "quote": "Before, I spent 2-3 days just researching ideas. Now I have 20 personalized ideas in 5 minutes. My channel grew 400% since I started using it.",
+          "result": "+400% growth in 3 months"
+        },
+        "rafael": {
+          "name": "Rafael Santos", 
+          "channel": "Tech Channel • 127k subs",
+          "quote": "Creative block was killing me. TubeSpark not only gives me ideas, but complete scripts that actually work. My last video got 2.1M views.",
+          "result": "2.1M views on last video"
+        },
+        "carla": {
+          "name": "Carla Mendes",
+          "channel": "Education Channel • 89k subs", 
+          "quote": "The difference is that now I know EXACTLY what my audience wants to see. The suggestions are so personalized they seem to have read my subscribers' minds.",
+          "result": "85% increase in engagement"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready To Solve Your Creative Block?",
+      "subtitle": "Join thousands of creators who have already transformed their ideas into viral content",
+      "valueProps": {
+        "immediate": {
+          "title": "Immediate Results",
+          "description": "Personalized ideas in seconds"
+        },
+        "personalized": {
+          "title": "100% Personalized",
+          "description": "Specific to your niche and audience"
+        },
+        "guaranteed": {
+          "title": "Guaranteed Growth",
+          "description": "Or we'll refund your money"
+        }
+      },
+      "button": "Start Free Trial",
+      "guarantee": "7-day free trial • No credit card required • Instant access"
+    },
+    "footer": {
+      "copyright": "© 2025 TubeSpark. Made with ❤️ for creators who want to grow.",
+      "links": {
+        "privacy": "Privacy",
+        "terms": "Terms",
+        "support": "Support"
+      }
     }
   }
 }

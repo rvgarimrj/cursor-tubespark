@@ -143,14 +143,177 @@
     "tryAgain": "Tente novamente"
   },
   "landing": {
+    "navigation": {
+      "problem": "O Problema",
+      "solution": "Nossa Solução",
+      "howItWorks": "Como Funciona",
+      "results": "Resultados",
+      "getStarted": "Começar Gratuitamente"
+    },
     "hero": {
-      "badge": "Novo no TubeSpark",
-      "badgeLink": "Veja as novidades",
-      "title": "Transforme suas ideias em vídeos virais",
-      "subtitle": "Use IA avançada para gerar ideias de vídeo personalizadas, analisar tendências e crescer seu canal do YouTube mais rápido que nunca.",
-      "ctaPrimary": "Começar Gratuitamente",
-      "ctaSecondary": "Ver demonstração",
-      "demoVideo": "Vídeo de demonstração"
+      "problemBadge": "O bloqueio criativo afeta 87% dos YouTubers",
+      "title": "Nunca Mais Fique",
+      "titleHighlight": "Sem Ideias",
+      "titleEnd": "Para Seus Vídeos",
+      "subtitle": "A ferramenta inteligente que resolve seu bloqueio criativo, gera ideias personalizadas e ajuda você a crescer organicamente no YouTube",
+      "demo": {
+        "userPrompt": "Estou sem ideias para meu canal de tech...",
+        "aiResponse": "TubeSpark sugeriu:",
+        "suggestion1": "5 Apps que Todo Dev Precisa Conhecer em 2025",
+        "suggestion2": "Por que o ChatGPT Está Revolucionando a Programação",
+        "suggestion3": "React vs Vue: A Batalha Final (Com Exemplos Práticos)"
+      },
+      "ctaPrimary": "Resolver Meu Bloqueio Criativo",
+      "features": "Teste gratuito • Resultados em minutos • Personalizadas para seu nicho",
+      "stats": {
+        "ideasGenerated": "+2.4M ideias geradas",
+        "activeCreators": "10k+ creators ativos"
+      }
+    },
+    "problem": {
+      "title": "O Problema que",
+      "titleHighlight": "Todo YouTuber Enfrenta",
+      "subtitle": "Você não está sozinho. Estes são os desafios reais que criadores enfrentam diariamente:",
+      "creativeBlock": {
+        "title": "Bloqueio Criativo Constante",
+        "description": "Passar horas olhando para uma tela em branco, sem saber sobre o que falar no próximo vídeo.",
+        "stat": "87% dos criadores relatam esse problema"
+      },
+      "timeWasted": {
+        "title": "Tempo Perdido Pesquisando",
+        "description": "Gastar 3-5 horas pesquisando ideias, tendências e analisando competidores para cada vídeo.",
+        "stat": "Tempo que poderia estar criando"
+      },
+      "inconsistentViews": {
+        "title": "Views Inconsistentes",
+        "description": "Nunca saber se um vídeo vai viralizar ou ter baixas views. Falta de previsibilidade no crescimento.",
+        "stat": "Crescimento lento e frustrante"
+      },
+      "blankPage": {
+        "title": "Síndrome da Página em Branco",
+        "description": "Mesmo quando tem uma ideia, não sabe como estruturar um roteiro que prenda a audiência.",
+        "stat": "Roteiros sem engajamento"
+      },
+      "impact": {
+        "title": "O Custo Real do Bloqueio Criativo",
+        "stat1": "73% dos creators abandonam o YouTube no primeiro ano",
+        "stat2": "15h/sem gastas em pesquisa ao invés de criação",
+        "stat3": "-40% nas views por falta de consistência"
+      }
+    },
+    "solution": {
+      "title": "Nossa Solução:",
+      "titleHighlight": "IA Especializada em YouTube",
+      "subtitle": "Desenvolvemos uma inteligência artificial treinada especificamente para resolver os problemas únicos dos criadores de conteúdo no YouTube.",
+      "overview": {
+        "title": "Como Transformamos Bloqueio em Criatividade",
+        "step1": {
+          "title": "Análise Inteligente",
+          "description": "Nossa IA analisa seu canal, nicho, audiência e tendências atuais em segundos"
+        },
+        "step2": {
+          "title": "Geração Personalizada",
+          "description": "Criamos ideias e roteiros específicos para seu estilo e que sua audiência vai amar"
+        },
+        "step3": {
+          "title": "Otimização Contínua",
+          "description": "Aprendemos com seus resultados para sugerir conteúdos cada vez melhores"
+        }
+      }
+    },
+    "features": {
+      "title": "Funcionalidades que",
+      "titleHighlight": "Resolvem Seus Problemas",
+      "subtitle": "Cada funcionalidade foi pensada para eliminar uma dor específica dos criadores",
+      "ideaGenerator": {
+        "title": "Gerador de Ideias Inteligente",
+        "description": "Nunca mais fique sem ideias. Nossa IA gera sugestões personalizadas baseadas no seu nicho e audiência.",
+        "highlight": "Ideias ilimitadas em segundos"
+      },
+      "scriptWriter": {
+        "title": "Roteiros Estruturados",
+        "description": "Transforme ideias em roteiros completos com hooks, desenvolvimento e CTAs que realmente funcionam.",
+        "highlight": "Do conceito ao roteiro pronto"
+      },
+      "trendAnalysis": {
+        "title": "Análise de Tendências",
+        "description": "Fique sempre à frente com análise de tendências em tempo real e insights do que está funcionando.",
+        "highlight": "Sempre no timing certo"
+      },
+      "competitorInsights": {
+        "title": "Insights de Competidores",
+        "description": "Veja o que está funcionando para canais similares e descubra oportunidades inexploradas.",
+        "highlight": "Vantagem competitiva real"
+      },
+      "seoOptimization": {
+        "title": "Otimização SEO",
+        "description": "Títulos, tags e descrições otimizadas automaticamente para maximizar alcance e descoberta.",
+        "highlight": "Máxima descobribilidade"
+      },
+      "contentCalendar": {
+        "title": "Planejamento de Conteúdo",
+        "description": "Organize seu calendário editorial e mantenha consistência com sugestões de timing perfeito.",
+        "highlight": "Consistência garantida"
+      }
+    },
+    "results": {
+      "title": "Resultados que",
+      "titleHighlight": "Nossos Usuários Alcançam",
+      "subtitle": "Números reais de criadores que resolveram seu bloqueio criativo",
+      "metrics": {
+        "creativeBlock": "87% relatam fim do bloqueio criativo",
+        "viewsIncrease": "3.2x aumento médio nas views",
+        "timeReduction": "75% redução no tempo de pesquisa",
+        "activeCreators": "10k+ criadores ativos mensais"
+      },
+      "testimonials": {
+        "marina": {
+          "name": "Marina Silva",
+          "channel": "Canal de Lifestyle • 45k subs",
+          "quote": "Antes eu passava 2-3 dias só pesquisando ideias. Agora tenho 20 ideias personalizadas em 5 minutos. Meu canal cresceu 400% desde que comecei a usar.",
+          "result": "+400% crescimento em 3 meses"
+        },
+        "rafael": {
+          "name": "Rafael Santos", 
+          "channel": "Canal de Tech • 127k subs",
+          "quote": "O bloqueio criativo estava me matando. TubeSpark não só me dá ideias, mas roteiros completos que realmente funcionam. Meu último vídeo teve 2.1M de views.",
+          "result": "2.1M views no último vídeo"
+        },
+        "carla": {
+          "name": "Carla Mendes",
+          "channel": "Canal de Educação • 89k subs", 
+          "quote": "A diferença é que agora sei EXATAMENTE o que meu público quer ver. As sugerências são tão personalizadas que parecem ter lido a mente dos meus inscritos.",
+          "result": "85% aumento no engajamento"
+        }
+      }
+    },
+    "cta": {
+      "title": "Pronto Para Resolver Seu Bloqueio Criativo?",
+      "subtitle": "Junte-se a milhares de criadores que já transformaram suas ideias em conteúdo viral",
+      "valueProps": {
+        "immediate": {
+          "title": "Resultados Imediatos",
+          "description": "Ideias personalizadas em segundos"
+        },
+        "personalized": {
+          "title": "100% Personalizado",
+          "description": "Específico para seu nicho e audiência"
+        },
+        "guaranteed": {
+          "title": "Crescimento Garantido",
+          "description": "Ou devolvemos seu dinheiro"
+        }
+      },
+      "button": "Começar Teste Gratuito",
+      "guarantee": "Teste gratuito por 7 dias • Sem cartão de crédito • Acesso imediato"
+    },
+    "footer": {
+      "copyright": "© 2025 TubeSpark. Feito com ❤️ para criadores que querem crescer.",
+      "links": {
+        "privacy": "Privacidade",
+        "terms": "Termos",
+        "support": "Suporte"
+      }
     }
   }
 }
