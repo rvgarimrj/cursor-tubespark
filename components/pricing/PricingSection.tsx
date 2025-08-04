@@ -248,6 +248,8 @@ interface TranslationsProps {
   monthly: string;
   creditsPerMonth: string;
   per100Credits: string;
+  perMonth: string;
+  billedAnnually: string;
   features: {
     get_credits_monthly_by_logging_in: string;
     try_member_only_features_monthly_by_logging_in: string;
@@ -392,7 +394,7 @@ export function PricingSection({ translations, locale }: { translations: Transla
                         {currency} 0
                       </div>
                       <div className="text-gray-400 mt-2">
-                        / month
+                        / {t.perMonth}
                       </div>
                       <div className="text-gray-500 text-sm mt-2">
                         {t.freeForever}
@@ -411,11 +413,11 @@ export function PricingSection({ translations, locale }: { translations: Transla
                         </span>
                       </div>
                       <div className="text-gray-400">
-                        / month
+                        / {t.perMonth}
                       </div>
                       {isAnnual && (
                         <div className="text-sm text-gray-400 mt-2">
-                          Billed annually ({t.annualDiscount})
+                          {t.billedAnnually} ({t.annualDiscount})
                         </div>
                       )}
                       <div className="text-gray-500 text-xs mt-1">

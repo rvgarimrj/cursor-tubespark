@@ -328,6 +328,8 @@
     "monthly": "Mensuel",
     "creditsPerMonth": "Crédits par mois",
     "per100Credits": "pour 100 Crédits",
+    "perMonth": "par mois",
+    "billedAnnually": "Facturé annuellement",
     "features": {
       "get_credits_monthly_by_logging_in": "Obtenez des crédits mensuels en vous connectant",
       "try_member_only_features_monthly_by_logging_in": "Essayez les fonctionnalités exclusives mensuellement en vous connectant",

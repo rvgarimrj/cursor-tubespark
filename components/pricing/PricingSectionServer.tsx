@@ -25,6 +25,8 @@ export async function PricingSectionServer({ locale }: { locale: string }) {
     monthly: t('monthly'),
     creditsPerMonth: t('creditsPerMonth'),
     per100Credits: t('per100Credits'),
+    perMonth: t('perMonth'),
+    billedAnnually: t('billedAnnually'),
     features: {
       get_credits_monthly_by_logging_in: t('features.get_credits_monthly_by_logging_in'),
       try_member_only_features_monthly_by_logging_in: t('features.try_member_only_features_monthly_by_logging_in'),
