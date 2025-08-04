@@ -15,7 +15,7 @@ export default function LocaleHomePage({
   return (
     <div className="flex min-h-screen flex-col">
       {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800">
+      <header className="sticky top-0 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/95 dark:border-gray-800 z-40">
         <div className="container flex h-16 items-center justify-between px-4">
           <div className="flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg youtube-gradient">
