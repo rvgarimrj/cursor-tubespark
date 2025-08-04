@@ -7,7 +7,7 @@ import { DashboardHeader } from "@/components/dashboard/header";
 import MobileDashboardSidebar from "@/components/dashboard/mobile-sidebar";
 import "../../../styles/dashboard.css";
 
-function DashboardLayout({ children }: { children: React.ReactNode }) {
+function IdeasLayout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -30,11 +30,11 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
       <DashboardHeader onMobileMenuToggle={toggleMobileMenu} />
       
       {/* Main content */}
-      <main className="bg-[#0f172a]">
+      <main className="lg:ml-[280px] px-6 py-4 bg-[#0f172a]">
         {children}
       </main>
     </div>
   );
 }
 
-export default withAuth(DashboardLayout);
+export default withAuth(IdeasLayout);

@@ -6,7 +6,11 @@ import { useAuth } from "@/lib/auth";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { LanguageSelector } from "@/components/language-selector";
 
-export function DashboardHeader() {
+interface DashboardHeaderProps {
+  onMobileMenuToggle?: () => void;
+}
+
+export function DashboardHeader({ onMobileMenuToggle }: DashboardHeaderProps) {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const { user } = useAuth();
   const { tDashboard } = useTranslation();
@@ -16,13 +20,24 @@ export function DashboardHeader() {
 
   return (
     <header className="lg:ml-[280px] flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 px-6 py-4 gap-4 lg:gap-0">
-      <div>
-        <h1 className="text-2xl lg:text-3xl font-bold text-[#f8fafc] mb-2">
-          {tDashboard('home.welcomeBack')}! 👋
-        </h1>
-        <p className="text-[#94a3b8]">
-          {tDashboard('home.subtitle')}
-        </p>
+      <div className="flex items-center gap-4 w-full lg:w-auto">
+        {/* Mobile Menu Button - Only visible on mobile/tablet */}
+        <button
+          onClick={onMobileMenuToggle}
+          className="p-2 rounded-md text-gray-300 hover:text-white hover:bg-gray-800 transition-colors duration-200 lg:hidden"
+          aria-label="Menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+        
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-[#f8fafc] mb-2">
+            {tDashboard('home.welcomeBack')}! 👋
+          </h1>
+          <p className="text-[#94a3b8]">
+            {tDashboard('home.subtitle')}
+          </p>
+        </div>
       </div>
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
