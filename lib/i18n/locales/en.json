@@ -368,7 +368,9 @@
       "ctaSecondary": "Watch Demo (2min)",
       "sideStats": {
         "engagement": "+180% average engagement",
-        "growth": "3.2x faster growth"
+        "growth": "3.2x faster growth",
+        "engagementText": "average engagement",
+        "growthText": "faster growth"
       }
     },
     "problem": {

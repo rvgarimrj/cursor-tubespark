@@ -207,14 +207,26 @@ export default async function LocaleHomePage({
         <div className="absolute top-40 left-10 float-animation hidden lg:block">
           <div className="stats-card p-4 rounded-xl bg-gradient-to-br from-blue-600/20 to-blue-800/20 border border-blue-500/30">
             <div className="text-blue-400 font-bold text-lg">+180%</div>
-            <div className="text-gray-400 text-xs">engagement médio</div>
+            <div className="text-gray-400 text-xs">
+              {locale === 'pt' ? 'engajamento médio' : 
+               locale === 'en' ? 'average engagement' :
+               locale === 'es' ? 'engagement promedio' :
+               locale === 'fr' ? 'engagement moyen' : 
+               t('hero.sideStats.engagementText')}
+            </div>
           </div>
         </div>
         
         <div className="absolute top-32 right-10 float-animation hidden lg:block" style={{ animationDelay: '2s' }}>
           <div className="stats-card p-4 rounded-xl bg-gradient-to-br from-green-600/20 to-green-800/20 border border-green-500/30">
             <div className="text-green-400 font-bold text-lg">3.2x</div>
-            <div className="text-gray-400 text-xs">crescimento faster</div>
+            <div className="text-gray-400 text-xs">
+              {locale === 'pt' ? 'crescimento acelerado' : 
+               locale === 'en' ? 'faster growth' :
+               locale === 'es' ? 'crecimiento más rápido' :
+               locale === 'fr' ? 'croissance plus rapide' : 
+               t('hero.sideStats.growthText')}
+            </div>
           </div>
         </div>
       </section>

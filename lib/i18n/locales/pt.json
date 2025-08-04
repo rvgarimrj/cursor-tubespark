@@ -367,8 +367,10 @@
       "ctaPrimary": "Resolver Meu Bloqueio Criativo",
       "ctaSecondary": "Ver Demo (2min)",
       "sideStats": {
-        "engagement": "+180% engagement médio",
-        "growth": "3.2x crescimento faster"
+        "engagement": "+180% engajamento médio",
+        "growth": "3.2x crescimento acelerado",
+        "engagementText": "engajamento médio",
+        "growthText": "crescimento acelerado"
       }
     },
     "problem": {
