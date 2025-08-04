@@ -16,6 +16,17 @@
   background-clip: text;
 }
 
+.gradient-viral-text {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-viral {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+}
+
 /* Hero pattern background */
 .hero-pattern {
   background-image: 
@@ -79,6 +90,42 @@
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+.btn-viral {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+  color: white;
+  border: none;
+}
+
+.btn-viral:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+}
+
+/* Card glass effect */
+.card-glass {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Typing animation */
+.typing-animation {
+  position: relative;
+}
+
+.typing-animation::after {
+  content: '|';
+  color: #60a5fa;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 /* Section dividers */

@@ -320,23 +320,55 @@
       "signin": "Sign In"
     },
     "hero": {
-      "problemBadge": "Creative block affects 87% of YouTubers",
-      "title": "Never Run Out of",
-      "titleHighlight": "Video Ideas",
-      "titleEnd": "Again",
-      "subtitle": "The intelligent tool that solves your creative block, generates personalized ideas and helps you grow organically on YouTube",
-      "demo": {
-        "userPrompt": "I'm out of ideas for my tech channel...",
-        "aiResponse": "TubeSpark suggested:",
-        "suggestion1": "5 Apps Every Developer Needs to Know in 2025",
-        "suggestion2": "Why ChatGPT is Revolutionizing Programming",
-        "suggestion3": "React vs Vue: The Final Battle (With Practical Examples)"
+      "socialProof": "+10,247 creators using today",
+      "title": "Transform",
+      "titleHighlight": "Creative Block",
+      "titleEnd": "into Viral Videos",
+      "subtitle": "The only AI trained specifically for YouTubers",
+      "typingAnimation": "Generate viral ideas base",
+      "typingText1": "Generate viral ideas based on science...",
+      "typingText2": "Analyze trends in real time...",
+      "typingText3": "Create scripts with 94% precision...",
+      "typingText4": "Transform block into productivity...",
+      "dashboard": {
+        "title": "TubeSpark AI Dashboard",
+        "status": "Generating in real time",
+        "metrics": {
+          "ideasGenerated": "Ideas Generated",
+          "viralScore": "Viral Score",
+          "ctrPrevisto": "CTR Forecast",
+          "values": {
+            "ideas": "45",
+            "viral": "92",
+            "ctr": "9.0"
+          },
+          "changes": {
+            "ideasToday": "+12 today",
+            "viralPercent": "% average",
+            "ctrPercent": "% estimated"
+          }
+        },
+        "suggestions": {
+          "idea1": {
+            "title": "10 AI Tools Every YouTuber Needs to Know in 2025",
+            "viral": "96% Viral",
+            "ctr": "9.2% CTR",
+            "tag": "Trending"
+          },
+          "idea2": {
+            "title": "I Built a Startup in 48h Using Only AI - I'll Show Everything",
+            "viral": "89% Viral", 
+            "ctr": "7.8% CTR",
+            "tag": "Tutorial"
+          }
+        },
+        "generateButton": "Generate New Viral Idea"
       },
-      "ctaPrimary": "Start Free",
-      "features": "No card • 7 days free • Instant access",
-      "stats": {
-        "ideasGenerated": "ideas generated",
-        "activeCreators": "active creators"
+      "ctaPrimary": "Solve My Creative Block",
+      "ctaSecondary": "Watch Demo (2min)",
+      "sideStats": {
+        "engagement": "+180% average engagement",
+        "growth": "3.2x faster growth"
       }
     },
     "problem": {

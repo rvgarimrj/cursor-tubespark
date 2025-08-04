@@ -320,23 +320,55 @@
       "signin": "Entrar"
     },
     "hero": {
-      "problemBadge": "O bloqueio criativo afeta 87% dos YouTubers",
-      "title": "Nunca Mais Fique",
-      "titleHighlight": "Sem Ideias",
-      "titleEnd": "Para Seus Vídeos",
-      "subtitle": "A ferramenta inteligente que resolve seu bloqueio criativo, gera ideias personalizadas e ajuda você a crescer organicamente no YouTube",
-      "demo": {
-        "userPrompt": "Estou sem ideias para meu canal de tech...",
-        "aiResponse": "TubeSpark sugeriu:",
-        "suggestion1": "5 Apps que Todo Dev Precisa Conhecer em 2025",
-        "suggestion2": "Por que o ChatGPT Está Revolucionando a Programação",
-        "suggestion3": "React vs Vue: A Batalha Final (Com Exemplos Práticos)"
+      "socialProof": "+10.247 creators usando hoje",
+      "title": "Transforme",
+      "titleHighlight": "Bloqueio Criativo",
+      "titleEnd": "em Vídeos Virais",
+      "subtitle": "A única IA treinada especificamente para YouTubers",
+      "typingAnimation": "Gere ideias virais base",
+      "typingText1": "Gere ideias virais baseadas em ciência...",
+      "typingText2": "Analise tendências em tempo real...",
+      "typingText3": "Crie roteiros com 94% de precisão...",
+      "typingText4": "Transforme bloqueio em produtividade...",
+      "dashboard": {
+        "title": "TubeSpark AI Dashboard",
+        "status": "Gerando em tempo real",
+        "metrics": {
+          "ideasGenerated": "Ideias Geradas",
+          "viralScore": "Viral Score",
+          "ctrPrevisto": "CTR Previsto",
+          "values": {
+            "ideas": "45",
+            "viral": "92",
+            "ctr": "9.0"
+          },
+          "changes": {
+            "ideasToday": "+12 hoje",
+            "viralPercent": "% média",
+            "ctrPercent": "% estimado"
+          }
+        },
+        "suggestions": {
+          "idea1": {
+            "title": "10 Ferramentas IA que Todo YouTuber Precisa Conhecer em 2025",
+            "viral": "96% Viral",
+            "ctr": "9.2% CTR",
+            "tag": "Trending"
+          },
+          "idea2": {
+            "title": "Criei uma Startup em 48h Usando Apenas IA - Vou Mostrar Tudo",
+            "viral": "89% Viral", 
+            "ctr": "7.8% CTR",
+            "tag": "Tutorial"
+          }
+        },
+        "generateButton": "Gerar Nova Ideia Viral"
       },
-      "ctaPrimary": "Começar Gratuitamente",
-      "features": "Sem cartão • 7 dias grátis • Acesso imediato",
-      "stats": {
-        "ideasGenerated": "ideias geradas",
-        "activeCreators": "criadores ativos"
+      "ctaPrimary": "Resolver Meu Bloqueio Criativo",
+      "ctaSecondary": "Ver Demo (2min)",
+      "sideStats": {
+        "engagement": "+180% engagement médio",
+        "growth": "3.2x crescimento faster"
       }
     },
     "problem": {

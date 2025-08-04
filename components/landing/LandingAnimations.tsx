@@ -81,10 +81,124 @@ export function LandingAnimations() {
       return () => observer.disconnect();
     };
 
+    // Typing animation for hero
+    const setupTypingAnimation = () => {
+      const typingElement = document.getElementById('typingText');
+      if (!typingElement) return;
+      
+      // Get texts from data attributes (i18n)
+      const texts = [
+        typingElement.getAttribute('data-typing-text-0') || "Generate viral ideas based on science...",
+        typingElement.getAttribute('data-typing-text-1') || "Analyze trends in real time...", 
+        typingElement.getAttribute('data-typing-text-2') || "Create scripts with 94% precision...",
+        typingElement.getAttribute('data-typing-text-3') || "Transform block into productivity..."
+      ];
+      
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      const typeText = () => {
+        const currentText = texts[textIndex];
+        
+        if (isDeleting) {
+          typingElement.textContent = currentText.substring(0, charIndex - 1);
+          charIndex--;
+          
+          if (charIndex === 0) {
+            isDeleting = false;
+            textIndex = (textIndex + 1) % texts.length;
+          }
+        } else {
+          typingElement.textContent = currentText.substring(0, charIndex + 1);
+          charIndex++;
+          
+          if (charIndex === currentText.length) {
+            isDeleting = true;
+            setTimeout(typeText, 2000); // Wait 2 seconds before deleting
+            return;
+          }
+        }
+        
+        const speed = isDeleting ? 50 : 100;
+        setTimeout(typeText, speed);
+      };
+
+      typeText();
+    };
+
+    // Counter animation for dashboard metrics
+    const setupCounterAnimation = () => {
+      const animateCounter = (element: HTMLElement, target: number, suffix: string = '') => {
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            clearInterval(timer);
+            current = target;
+          }
+          element.textContent = Math.floor(current) + suffix;
+        }, 20);
+      };
+
+      // Animate ideas counter
+      const ideasCounter = document.getElementById('ideasCounter');
+      if (ideasCounter) {
+        setTimeout(() => animateCounter(ideasCounter, 45), 1000);
+      }
+
+      // Animate viral score
+      const viralScore = document.getElementById('viralScore');
+      if (viralScore) {
+        setTimeout(() => animateCounter(viralScore, 92), 1200);
+      }
+
+      // Animate CTR score
+      const ctrScore = document.getElementById('ctrScore');
+      if (ctrScore) {
+        setTimeout(() => animateCounter(ctrScore, 9.0, '.0'), 1400);
+      }
+    };
+
+    // Generate new idea animation
+    const setupGenerateIdea = () => {
+      const generateButtons = document.querySelectorAll('.btn-viral');
+      generateButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          // Add loading state
+          const originalText = button.textContent;
+          button.textContent = '⚡ Gerando...';
+          button.setAttribute('disabled', 'true');
+          
+          // Simulate generation
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.removeAttribute('disabled');
+            
+            // Add success animation
+            button.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+              button.style.transform = 'scale(1)';
+            }, 200);
+          }, 2000);
+        });
+      });
+    };
+
     // Initialize all animations
     setupSmoothScroll();
     const cleanupHeaderScroll = setupHeaderScroll();
     const cleanupIntersectionObserver = setupIntersectionObserver();
+    
+    // Setup new animations with delay to ensure DOM is ready
+    setTimeout(() => {
+      setupTypingAnimation();
+      setupCounterAnimation();
+      setupGenerateIdea();
+    }, 500);
 
     // Cleanup function for useEffect
     return () => {

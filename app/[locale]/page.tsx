@@ -63,99 +63,158 @@ export default async function LocaleHomePage({
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center hero-pattern pt-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <section className="min-h-screen flex items-center justify-center hero-pattern pt-20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
           <div className="max-w-4xl mx-auto">
             
-            {/* Problem Hook */}
+            {/* Social Proof Badge */}
             <div className="mb-8">
-              <div className="inline-flex items-center space-x-2 bg-red-500/10 border border-red-500/20 rounded-full px-4 py-2 text-red-400 text-sm font-medium">
-                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                <span>{t('hero.problemBadge')}</span>
+              <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-full px-6 py-3">
+                <div className="flex -space-x-2">
+                  <div className="w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full border border-white"></div>
+                  <div className="w-6 h-6 bg-gradient-to-r from-green-400 to-blue-400 rounded-full border border-white"></div>
+                  <div className="w-6 h-6 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border border-white"></div>
+                </div>
+                <span className="text-green-400 font-semibold text-sm">{t('hero.socialProof')}</span>
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
               </div>
             </div>
             
             {/* Main Headline */}
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 leading-tight">
               <span className="text-white">{t('hero.title')}</span><br />
-              <span className="gradient-text">{t('hero.titleHighlight')}</span><br />
-              <span className="text-white">{t('hero.titleEnd')}</span>
+              <span className="gradient-viral-text">{t('hero.titleHighlight')}</span><br />
+              <span className="gradient-text">{t('hero.titleEnd')}</span>
             </h1>
             
-            {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed font-light">
-              {t('hero.subtitle')}
-            </p>
+            {/* Typing Animation Subheadline */}
+            <div className="mb-8">
+              <p className="text-xl sm:text-2xl text-gray-300 mb-4">
+                {t('hero.subtitle')}
+              </p>
+              <div 
+                className="text-lg sm:text-xl text-blue-400 font-medium typing-animation" 
+                id="typingText"
+                data-typing-text-0={t('hero.typingText1')}
+                data-typing-text-1={t('hero.typingText2')}
+                data-typing-text-2={t('hero.typingText3')}
+                data-typing-text-3={t('hero.typingText4')}
+              >
+                {t('hero.typingAnimation')}
+              </div>
+            </div>
             
-            {/* Interactive Demo Preview */}
-            <div className="mb-12 relative max-w-4xl mx-auto">
-              <div className="relative glow rounded-2xl overflow-hidden">
-                <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8">
-                  <div className="flex items-center space-x-3 mb-6">
+            {/* Interactive Dashboard Preview */}
+            <div className="max-w-5xl mx-auto mb-12 relative">
+              <div className="card-glass rounded-2xl p-6 sm:p-8">
+                {/* Dashboard Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-3">
                     <div className="flex space-x-2">
                       <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                       <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                       <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                     </div>
-                    <div className="text-gray-400 text-sm">TubeSpark AI Assistant</div>
+                    <span className="text-gray-400 font-medium">{t('hero.dashboard.title')}</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-green-400 text-sm">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span>{t('hero.dashboard.status')}</span>
+                  </div>
+                </div>
+                
+                {/* Dashboard Metrics */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                  <div className="bg-gradient-to-br from-blue-600/20 to-blue-800/20 border border-blue-500/30 rounded-xl p-4">
+                    <div className="text-blue-400 text-sm font-medium mb-2">{t('hero.dashboard.metrics.ideasGenerated')}</div>
+                    <div className="text-3xl font-bold stats-counter" id="ideasCounter">{t('hero.dashboard.metrics.values.ideas')}</div>
+                    <div className="text-green-400 text-xs">{t('hero.dashboard.metrics.changes.ideasToday')}</div>
                   </div>
                   
-                  <div className="space-y-4 text-left">
-                    <div className="bg-gray-700/50 rounded-lg p-4">
-                      <div className="text-gray-400 text-sm mb-2">Você disse:</div>
-                      <div className="text-white">"{t('hero.demo.userPrompt')}"</div>
+                  <div className="bg-gradient-to-br from-purple-600/20 to-purple-800/20 border border-purple-500/30 rounded-xl p-4">
+                    <div className="text-purple-400 text-sm font-medium mb-2">{t('hero.dashboard.metrics.viralScore')}</div>
+                    <div className="text-3xl font-bold stats-counter" id="viralScore">{t('hero.dashboard.metrics.values.viral')}</div>
+                    <div className="text-green-400 text-xs">{t('hero.dashboard.metrics.changes.viralPercent')}</div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-green-600/20 to-green-800/20 border border-green-500/30 rounded-xl p-4">
+                    <div className="text-green-400 text-sm font-medium mb-2">{t('hero.dashboard.metrics.ctrPrevisto')}</div>
+                    <div className="text-3xl font-bold stats-counter" id="ctrScore">{t('hero.dashboard.metrics.values.ctr')}</div>
+                    <div className="text-green-400 text-xs">{t('hero.dashboard.metrics.changes.ctrPercent')}</div>
+                  </div>
+                </div>
+                
+                {/* Live Generated Ideas */}
+                <div className="space-y-4" id="liveIdeas">
+                  <div className="idea-card p-4 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-xl">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-10 h-10 gradient-viral rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-white font-bold">🔥</span>
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-white font-semibold mb-2">"{t('hero.dashboard.suggestions.idea1.title')}"</div>
+                        <div className="flex flex-wrap items-center gap-3 text-sm">
+                          <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-lg">🔥 {t('hero.dashboard.suggestions.idea1.viral')}</span>
+                          <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded-lg">🎯 {t('hero.dashboard.suggestions.idea1.ctr')}</span>
+                          <span className="bg-purple-500/20 text-purple-400 px-2 py-1 rounded-lg">⚡ {t('hero.dashboard.suggestions.idea1.tag')}</span>
+                        </div>
+                      </div>
                     </div>
-                    
-                    <div className="bg-blue-600/20 border border-blue-600/30 rounded-lg p-4">
-                      <div className="text-blue-400 text-sm mb-2">{t('hero.demo.aiResponse')}</div>
-                      <div className="text-white space-y-2">
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span>"{t('hero.demo.suggestion1')}"</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span>"{t('hero.demo.suggestion2')}"</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                          <span>"{t('hero.demo.suggestion3')}"</span>
+                  </div>
+                  
+                  <div className="idea-card p-4 bg-gradient-to-r from-green-600/10 to-teal-600/10 border border-green-500/20 rounded-xl">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-white font-bold">🚀</span>
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-white font-semibold mb-2">"{t('hero.dashboard.suggestions.idea2.title')}"</div>
+                        <div className="flex flex-wrap items-center gap-3 text-sm">
+                          <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-lg">🔥 {t('hero.dashboard.suggestions.idea2.viral')}</span>
+                          <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded-lg">🎯 {t('hero.dashboard.suggestions.idea2.ctr')}</span>
+                          <span className="bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-lg">💡 {t('hero.dashboard.suggestions.idea2.tag')}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                
+                {/* Interactive CTA */}
+                <div className="mt-8 text-center">
+                  <button className="btn-viral px-8 py-3 rounded-xl font-semibold transition-all duration-300">
+                    ⚡ {t('hero.dashboard.generateButton')}
+                  </button>
+                </div>
               </div>
             </div>
             
-            {/* CTA Principal */}
-            <div className="space-y-6">
+            {/* Main CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <Link 
                 href={`/${locale}/auth/signup`}
-                className="btn-primary px-12 py-4 rounded-xl text-lg font-semibold transition-all duration-300 inline-block"
+                className="btn-primary px-10 py-4 rounded-xl text-lg font-bold transition-all duration-300 w-full sm:w-auto"
               >
-                {t('hero.ctaPrimary')}
+                🚀 {t('hero.ctaPrimary')}
               </Link>
-              
-              <p className="text-gray-400 text-sm">
-                ✨ {t('hero.features')}
-              </p>
+              <button className="border border-gray-600 hover:border-gray-500 px-8 py-4 rounded-xl font-semibold transition-all duration-300 w-full sm:w-auto">
+                ▶️ {t('hero.ctaSecondary')}
+              </button>
             </div>
           </div>
         </div>
         
-        {/* Floating Elements */}
-        <div className="absolute top-32 left-10 float-animation">
-          <div className="stats-card p-4 rounded-xl">
-            <div className="text-green-400 font-bold text-lg">+2.4M</div>
-            <div className="text-gray-400 text-xs">{t('hero.stats.ideasGenerated')}</div>
+        {/* Side Stats */}
+        <div className="absolute top-40 left-10 float-animation hidden lg:block">
+          <div className="stats-card p-4 rounded-xl bg-gradient-to-br from-blue-600/20 to-blue-800/20 border border-blue-500/30">
+            <div className="text-blue-400 font-bold text-lg">+180%</div>
+            <div className="text-gray-400 text-xs">engagement médio</div>
           </div>
         </div>
         
-        <div className="absolute top-60 right-20 float-animation" style={{ animationDelay: '2s' }}>
-          <div className="stats-card p-4 rounded-xl">
-            <div className="text-blue-400 font-bold text-lg">10k+</div>
-            <div className="text-gray-400 text-xs">{t('hero.stats.activeCreators')}</div>
+        <div className="absolute top-32 right-10 float-animation hidden lg:block" style={{ animationDelay: '2s' }}>
+          <div className="stats-card p-4 rounded-xl bg-gradient-to-br from-green-600/20 to-green-800/20 border border-green-500/30">
+            <div className="text-green-400 font-bold text-lg">3.2x</div>
+            <div className="text-gray-400 text-xs">crescimento faster</div>
           </div>
         </div>
       </section>
