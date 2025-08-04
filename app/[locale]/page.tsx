@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import type { Locale } from "@/lib/i18n/config";
 import { LanguageSelector } from "@/components/language-selector";
 import { LandingAnimations } from "@/components/landing/LandingAnimations";
+import { PricingSectionServer } from "@/components/pricing/PricingSectionServer";
 
 export default async function LocaleHomePage({
   params: { locale }
@@ -474,6 +475,9 @@ export default async function LocaleHomePage({
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <PricingSectionServer locale={locale} />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-blue-600/20 to-purple-600/20">

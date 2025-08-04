@@ -306,6 +306,203 @@
       },
       "button": "Começar Teste Gratuito",
       "guarantee": "Teste gratuito por 7 dias • Sem cartão de crédito • Acesso imediato"
+    }
+  },
+  "pricing": {
+    "title": "Planos que Crescem",
+    "titleHighlight": "Com Você",
+    "subtitle": "Escolha o plano perfeito para acelerar o crescimento do seu canal no YouTube",
+    "billing": {
+      "annual": "Anual",
+      "monthly": "Mensal"
+    },
+    "bestOffer": "Melhor Oferta",
+    "perYear": "por Ano",
+    "freeForever": "Gratuito para sempre",
+    "nextYear": "Próximo Ano",
+    "annualDiscount": "(34% Off)",
+    "cancelAnytime": "Cancele a qualquer momento",
+    "current": "Atual",
+    "subscribe": "Assinar",
+    "yearly": "Anual",
+    "monthly": "Mensal",
+    "creditsPerMonth": "Créditos por mês",
+    "per100Credits": "por 100 Créditos",
+    "features": {
+      "get_credits_monthly_by_logging_in": "Ganhe créditos mensais fazendo login",
+      "try_member_only_features_monthly_by_logging_in": "Experimente recursos exclusivos mensalmente fazendo login",
+      "fast_track_generation": "Geração rápida",
+      "professional_mode_for_videos": "Modo profissional para vídeos",
+      "watermark_removal": "Remoção de marca d'água",  
+      "video_extension": "Extensão de vídeo",
+      "image_upscaling": "Upscaling de imagem",
+      "priority_access_to_new_features": "Acesso prioritário a novos recursos"
+    }
+  },
+  "landing": {
+    "navigation": {
+      "problem": "O Problema",
+      "solution": "Nossa Solução",
+      "howItWorks": "Como Funciona",
+      "results": "Resultados",
+      "getStarted": "Começar Gratuitamente"
+    },
+    "hero": {
+      "problemBadge": "O bloqueio criativo afeta 87% dos YouTubers",
+      "title": "Nunca Mais Fique",
+      "titleHighlight": "Sem Ideias",
+      "titleEnd": "Para Seus Vídeos",
+      "subtitle": "A ferramenta inteligente que resolve seu bloqueio criativo, gera ideias personalizadas e ajuda você a crescer organicamente no YouTube",
+      "demo": {
+        "userPrompt": "Estou sem ideias para meu canal de tech...",
+        "aiResponse": "TubeSpark sugeriu:",
+        "suggestion1": "5 Apps que Todo Dev Precisa Conhecer em 2025",
+        "suggestion2": "Por que o ChatGPT Está Revolucionando a Programação",
+        "suggestion3": "React vs Vue: A Batalha Final (Com Exemplos Práticos)"
+      },
+      "ctaPrimary": "Começar Gratuitamente",
+      "features": "Sem cartão • 7 dias grátis • Acesso imediato",
+      "stats": {
+        "ideasGenerated": "ideias geradas",
+        "activeCreators": "criadores ativos"
+      }
+    },
+    "problem": {
+      "title": "Por que 87% dos YouTubers",
+      "titleHighlight": "Param de Crescer?",
+      "subtitle": "A verdade que ninguém te conta sobre criar conteúdo no YouTube",
+      "creativeBlock": {
+        "title": "Bloqueio Criativo Constante",
+        "description": "Você passa horas na frente da tela em branco, sem saber sobre o que fazer vídeo. A pressão por conteúdo original te paralisa.",
+        "stat": "87% sofrem bloqueio criativo semanalmente"
+      },
+      "timeWasted": {
+        "title": "Tempo Perdido em Pesquisas",
+        "description": "Horas navegando por tendências, analisando concorrentes, tentando descobrir o que funciona. Tempo que poderia estar criando.",
+        "stat": "15h/semana perdidas em pesquisa"
+      },
+      "inconsistentViews": {
+        "title": "Visualizações Inconsistentes",
+        "description": "Um vídeo viraliza, o próximo flopa. Sem uma estratégia clara, você fica dependente da sorte.",
+        "stat": "40% de queda nas visualizações"
+      },
+      "blankPage": {
+        "title": "Síndrome da Página em Branco",
+        "description": "Saber que precisa postar, mas não ter ideia do que criar. A ansiedade de decepcionar sua audiência.",
+        "stat": "3 em 4 YouTubers relatam ansiedade"
+      },
+      "impact": {
+        "title": "O Resultado? Estagnação Total",
+        "stat1": "param de crescer em 6 meses",
+        "stat2": "perdidas por semana",
+        "stat3": "queda na motivação"
+      }
+    },
+    "solution": {
+      "title": "A Solução que Resolve",
+      "titleHighlight": "Tudo Isso",
+      "subtitle": "TubeSpark elimina o bloqueio criativo e acelera seu crescimento no YouTube",
+      "overview": {
+        "title": "Como o TubeSpark Funciona",
+        "step1": {
+          "title": "Conte seu Nicho",
+          "description": "Descreva seu canal e público-alvo"
+        },
+        "step2": {
+          "title": "IA Gera Ideias",
+          "description": "Receba ideias personalizadas e trending"
+        },
+        "step3": {
+          "title": "Crie e Publique",
+          "description": "Execute com roteiros prontos e otimizados"
+        }
+      }
+    },
+    "features": {
+      "title": "Recursos que Transformam",
+      "titleHighlight": "Sua Criação",
+      "subtitle": "Tudo que você precisa para nunca mais ficar sem ideias e crescer consistentemente",
+      "ideaGenerator": {
+        "title": "Gerador de Ideias IA",
+        "description": "Ideias ilimitadas baseadas em trending topics e seu nicho específico",
+        "highlight": "Personalizadas para seu público"
+      },
+      "scriptWriter": {
+        "title": "Roteirista Inteligente",
+        "description": "Scripts completos com hooks, desenvolvimento e CTAs otimizados",
+        "highlight": "Economize 5h por vídeo"
+      },
+      "trendAnalysis": {
+        "title": "Análise de Tendências",
+        "description": "Monitore o que está bombando no seu nicho em tempo real",
+        "highlight": "Sempre à frente da concorrência"
+      },
+      "competitorInsights": {
+        "title": "Insights de Concorrentes",
+        "description": "Veja o que funciona para outros canais do seu segmento",
+        "highlight": "Estratégias comprovadas"
+      },
+      "seoOptimization": {
+        "title": "Otimização SEO",
+        "description": "Títulos, descrições e tags otimizadas automaticamente",
+        "highlight": "Máxima descobribilidade"
+      },
+      "contentCalendar": {
+        "title": "Calendário de Conteúdo",
+        "description": "Planeje e organize sua estratégia de publicação",
+        "highlight": "Consistência garantida"
+      }
+    },
+    "results": {
+      "title": "Resultados que",
+      "titleHighlight": "Falam por Si",
+      "subtitle": "Veja como o TubeSpark está transformando canais ao redor do mundo",
+      "metrics": {
+        "creativeBlock": "eliminaram bloqueio criativo",
+        "viewsIncrease": "aumento em visualizações",
+        "timeReduction": "redução no tempo de criação",
+        "activeCreators": "criadores ativos"
+      },
+      "testimonials": {
+        "marina": {
+          "name": "Marina Silva",
+          "channel": "Marina Tech • 45K subs",
+          "quote": "TubeSpark revolucionou meu canal. Nunca mais fiquei sem ideias e minhas visualizações triplicaram.",
+          "result": "300% mais visualizações"
+        },
+        "rafael": {
+          "name": "Rafael Costa",
+          "channel": "Rafa Games • 120K subs",
+          "quote": "Economia de tempo absurda! O que levava 6 horas, agora faço em 1 hora com qualidade superior.",
+          "result": "5x mais produtividade"
+        },
+        "carla": {
+          "name": "Carla Fitness",
+          "channel": "Fit com Carla • 89K subs",
+          "quote": "As ideias são tão relevantes que meu engajamento disparou. Meus inscritos adoram o conteúdo!",
+          "result": "400% mais engajamento"
+        }
+      }
+    },
+    "cta": {
+      "title": "Pronto para Nunca Mais Ficar Sem Ideias?",
+      "subtitle": "Junte-se a milhares de criadores que já descobriram o segredo do crescimento consistente",
+      "valueProps": {
+        "immediate": {
+          "title": "Resultados Imediatos",
+          "description": "Primeiras ideias em menos de 2 minutos"
+        },
+        "personalized": {
+          "title": "100% Personalizado",
+          "description": "Específico para seu nicho e audiência"
+        },
+        "guaranteed": {
+          "title": "Crescimento Garantido",
+          "description": "Ou devolvemos seu dinheiro"
+        }
+      },
+      "button": "Começar Teste Gratuito",
+      "guarantee": "Teste gratuito por 7 dias • Sem cartão de crédito • Acesso imediato"
     },
     "footer": {
       "copyright": "© 2025 TubeSpark. Feito com ❤️ para criadores que querem crescer.",
