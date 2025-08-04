@@ -101,7 +101,51 @@
     "generate": "Générer des Idées",
     "generating": "Génération des idées...",
     "noIdeas": "Aucune idée générée pour le moment",
-    "placeholder": "Décrivez votre niche ou sujet..."
+    "placeholder": "Décrivez votre niche ou sujet...",
+    "myIdeas": {
+      "title": "💡 Mes Idées",
+      "subtitle": "Gérez vos idées de vidéo créées avec l'IA",
+      "newIdea": "Nouvelle Idée",
+      "search": {
+        "placeholder": "Rechercher vos idées...",
+        "noResults": "Aucune idée trouvée"
+      },
+      "filters": {
+        "all": "Toutes",
+        "highViral": "Viral Élevé",
+        "favorites": "Favoris",
+        "recent": "Récentes"
+      },
+      "sorting": {
+        "newest": "Plus récentes",
+        "viralScore": "Score viral",
+        "alphabetical": "Alphabétique",
+        "creationDate": "Date de création"
+      },
+      "viewMode": {
+        "list": "Liste",
+        "grid": "Grille"
+      },
+      "card": {
+        "edit": "Modifier",
+        "duplicate": "Dupliquer",
+        "delete": "Supprimer",
+        "createScript": "Créer un Script",
+        "viralScore": "Score Viral",
+        "estimatedViews": "Vues Estimées"
+      },
+      "status": {
+        "saved": "Sauvegardée",
+        "planned": "Planifiée",
+        "published": "Publiée",
+        "draft": "Brouillon"
+      },
+      "empty": {
+        "title": "Aucune idée sauvegardée pour le moment",
+        "subtitle": "Créez votre première idée de vidéo avec notre IA",
+        "action": "Générer la Première Idée"
+      }
+    }
   },
   "language": {
     "select": "Sélectionner la langue",

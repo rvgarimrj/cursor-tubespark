@@ -218,7 +218,7 @@ export default function DashboardPage() {
       title: tDashboard('home.quickActions.generateIdea'),
       description: "Crie novas ideias de vídeo com IA",
       icon: Lightbulb,
-      href: `/${locale}/ideas/new`,
+      href: `/${locale}/dashboard/ideas/new`,
       color: "bg-blue-500",
     },
     {
@@ -316,7 +316,7 @@ export default function DashboardPage() {
               description={tDashboard('home.quickActions.descriptions.generateIdea')}
               buttonText={tDashboard('home.quickActions.buttons.createNow')}
               buttonVariant="primary"
-              onClick={() => window.location.href = `/${locale}/ideas/new`}
+              onClick={() => window.location.href = `/${locale}/dashboard/ideas/new`}
             />
             <ActionCard
               icon={<BarChart3 className="w-6 h-6 text-white" />}
@@ -352,7 +352,7 @@ export default function DashboardPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-[#f8fafc]">💡 {tDashboard('home.recentIdeas.title')}</h2>
-            <Link href={`/${locale}/ideas`} className="text-blue-400 hover:text-blue-300 font-medium">
+            <Link href={`/${locale}/dashboard/ideas`} className="text-blue-400 hover:text-blue-300 font-medium">
               {tDashboard('home.recentIdeas.viewAll')} →
             </Link>
           </div>
@@ -374,7 +374,7 @@ export default function DashboardPage() {
                 {tDashboard('home.recentIdeas.generateFirst')}
               </p>
               <Link
-                href={`/${locale}/ideas/new`}
+                href={`/${locale}/dashboard/ideas/new`}
                 className="inline-flex items-center justify-center px-6 py-2.5 text-base rounded-lg font-medium transition-all duration-300 bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white font-semibold shadow-[0_8px_25px_rgba(102,126,234,0.3)] hover:transform hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(102,126,234,0.4)] cubic-bezier(0.4, 0, 0.2, 1)"
               >
                 {tDashboard('home.quickActions.generateIdea')}

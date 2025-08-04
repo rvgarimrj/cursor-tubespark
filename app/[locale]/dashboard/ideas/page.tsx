@@ -181,8 +181,9 @@ export default function IdeasPage({
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        {/* Header Skeleton */}
+      <div className="lg:ml-[280px] min-h-screen bg-[#0f172a] text-[#f8fafc] p-4 lg:p-6">
+        <div className="space-y-6 lg:space-y-8">
+          {/* Header Skeleton */}
         <header className="mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -229,13 +230,15 @@ export default function IdeasPage({
             </div>
           ))}
         </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {/* Header - Following mockup design with improved responsive */}
+    <div className="lg:ml-[280px] min-h-screen bg-[#0f172a] text-[#f8fafc] p-4 lg:p-6">
+      <div className="space-y-6 lg:space-y-8">
+        {/* Header - Following mockup design with improved responsive */}
       <header className="mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6">
           <div className="text-center sm:text-left">
@@ -248,7 +251,7 @@ export default function IdeasPage({
           </div>
           
           <Link
-            href={`/${locale}/ideas/new`}
+            href={`/${locale}/dashboard/ideas/new`}
             className="btn-viral px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold flex items-center justify-center gap-2 bg-gradient-to-r from-[#ff6b6b] to-[#ff8e53] text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-1 text-sm sm:text-base whitespace-nowrap mx-auto sm:mx-0"
           >
             <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -349,7 +352,7 @@ export default function IdeasPage({
               </p>
               {ideas.length === 0 && (
                 <Link
-                  href={`/${locale}/ideas/new`}
+                  href={`/${locale}/dashboard/ideas/new`}
                   className="bg-gradient-to-r from-[#ff6b6b] to-[#ff8e53] text-white font-semibold py-2 px-4 rounded-xl transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg inline-flex items-center gap-2"
                 >
                   <Plus className="h-5 w-5" />
@@ -472,6 +475,7 @@ export default function IdeasPage({
           </div>
         );
       })()}
+      </div>
     </div>
   );
 }

@@ -129,7 +129,51 @@
     "generate": "Gerar Ideias",
     "generating": "Gerando ideias...",
     "noIdeas": "Nenhuma ideia gerada ainda",
-    "placeholder": "Descreva seu nicho ou tópico..."
+    "placeholder": "Descreva seu nicho ou tópico...",
+    "myIdeas": {
+      "title": "💡 Minhas Ideias",
+      "subtitle": "Gerencie suas ideias de vídeo criadas com IA",
+      "newIdea": "Nova Ideia",
+      "search": {
+        "placeholder": "Buscar suas ideias...",
+        "noResults": "Nenhuma ideia encontrada"
+      },
+      "filters": {
+        "all": "Todas",
+        "highViral": "Viral Alto",
+        "favorites": "Favoritas",
+        "recent": "Recentes"
+      },
+      "sorting": {
+        "newest": "Mais recentes",
+        "viralScore": "Viral score",
+        "alphabetical": "Alfabética",
+        "creationDate": "Data criação"
+      },
+      "viewMode": {
+        "list": "Lista",
+        "grid": "Grade"
+      },
+      "card": {
+        "edit": "Editar",
+        "duplicate": "Duplicar",
+        "delete": "Excluir",
+        "createScript": "Criar Roteiro",
+        "viralScore": "Score Viral",
+        "estimatedViews": "Views Estimadas"
+      },
+      "status": {
+        "saved": "Salva",
+        "planned": "Planejada",
+        "published": "Publicada",
+        "draft": "Rascunho"
+      },
+      "empty": {
+        "title": "Nenhuma ideia salva ainda",
+        "subtitle": "Crie sua primeira ideia de vídeo com nossa IA",
+        "action": "Gerar Primeira Ideia"
+      }
+    }
   },
   "language": {
     "select": "Selecionar idioma",

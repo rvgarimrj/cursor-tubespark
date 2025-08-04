@@ -25,7 +25,7 @@ export function DashboardSidebar() {
 
   const navigation = [
     { name: tDashboard('sidebar.navigation.dashboard'), href: `/${locale}/dashboard`, icon: Home },
-    { name: tDashboard('sidebar.navigation.generateIdeas'), href: `/${locale}/ideas`, icon: Lightbulb },
+    { name: tDashboard('sidebar.navigation.generateIdeas'), href: `/${locale}/dashboard/ideas`, icon: Lightbulb },
     { name: tDashboard('sidebar.navigation.contentCalendar'), href: `/${locale}/calendar`, icon: Calendar },
     { name: tDashboard('sidebar.navigation.analytics'), href: `/${locale}/analytics`, icon: BarChart3 },
     { name: tDashboard('sidebar.navigation.settings'), href: `/${locale}/settings`, icon: Settings },
