@@ -49,11 +49,14 @@ export default async function LocaleHomePage({
                 href={`/${locale}/auth/signin`}
                 className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
               >
+                {t('navigation.signin')}
+              </Link>
+              <Link
+                href={`/${locale}/auth/signup`}
+                className="btn-primary px-6 py-2 rounded-lg font-medium transition-all duration-300"
+              >
                 {t('navigation.getStarted')}
               </Link>
-              <button className="btn-primary px-6 py-2 rounded-lg font-medium transition-all duration-300">
-                {t('navigation.getStarted')}
-              </button>
             </div>
           </div>
         </div>
