@@ -10,19 +10,41 @@ export const componentClasses = {
   container: `${designTokens.spacing.container}`,
   section: `${designTokens.spacing.section}`,
   
-  // Card components - based on landing page cards
+  // Card components - based on mockup design
   card: {
     base: `backdrop-filter backdrop-blur-xl bg-white/5 border border-white/10 ${designTokens.borderRadius.md} ${designTokens.spacing.cardPadding} transition-all duration-300`,
-    hover: `hover:transform hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(102,126,234,0.1)]`,
-    glass: `backdrop-filter backdrop-blur-md bg-white/5 border border-white/10`,
-    stats: `bg-white/3 backdrop-filter backdrop-blur-sm border border-white/8 ${designTokens.borderRadius.md} ${designTokens.spacing.cardPadding}`
+    
+    // Glass effect from mockup
+    glass: `backdrop-filter backdrop-blur-[20px] bg-white/5 border border-white/10 ${designTokens.borderRadius.md} transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1)`,
+    
+    // Hover effects from mockup
+    hover: `hover:bg-white/8 hover:border-[rgba(102,126,234,0.2)] hover:transform hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)]`,
+    
+    // Stats cards with gradient background from mockup
+    stats: `bg-gradient-to-r from-white/3 to-white/5 backdrop-filter backdrop-blur-sm border border-white/8 ${designTokens.borderRadius.md} ${designTokens.spacing.cardPadding}`,
+    
+    // Metrics cards with special gradient (from mockup)
+    metrics: `bg-gradient-to-br from-[rgba(102,126,234,0.08)] to-[rgba(118,75,162,0.04)] border-[rgba(102,126,234,0.15)] border ${designTokens.borderRadius.md} relative overflow-hidden`,
+    
+    // Action cards for quick actions
+    action: `bg-white/5 border border-white/10 ${designTokens.borderRadius.md} text-center transition-all duration-300 cursor-pointer hover:bg-white/8 hover:transform hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,0,0,0.1)]`,
+    
+    // Idea cards with specific styling
+    idea: `bg-white/5 backdrop-filter backdrop-blur-[20px] border border-white/10 ${designTokens.borderRadius.md} transition-all duration-300 cursor-pointer hover:bg-white/8 hover:border-[rgba(102,126,234,0.3)] hover:transform hover:-translate-y-0.5 hover:shadow-[0_15px_35px_rgba(0,0,0,0.1)]`
   },
   
-  // Button components - based on landing page buttons
+  // Button components - based on mockup design
   button: {
-    primary: `bg-gradient-to-r from-blue-500 to-purple-600 shadow-[0_10px_30px_rgba(102,126,234,0.3)] hover:transform hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(102,126,234,0.4)] transition-all duration-300 text-white font-semibold`,
-    secondary: `bg-gradient-to-r from-pink-500 to-red-500 shadow-[0_10px_30px_rgba(245,87,108,0.3)] hover:transform hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(245,87,108,0.4)] transition-all duration-300 text-white font-semibold`,
-    ghost: `bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 text-white`,
+    // Primary button with gradient and shadow from mockup
+    primary: `bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white font-semibold shadow-[0_8px_25px_rgba(102,126,234,0.3)] hover:transform hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(102,126,234,0.4)] transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1)`,
+    
+    // Secondary button with glass effect from mockup
+    secondary: `bg-white/5 text-white border border-white/10 backdrop-filter backdrop-blur-[10px] font-medium hover:bg-white/8 hover:border-white/25 transition-all duration-300`,
+    
+    // Ghost button
+    ghost: `bg-transparent hover:bg-white/10 transition-all duration-300 text-white`,
+    
+    // Outline button
     outline: `border border-white/20 hover:bg-white/5 transition-all duration-300 text-white`
   },
   
@@ -90,12 +112,25 @@ export const cn = (...classes: (string | undefined | false)[]) => {
 };
 
 // Component class generators
-export const createCardClass = (variant: 'base' | 'hover' | 'glass' | 'stats' = 'base') => {
+export const createCardClass = (variant: 'base' | 'hover' | 'glass' | 'stats' | 'metrics' | 'action' | 'idea' = 'base') => {
   const baseClass = componentClasses.card.base;
-  const variantClass = variant === 'hover' ? componentClasses.card.hover : 
-                      variant === 'glass' ? componentClasses.card.glass :
-                      variant === 'stats' ? componentClasses.card.stats : '';
-  return cn(baseClass, variantClass);
+  
+  switch (variant) {
+    case 'hover':
+      return cn(baseClass, componentClasses.card.hover);
+    case 'glass':
+      return cn(componentClasses.card.glass);
+    case 'stats':
+      return cn(componentClasses.card.stats);
+    case 'metrics':
+      return cn(componentClasses.card.metrics, designTokens.spacing.cardPadding);
+    case 'action':
+      return cn(componentClasses.card.action, designTokens.spacing.cardPadding);
+    case 'idea':
+      return cn(componentClasses.card.idea, designTokens.spacing.cardPadding);
+    default:
+      return baseClass;
+  }
 };
 
 export const createButtonClass = (variant: 'primary' | 'secondary' | 'ghost' | 'outline' = 'primary', size: 'sm' | 'md' | 'lg' = 'md') => {

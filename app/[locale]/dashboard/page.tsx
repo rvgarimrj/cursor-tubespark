@@ -12,7 +12,9 @@ import {
   Eye,
   Calendar,
   Target,
-  Plus
+  Plus,
+  Sparkles,
+  Activity
 } from "lucide-react";
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
@@ -27,6 +29,9 @@ import {
   Card,
   FeatureCard,
   StatsCard,
+  MetricsCard,
+  ActionCard,
+  IdeaCard,
   Button,
   StatsGrid,
   FeatureGrid
@@ -240,184 +245,158 @@ export default function DashboardPage() {
   ];
 
   return (
-    <Container>
-      <div className="space-y-8">
-        {/* Header com design system */}
-        <div>
-          <H1>{tDashboard('home.welcomeBack')}! 👋</H1>
-          <BodyText variant="secondary" className="mt-2">
-            {tDashboard('home.subtitle')}
-          </BodyText>
-        </div>
-
-        {/* Usage Indicator com design system */}
-        <Card variant="base" className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-gray-300">
-              Uso do Plano Gratuito
+    <div className="lg:ml-[280px] min-h-screen bg-[#0f172a] text-[#f8fafc] p-4 lg:p-6">
+      <div className="space-y-6 lg:space-y-8">
+        {/* Usage Progress */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-medium text-[#94a3b8]">
+              {tDashboard('home.usage.freePlanTitle')}
             </span>
-            <span className="text-sm text-gray-400">
-              {stats.usage.used}/{stats.usage.limit} ideias
+            <span className="text-sm font-medium text-[#f8fafc]">
+              {tDashboard('home.usage.ideasCount', {
+                used: stats.usage.used.toString(),
+                limit: stats.usage.limit.toString()
+              })}
             </span>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2">
+          <div className="w-full h-2 bg-white/8 rounded-full overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300"
+              className="h-full bg-gradient-to-r from-[#667eea] to-[#764ba2] rounded-full transition-all duration-300"
               style={{ width: `${Math.min((stats.usage.used / stats.usage.limit) * 100, 100)}%` }}
             />
           </div>
-          {stats.usage.used >= stats.usage.limit && (
-            <p className="text-xs text-red-400 mt-1">
-              Limite atingido. Upgrade para Pro para ideias ilimitadas.
-            </p>
-          )}
-        </Card>
-
-        {/* Stats Grid com design system */}
-        <StatsGrid>
-          <StatsCard
-            value={loading ? "..." : stats.ideasGenerated.toString()}
-            label={tDashboard('home.stats.ideasGenerated')}
-            change={`+${stats.ideasThisMonth}`}
-            changeType="increase"
-          />
-          <StatsCard
-            value={loading ? "..." : stats.videosPlanned.toString()}
-            label={tDashboard('home.stats.videosPlanned')}
-            change="+0"
-            changeType="neutral"
-          />
-          <StatsCard
-            value={loading ? "..." : stats.trendsTracked.toString()}
-            label={tDashboard('home.stats.trendsTracked')}
-            change="Em breve"
-            changeType="neutral"
-          />
-          <StatsCard
-            value={loading ? "..." : stats.competitors.toString()}
-            label={tDashboard('home.stats.competitors')}
-            change="Em breve"
-            changeType="neutral"
-          />
-        </StatsGrid>
-
-        {/* Quick Actions com design system */}
-        <div>
-          <H2 className="mb-6">
-            {tDashboard('home.quickActions.title')}
-          </H2>
-          <FeatureGrid columns={4}>
-            {quickActions.map((action, index) => (
-              <Link key={index} href={action.href}>
-                <FeatureCard
-                  icon={<action.icon className="w-6 h-6 text-white" />}
-                  title={action.title}
-                  description={action.description}
-                  className="cursor-pointer h-full"
-                />
-              </Link>
-            ))}
-          </FeatureGrid>
+          <div className="flex items-center justify-between mt-2 text-xs text-[#94a3b8]">
+            <span>
+              {tDashboard('home.usage.remainingIdeas', {
+                remaining: (stats.usage.limit - stats.usage.used).toString()
+              })}
+            </span>
+            <Link href="#" className="text-blue-400 hover:text-blue-300">
+              {tDashboard('home.usage.upgradeLink')}
+            </Link>
+          </div>
         </div>
 
-        {/* Recent Ideas com design system */}
-        <div>
+        {/* Metrics Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
+          <MetricsCard
+            title={tDashboard('home.stats.ideasGenerated')}
+            value={loading ? "..." : stats.ideasGenerated}
+            change={tDashboard('home.stats.changes.thisMonth', { count: `+${stats.ideasThisMonth}` })}
+            icon={<Lightbulb className="w-5 h-5" />}
+          />
+          <MetricsCard
+            title={tDashboard('home.stats.viralScore')}
+            value="94%"
+            change={tDashboard('home.stats.changes.excellent')}
+            icon={<Sparkles className="w-5 h-5" />}
+          />
+          <MetricsCard
+            title={tDashboard('home.stats.videosPlanned')}
+            value={loading ? "..." : stats.videosPlanned}
+            change={tDashboard('home.stats.changes.comingSoon')}
+            icon={<Video className="w-5 h-5" />}
+          />
+          <MetricsCard
+            title={tDashboard('home.stats.trendsTracked')}
+            value={loading ? "..." : stats.trendsTracked}
+            change={tDashboard('home.stats.changes.comingSoon')}
+            icon={<Activity className="w-5 h-5" />}
+          />
+        </div>
+
+        {/* Quick Actions */}
+        <div className="mb-8">
+          <h2 className="text-xl font-bold text-[#f8fafc] mb-6">🚀 {tDashboard('home.quickActions.title')}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            <ActionCard
+              icon={<Lightbulb className="w-6 h-6 text-white" />}
+              title={tDashboard('home.quickActions.generateIdea')}
+              description={tDashboard('home.quickActions.descriptions.generateIdea')}
+              buttonText={tDashboard('home.quickActions.buttons.createNow')}
+              buttonVariant="primary"
+              onClick={() => window.location.href = `/${locale}/ideas/new`}
+            />
+            <ActionCard
+              icon={<BarChart3 className="w-6 h-6 text-white" />}
+              title={tDashboard('home.quickActions.analyzeChannel')}
+              description={tDashboard('home.quickActions.descriptions.analyzeChannel')}
+              buttonText={tDashboard('home.quickActions.buttons.comingSoon')}
+              buttonVariant="secondary"
+              iconColor="green"
+              onClick={() => {}}
+            />
+            <ActionCard
+              icon={<TrendingUp className="w-6 h-6 text-white" />}
+              title={tDashboard('home.quickActions.checkTrends')}
+              description={tDashboard('home.quickActions.descriptions.checkTrends')}
+              buttonText={tDashboard('home.quickActions.buttons.comingSoon')}
+              buttonVariant="secondary"
+              iconColor="purple"
+              onClick={() => {}}
+            />
+            <ActionCard
+              icon={<Calendar className="w-6 h-6 text-white" />}
+              title={tDashboard('home.quickActions.scheduleVideo')}
+              description={tDashboard('home.quickActions.descriptions.scheduleVideo')}
+              buttonText={tDashboard('home.quickActions.buttons.comingSoon')}
+              buttonVariant="secondary"
+              iconColor="orange"
+              onClick={() => {}}
+            />
+          </div>
+        </div>
+
+        {/* Recent Ideas */}
+        <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <H2>{tDashboard('home.recentIdeas.title')}</H2>
-            <Link href={`/${locale}/ideas`}>
-              <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
-                {tDashboard('home.recentIdeas.viewAll')} →
-              </Button>
+            <h2 className="text-xl font-bold text-[#f8fafc]">💡 {tDashboard('home.recentIdeas.title')}</h2>
+            <Link href={`/${locale}/ideas`} className="text-blue-400 hover:text-blue-300 font-medium">
+              {tDashboard('home.recentIdeas.viewAll')} →
             </Link>
           </div>
           
           {ideasLoading ? (
-            <Card variant="base" className="p-8 text-center">
+            <Card variant="glass" className="p-8 text-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-              <BodyText variant="secondary" className="mt-4">Carregando ideias...</BodyText>
+              <p className="mt-4 text-[#94a3b8]">{tCommon('loading')}...</p>
             </Card>
           ) : recentIdeas.length === 0 ? (
-            <Card variant="base" className="p-8 text-center">
+            <Card variant="glass" className="p-8 text-center">
               <div className="h-16 w-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Lightbulb className="h-8 w-8 text-gray-400" />
               </div>
-              <H2 className="mb-2 text-lg">
+              <h2 className="mb-2 text-lg text-[#f8fafc]">
                 {tDashboard('home.recentIdeas.noIdeas')}
-              </H2>
-              <BodyText variant="secondary" className="mb-6">
+              </h2>
+              <p className="text-[#94a3b8] mb-6">
                 {tDashboard('home.recentIdeas.generateFirst')}
-              </BodyText>
-              <Button variant="primary" href={`/${locale}/ideas/new`}>
+              </p>
+              <Link
+                href={`/${locale}/ideas/new`}
+                className="inline-flex items-center justify-center px-6 py-2.5 text-base rounded-lg font-medium transition-all duration-300 bg-gradient-to-br from-[#667eea] to-[#764ba2] text-white font-semibold shadow-[0_8px_25px_rgba(102,126,234,0.3)] hover:transform hover:-translate-y-0.5 hover:shadow-[0_12px_35px_rgba(102,126,234,0.4)] cubic-bezier(0.4, 0, 0.2, 1)"
+              >
                 {tDashboard('home.quickActions.generateIdea')}
-              </Button>
+              </Link>
             </Card>
           ) : (
-            <FeatureGrid columns={3}>
+            <div className="space-y-4">
               {recentIdeas.map((idea) => (
-                <Card key={idea.id} variant="hover">
-                  {/* Header */}
-                  <div className="flex justify-between items-start mb-4">
-                    <H2 className="text-lg line-clamp-2">
-                      {idea.title}
-                    </H2>
-                  </div>
-
-                  {/* Description */}
-                  <BodyText variant="secondary" className="text-sm mb-4 line-clamp-3">
-                    {idea.description}
-                  </BodyText>
-
-                  {/* Metrics */}
-                  <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="h-4 w-4 text-green-500" />
-                      <BodyText variant="muted">
-                        {idea.trendScore}/100
-                      </BodyText>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Eye className="h-4 w-4 text-blue-500" />
-                      <BodyText variant="muted">
-                        {idea.estimatedViews}
-                      </BodyText>
-                    </div>
-                  </div>
-
-                  {/* Tags */}
-                  {idea.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {idea.tags.slice(0, 2).map((tag, index) => (
-                        <span
-                          key={`${idea.id}-tag-${index}`}
-                          className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-full"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                      {idea.tags.length > 2 && (
-                        <span className="text-xs text-gray-400 px-2 py-1">
-                          +{idea.tags.length - 2}
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Footer */}
-                  <div className="flex justify-between items-center pt-4 border-t border-gray-700">
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
-                      <Calendar className="h-3 w-3" />
-                      {new Date(idea.savedAt).toLocaleDateString('pt-BR')}
-                    </div>
-                    <span className="text-xs px-2 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">
-                      Salva
-                    </span>
-                  </div>
-                </Card>
+                <IdeaCard
+                  key={idea.id}
+                  title={idea.title}
+                  description={idea.description}
+                  viralScore={idea.trendScore}
+                  estimatedViews={idea.estimatedViews}
+                  tags={idea.tags}
+                  date={new Date(idea.savedAt).toLocaleDateString('pt-BR')}
+                />
               ))}
-            </FeatureGrid>
+            </div>
           )}
         </div>
       </div>
-    </Container>
+    </div>
   );
 }

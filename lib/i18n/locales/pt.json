@@ -58,6 +58,11 @@
     },
     "sidebar": {
       "logo": "TubeSpark",
+      "tagline": "IA para YouTubers",
+      "sections": {
+        "main": "Principal",
+        "settings": "Configurações"
+      },
       "navigation": {
         "dashboard": "Dashboard",
         "generateIdeas": "Gerar Ideias",
@@ -67,25 +72,48 @@
         "billing": "Cobrança"
       },
       "user": {
-        "signOut": "Sair"
+        "signOut": "Sair",
+        "freePlan": "Plano Gratuito"
       }
     },
     "home": {
       "title": "Dashboard",
       "subtitle": "Visão geral do seu canal e atividades recentes",
       "welcomeBack": "Bem-vindo de volta",
+      "usage": {
+        "freePlanTitle": "Uso do Plano Gratuito",
+        "ideasCount": "{{used}}/{{limit}} ideias",
+        "remainingIdeas": "{{remaining}} ideias restantes este mês",
+        "upgradeLink": "Fazer upgrade →"
+      },
       "stats": {
         "ideasGenerated": "Ideias Geradas",
         "videosPlanned": "Vídeos Planejados", 
-        "trendsTracked": "Tendências Rastreadas",
-        "competitors": "Competidores"
+        "trendsTracked": "Tendências",
+        "competitors": "Competidores",
+        "viralScore": "Score Viral Médio",
+        "changes": {
+          "thisMonth": "{{count}} este mês",
+          "comingSoon": "Em breve",
+          "excellent": "Excelente"
+        }
       },
       "quickActions": {
         "title": "Ações Rápidas",
         "generateIdea": "Gerar Nova Ideia",
         "analyzeChannel": "Analisar Canal",
         "checkTrends": "Ver Tendências",
-        "scheduleVideo": "Agendar Vídeo"
+        "scheduleVideo": "Agendar Vídeo",
+        "descriptions": {
+          "generateIdea": "Crie novas ideias de vídeo com IA",
+          "analyzeChannel": "Get insights about your channel",
+          "checkTrends": "Discover trending topics",
+          "scheduleVideo": "Plan your content calendar"
+        },
+        "buttons": {
+          "createNow": "Criar Agora",
+          "comingSoon": "Em Breve"
+        }
       },
       "recentIdeas": {
         "title": "Ideias Recentes",

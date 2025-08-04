@@ -33,65 +33,89 @@ export function DashboardSidebar() {
   ];
 
   return (
-    <div className="flex w-64 flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transition-colors">
-      {/* Logo */}
-      <div className="flex h-16 items-center px-6 border-b border-gray-200 dark:border-gray-700">
-        <Link href={`/${locale}/dashboard`} className="flex items-center space-x-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg youtube-gradient">
-            <Sparkles className="h-5 w-5 text-white" />
+    <div className="w-[280px] bg-white/5 backdrop-filter backdrop-blur-[20px] border-r border-white/10 h-screen fixed left-0 top-0 z-10 flex flex-col hidden lg:flex">
+      {/* Logo Section */}
+      <div className="p-6">
+        <Link href={`/${locale}/dashboard`} className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 bg-gradient-to-r from-[#667eea] to-[#764ba2] rounded-xl flex items-center justify-center">
+            <Sparkles className="w-6 h-6 text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900 dark:text-white">{tDashboard('sidebar.logo')}</span>
+          <div>
+            <div className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              {tDashboard('sidebar.logo')}
+            </div>
+            <div className="text-xs text-[#94a3b8]">{tDashboard('sidebar.tagline')}</div>
+          </div>
         </Link>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 px-4 py-6 space-y-1">
-        {navigation.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={clsx(
-                "flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors",
-                isActive
-                  ? "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-r-2 border-red-600 dark:border-red-400"
-                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white"
-              )}
-            >
-              <item.icon
+        
+        {/* Navigation */}
+        <nav className="space-y-2">
+          <div className="text-xs font-semibold text-[#64748b] uppercase tracking-wide mb-3 px-4">{tDashboard('sidebar.sections.main')}</div>
+          
+          {navigation.slice(0, 4).map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
                 className={clsx(
-                  "mr-3 h-5 w-5",
-                  isActive ? "text-red-600 dark:text-red-400" : "text-gray-400 dark:text-gray-500"
+                  "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 mb-1",
+                  isActive
+                    ? "bg-gradient-to-r from-[rgba(102,126,234,0.15)] to-[rgba(118,75,162,0.10)] text-[#667eea] border border-[rgba(102,126,234,0.2)]"
+                    : "text-[#94a3b8] hover:bg-white/8 hover:text-[#f8fafc]"
                 )}
-              />
-              {item.name}
-            </Link>
-          );
-        })}
-      </nav>
-
-      {/* User section */}
-      <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-        <div className="flex items-center space-x-3 mb-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-            <User className="h-4 w-4 text-red-600 dark:text-red-400" />
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="font-medium">{item.name}</span>
+              </Link>
+            );
+          })}
+          
+          <div className="text-xs font-semibold text-[#64748b] uppercase tracking-wide mb-3 px-4 mt-8">{tDashboard('sidebar.sections.settings')}</div>
+          
+          {navigation.slice(4).map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={clsx(
+                  "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 mb-1",
+                  isActive
+                    ? "bg-gradient-to-r from-[rgba(102,126,234,0.15)] to-[rgba(118,75,162,0.10)] text-[#667eea] border border-[rgba(102,126,234,0.2)]"
+                    : "text-[#94a3b8] hover:bg-white/8 hover:text-[#f8fafc]"
+                )}
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="font-medium">{item.name}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+      
+      {/* User Profile - Fixed at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-6">
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-800/50 backdrop-filter backdrop-blur-sm">
+          <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full flex items-center justify-center font-semibold text-white text-sm">
+            {user?.displayName?.[0]?.toUpperCase() || 'U'}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-              {user?.displayName || tCommon('user')}  
-            </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.primaryEmail || tCommon('email')}</p>
+            <div className="text-sm font-medium text-[#f8fafc] truncate">
+              {user?.displayName || tCommon('user')}
+            </div>
+            <div className="text-xs text-[#94a3b8] truncate">
+              {user?.primaryEmail || tDashboard('sidebar.user.freePlan')}
+            </div>
           </div>
+          <button
+            onClick={signOut}
+            className="p-2 text-[#94a3b8] hover:text-[#f8fafc] hover:bg-white/10 rounded-lg transition-all duration-200"
+            title={tDashboard('sidebar.user.signOut')}
+          >
+            <LogOut className="w-4 h-4" />
+          </button>
         </div>
-        
-        <button
-          onClick={signOut}
-          className="flex w-full items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
-        >
-          <LogOut className="mr-3 h-4 w-4 text-gray-400 dark:text-gray-500" />
-          {tDashboard('sidebar.user.signOut')}
-        </button>
       </div>
     </div>
   );

@@ -58,6 +58,11 @@
     },
     "sidebar": {
       "logo": "TubeSpark",
+      "tagline": "AI for YouTubers",
+      "sections": {
+        "main": "Main",
+        "settings": "Settings"
+      },
       "navigation": {
         "dashboard": "Dashboard",
         "generateIdeas": "Generate Ideas",
@@ -67,25 +72,48 @@
         "billing": "Billing"
       },
       "user": {
-        "signOut": "Sign Out"
+        "signOut": "Sign Out",
+        "freePlan": "Free Plan"
       }
     },
     "home": {
       "title": "Dashboard",
       "subtitle": "Overview of your channel and recent activities",
       "welcomeBack": "Welcome back",
+      "usage": {
+        "freePlanTitle": "Free Plan Usage",
+        "ideasCount": "{{used}}/{{limit}} ideas",
+        "remainingIdeas": "{{remaining}} ideas remaining this month",
+        "upgradeLink": "Upgrade →"
+      },
       "stats": {
         "ideasGenerated": "Ideas Generated",
         "videosPlanned": "Videos Planned",
-        "trendsTracked": "Trends Tracked",
-        "competitors": "Competitors"
+        "trendsTracked": "Trends",
+        "competitors": "Competitors",
+        "viralScore": "Average Viral Score",
+        "changes": {
+          "thisMonth": "{{count}} this month",
+          "comingSoon": "Coming Soon",
+          "excellent": "Excellent"
+        }
       },
       "quickActions": {
         "title": "Quick Actions",
         "generateIdea": "Generate New Idea",
         "analyzeChannel": "Analyze Channel",
         "checkTrends": "Check Trends",
-        "scheduleVideo": "Schedule Video"
+        "scheduleVideo": "Schedule Video",
+        "descriptions": {
+          "generateIdea": "Create new video ideas with AI",
+          "analyzeChannel": "Get insights about your channel",
+          "checkTrends": "Discover trending topics",
+          "scheduleVideo": "Plan your content calendar"
+        },
+        "buttons": {
+          "createNow": "Create Now",
+          "comingSoon": "Coming Soon"
+        }
       },
       "recentIdeas": {
         "title": "Recent Ideas",
