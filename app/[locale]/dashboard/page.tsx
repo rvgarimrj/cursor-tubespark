@@ -18,6 +18,20 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { SavedIdea } from '@/types/ideas';
 
+// Importando componentes do design system
+import {
+  Container,
+  H1,
+  H2,
+  BodyText,
+  Card,
+  FeatureCard,
+  StatsCard,
+  Button,
+  StatsGrid,
+  FeatureGrid
+} from '@/components/design-system';
+
 interface DashboardStats {
   ideasGenerated: number;
   ideasThisMonth: number;
@@ -226,207 +240,184 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          {tDashboard('home.welcomeBack')}! 👋
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">
-          {tDashboard('home.subtitle')}
-        </p>
-      </div>
-
-      {/* Usage Indicator */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Uso do Plano Gratuito
-          </span>
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            {stats.usage.used}/{stats.usage.limit} ideias
-          </span>
+    <Container>
+      <div className="space-y-8">
+        {/* Header com design system */}
+        <div>
+          <H1>{tDashboard('home.welcomeBack')}! 👋</H1>
+          <BodyText variant="secondary" className="mt-2">
+            {tDashboard('home.subtitle')}
+          </BodyText>
         </div>
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-          <div 
-            className="bg-red-600 h-2 rounded-full transition-all duration-300"
-            style={{ width: `${Math.min((stats.usage.used / stats.usage.limit) * 100, 100)}%` }}
-          />
-        </div>
-        {stats.usage.used >= stats.usage.limit && (
-          <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-            Limite atingido. Upgrade para Pro para ideias ilimitadas.
-          </p>
-        )}
-      </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {dashboardStats.map((stat, index) => (
-          <div
-            key={index}
-            className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 transition-colors"
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  {stat.title}
-                </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
-                  {stat.value}
-                </p>
-              </div>
-              <div className="h-12 w-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
-                <stat.icon className="h-6 w-6 text-red-600 dark:text-red-400" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-center">
-              <span className={`text-sm font-medium ${
-                stat.changeType === 'increase' ? 'text-green-600 dark:text-green-400' : 
-                'text-gray-600 dark:text-gray-400'
-              }`}>
-                {stat.change}
-              </span>
-              <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
-                {stat.changeType === 'increase' ? 'este mês' : ''}
-              </span>
-            </div>
+        {/* Usage Indicator com design system */}
+        <Card variant="base" className="mb-6">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm font-medium text-gray-300">
+              Uso do Plano Gratuito
+            </span>
+            <span className="text-sm text-gray-400">
+              {stats.usage.used}/{stats.usage.limit} ideias
+            </span>
           </div>
-        ))}
-      </div>
-
-      {/* Quick Actions */}
-      <div>
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-          {tDashboard('home.quickActions.title')}
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {quickActions.map((action, index) => (
-            <Link
-              key={index}
-              href={action.href}
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 cursor-pointer group block"
-            >
-              <div className={`h-12 w-12 ${action.color} rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                <action.icon className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                {action.title}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                {action.description}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Recent Ideas */}
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            {tDashboard('home.recentIdeas.title')}
-          </h2>
-          <Link 
-            href={`/${locale}/ideas`}
-            className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium"
-          >
-            {tDashboard('home.recentIdeas.viewAll')} →
-          </Link>
-        </div>
-        
-        {ideasLoading ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600 mx-auto"></div>
-            <p className="text-gray-600 dark:text-gray-400 mt-4">Carregando ideias...</p>
+          <div className="w-full bg-gray-700 rounded-full h-2">
+            <div 
+              className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300"
+              style={{ width: `${Math.min((stats.usage.used / stats.usage.limit) * 100, 100)}%` }}
+            />
           </div>
-        ) : recentIdeas.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
-            <div className="h-16 w-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Lightbulb className="h-8 w-8 text-gray-400 dark:text-gray-500" />
-            </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              {tDashboard('home.recentIdeas.noIdeas')}
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              {tDashboard('home.recentIdeas.generateFirst')}
+          {stats.usage.used >= stats.usage.limit && (
+            <p className="text-xs text-red-400 mt-1">
+              Limite atingido. Upgrade para Pro para ideias ilimitadas.
             </p>
-            <Link 
-              href={`/${locale}/ideas/new`}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium transition-colors inline-block"
-            >
-              {tDashboard('home.quickActions.generateIdea')}
+          )}
+        </Card>
+
+        {/* Stats Grid com design system */}
+        <StatsGrid>
+          <StatsCard
+            value={loading ? "..." : stats.ideasGenerated.toString()}
+            label={tDashboard('home.stats.ideasGenerated')}
+            change={`+${stats.ideasThisMonth}`}
+            changeType="increase"
+          />
+          <StatsCard
+            value={loading ? "..." : stats.videosPlanned.toString()}
+            label={tDashboard('home.stats.videosPlanned')}
+            change="+0"
+            changeType="neutral"
+          />
+          <StatsCard
+            value={loading ? "..." : stats.trendsTracked.toString()}
+            label={tDashboard('home.stats.trendsTracked')}
+            change="Em breve"
+            changeType="neutral"
+          />
+          <StatsCard
+            value={loading ? "..." : stats.competitors.toString()}
+            label={tDashboard('home.stats.competitors')}
+            change="Em breve"
+            changeType="neutral"
+          />
+        </StatsGrid>
+
+        {/* Quick Actions com design system */}
+        <div>
+          <H2 className="mb-6">
+            {tDashboard('home.quickActions.title')}
+          </H2>
+          <FeatureGrid columns={4}>
+            {quickActions.map((action, index) => (
+              <Link key={index} href={action.href}>
+                <FeatureCard
+                  icon={<action.icon className="w-6 h-6 text-white" />}
+                  title={action.title}
+                  description={action.description}
+                  className="cursor-pointer h-full"
+                />
+              </Link>
+            ))}
+          </FeatureGrid>
+        </div>
+
+        {/* Recent Ideas com design system */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <H2>{tDashboard('home.recentIdeas.title')}</H2>
+            <Link href={`/${locale}/ideas`}>
+              <Button variant="ghost" className="text-blue-400 hover:text-blue-300">
+                {tDashboard('home.recentIdeas.viewAll')} →
+              </Button>
             </Link>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {recentIdeas.map((idea) => (
-              <div
-                key={idea.id}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
-              >
-                {/* Header */}
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white line-clamp-2">
-                    {idea.title}
-                  </h3>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                  {idea.description}
-                </p>
-
-                {/* Metrics */}
-                <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-green-500" />
-                    <span className="text-gray-600 dark:text-gray-300">
-                      {idea.trendScore}/100
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Eye className="h-4 w-4 text-blue-500" />
-                    <span className="text-gray-600 dark:text-gray-300">
-                      {idea.estimatedViews}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Tags */}
-                {idea.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {idea.tags.slice(0, 2).map((tag, index) => (
-                      <span
-                        key={`${idea.id}-tag-${index}`}
-                        className="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 text-xs px-2 py-1 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                    {idea.tags.length > 2 && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
-                        +{idea.tags.length - 2}
-                      </span>
-                    )}
-                  </div>
-                )}
-
-                {/* Footer */}
-                <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                    <Calendar className="h-3 w-3" />
-                    {new Date(idea.savedAt).toLocaleDateString('pt-BR')}
-                  </div>
-                  <span className="text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
-                    Salva
-                  </span>
-                </div>
+          
+          {ideasLoading ? (
+            <Card variant="base" className="p-8 text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+              <BodyText variant="secondary" className="mt-4">Carregando ideias...</BodyText>
+            </Card>
+          ) : recentIdeas.length === 0 ? (
+            <Card variant="base" className="p-8 text-center">
+              <div className="h-16 w-16 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Lightbulb className="h-8 w-8 text-gray-400" />
               </div>
-            ))}
-          </div>
-        )}
+              <H2 className="mb-2 text-lg">
+                {tDashboard('home.recentIdeas.noIdeas')}
+              </H2>
+              <BodyText variant="secondary" className="mb-6">
+                {tDashboard('home.recentIdeas.generateFirst')}
+              </BodyText>
+              <Button variant="primary" href={`/${locale}/ideas/new`}>
+                {tDashboard('home.quickActions.generateIdea')}
+              </Button>
+            </Card>
+          ) : (
+            <FeatureGrid columns={3}>
+              {recentIdeas.map((idea) => (
+                <Card key={idea.id} variant="hover">
+                  {/* Header */}
+                  <div className="flex justify-between items-start mb-4">
+                    <H2 className="text-lg line-clamp-2">
+                      {idea.title}
+                    </H2>
+                  </div>
+
+                  {/* Description */}
+                  <BodyText variant="secondary" className="text-sm mb-4 line-clamp-3">
+                    {idea.description}
+                  </BodyText>
+
+                  {/* Metrics */}
+                  <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-green-500" />
+                      <BodyText variant="muted">
+                        {idea.trendScore}/100
+                      </BodyText>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Eye className="h-4 w-4 text-blue-500" />
+                      <BodyText variant="muted">
+                        {idea.estimatedViews}
+                      </BodyText>
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  {idea.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {idea.tags.slice(0, 2).map((tag, index) => (
+                        <span
+                          key={`${idea.id}-tag-${index}`}
+                          className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {idea.tags.length > 2 && (
+                        <span className="text-xs text-gray-400 px-2 py-1">
+                          +{idea.tags.length - 2}
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Footer */}
+                  <div className="flex justify-between items-center pt-4 border-t border-gray-700">
+                    <div className="flex items-center gap-2 text-xs text-gray-400">
+                      <Calendar className="h-3 w-3" />
+                      {new Date(idea.savedAt).toLocaleDateString('pt-BR')}
+                    </div>
+                    <span className="text-xs px-2 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                      Salva
+                    </span>
+                  </div>
+                </Card>
+              ))}
+            </FeatureGrid>
+          )}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 }

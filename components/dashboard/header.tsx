@@ -3,7 +3,6 @@
 import { Bell, Search, Menu } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { LanguageSelector } from "@/components/language-selector";
 
@@ -56,9 +55,6 @@ export function DashboardHeader() {
 
         {/* Language Selector */}
         <LanguageSelector />
-
-        {/* Theme Toggle */}
-        <ThemeToggle />
 
         {/* Notifications */}
         <button

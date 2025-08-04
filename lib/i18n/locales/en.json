@@ -103,13 +103,6 @@
     "noIdeas": "No ideas generated yet",
     "placeholder": "Describe your niche or topic..."
   },
-  "theme": {
-    "light": "Light mode",
-    "dark": "Dark mode",
-    "system": "Follow system",
-    "select": "Select theme",
-    "current": "Current theme"
-  },
   "language": {
     "select": "Select language",
     "current": "Current language"
