@@ -141,5 +141,16 @@
     "unauthorized": "No autorizado",
     "forbidden": "Acceso denegado",
     "tryAgain": "Inténtalo de nuevo"
+  },
+  "landing": {
+    "hero": {
+      "badge": "Nuevo en TubeSpark",
+      "badgeLink": "Ver novedades",
+      "title": "Convierte tus ideas en videos virales",
+      "subtitle": "Usa IA avanzada para generar ideas de video personalizadas, analizar tendencias y hacer crecer tu canal de YouTube más rápido que nunca.",
+      "ctaPrimary": "Empezar Gratis",
+      "ctaSecondary": "Ver demostración",
+      "demoVideo": "Video de demostración"
+    }
   }
 }

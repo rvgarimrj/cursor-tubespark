@@ -3,6 +3,7 @@ import Link from "next/link";
 import { landingTranslations, type LandingTranslationKey } from "@/lib/i18n/translations";
 import type { Locale } from "@/lib/i18n/config";
 import { LanguageSelector } from "@/components/language-selector";
+import { HeroSectionWithTranslations } from "@/components/landing/HeroSectionWithTranslations";
 
 export default function LocaleHomePage({
   params: { locale }
@@ -63,34 +64,13 @@ export default function LocaleHomePage({
       </header>
 
       {/* Hero Section */}
-      <section className="flex-1 flex items-center justify-center px-4 py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <div className="container max-w-6xl text-center">
-          <div className="mx-auto max-w-3xl">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl dark:text-white">
-              {t('title')}
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
-              {t('subtitle')}
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link
-                href={`/${locale}/auth/signup`}
-                className="rounded-md youtube-gradient px-8 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              >
-                {t('startCreating')}
-              </Link>
-              <Link
-                href="#demo"
-                className="text-sm font-semibold leading-6 text-gray-900 hover:text-primary dark:text-gray-300 dark:hover:text-white"
-              >
-                {t('watchDemo')} <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+      <HeroSectionWithTranslations locale={locale} />
+      
+      {/* Stats Section */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="container px-4">
+          <div className="mx-auto max-w-2xl sm:max-w-none">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3 mx-auto">
               <div className="flex flex-col gap-y-3 border-l border-gray-900/10 dark:border-gray-100/10 pl-6">
                 <dt className="flex items-center gap-x-3 text-sm leading-6 text-gray-600 dark:text-gray-400">
                   <Users className="h-5 w-5 text-gray-400" />
