@@ -34,6 +34,33 @@ export async function PricingSectionServer({ locale }: { locale: string }) {
       video_extension: t('features.video_extension'),
       image_upscaling: t('features.image_upscaling'),
       priority_access_to_new_features: t('features.priority_access_to_new_features')
+    },
+    plans: {
+      freemium: {
+        name: t('plans.freemium.name'),
+        price: t('plans.freemium.price'),
+        perfectFor: t('plans.freemium.perfectFor'),
+        features: t.raw('plans.freemium.features'),
+        blockedFeatures: t.raw('plans.freemium.blockedFeatures')
+      },
+      starter: {
+        name: t('plans.starter.name'),
+        price: t('plans.starter.price'),
+        annualPrice: t('plans.starter.annualPrice'),
+        discount: t('plans.starter.discount'),
+        perfectFor: t('plans.starter.perfectFor'),
+        features: t.raw('plans.starter.features'),
+        blockedFeatures: t.raw('plans.starter.blockedFeatures')
+      },
+      pro: {
+        name: t('plans.pro.name'),
+        price: t('plans.pro.price'),
+        annualPrice: t('plans.pro.annualPrice'),
+        discount: t('plans.pro.discount'),
+        perfectFor: t('plans.pro.perfectFor'),
+        features: t.raw('plans.pro.features'),
+        fairUse: t('plans.pro.fairUse')
+      }
     }
   };
   

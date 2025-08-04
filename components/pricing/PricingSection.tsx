@@ -258,6 +258,33 @@ interface TranslationsProps {
     image_upscaling: string;
     priority_access_to_new_features: string;
   };
+  plans: {
+    freemium: {
+      name: string;
+      price: string;
+      perfectFor: string;
+      features: string[];
+      blockedFeatures: string[];
+    };
+    starter: {
+      name: string;
+      price: string;
+      annualPrice: string;
+      discount: string;
+      perfectFor: string;
+      features: string[];
+      blockedFeatures: string[];
+    };
+    pro: {
+      name: string;
+      price: string;
+      annualPrice: string;
+      discount: string;
+      perfectFor: string;
+      features: string[];
+      fairUse: string;
+    };
+  };
 }
 
 export function PricingSection({ translations, locale }: { translations: TranslationsProps; locale: string }) {
@@ -325,116 +352,143 @@ export function PricingSection({ translations, locale }: { translations: Transla
 
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => (
-            <div
-              key={plan.id}
-              className={`relative bg-gray-800 border rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-105 ${
-                plan.isBestOffer
-                  ? 'border-purple-500 shadow-2xl shadow-purple-500/20'
-                  : plan.isFree
-                  ? 'border-gray-700'
-                  : index === 1
-                  ? 'border-orange-500/50'
-                  : 'border-blue-500/50'
-              }`}
-            >
-              {/* Best Offer Badge */}
-              {plan.isBestOffer && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                    <Star className="w-4 h-4" />
-                    <span>{t.bestOffer}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Plan Header */}
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-4">{plan.name}</h3>
-                
-                {plan.isFree ? (
-                  <div className="mb-4">
-                    <div className="text-4xl font-bold text-white">
-                      {currency} 0
-                    </div>
-                    <div className="text-gray-400 mt-2">
-                      {t.perYear}
-                    </div>
-                    <div className="text-gray-500 text-sm mt-2">
-                      {t.freeForever}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mb-4">
-                    <div className="text-4xl font-bold text-white mb-2">
-                      {currency} {formatPrice(getDisplayPrice(plan))}
-                    </div>
-                    <div className="text-gray-400">
-                      {t.perYear} 
-                      {isAnnual && (
-                        <span className="text-gray-500 line-through ml-2">
-                          {currency}{formatPrice(plan.monthlyPrice * 12)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-sm text-gray-400 mt-2">
-                      {t.nextYear}: {currency}{formatPrice(getDisplayPrice(plan))} {isAnnual && t.annualDiscount}
-                    </div>
-                    <div className="text-gray-500 text-xs mt-1">
-                      {t.cancelAnytime}
+          {['freemium', 'starter', 'pro'].map((planKey, index) => {
+            const plan = t.plans[planKey as keyof typeof t.plans];
+            const planData = plans.find(p => p.id === planKey);
+            
+            return (
+              <div
+                key={planKey}
+                className={`relative bg-gray-800 border rounded-2xl p-8 transition-all duration-300 hover:transform hover:scale-105 ${
+                  planKey === 'pro'
+                    ? 'border-purple-500 shadow-2xl shadow-purple-500/20'
+                    : planKey === 'freemium'
+                    ? 'border-gray-700'
+                    : 'border-orange-500/50'
+                }`}
+              >
+                {/* Best Offer Badge */}
+                {planKey === 'pro' && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
+                      <Star className="w-4 h-4" />
+                      <span>{t.bestOffer}</span>
                     </div>
                   </div>
                 )}
 
-                {/* Subscribe Button */}
-                {plan.isFree ? (
-                  <button
-                    disabled
-                    className="w-full py-3 px-6 bg-gray-600 text-gray-400 rounded-lg font-medium cursor-not-allowed"
-                  >
-                    {t.current}
-                  </button>
-                ) : (
-                  <Link
-                    href={`/${locale}/auth/signup?plan=${plan.id}&billing=${isAnnual ? 'annual' : 'monthly'}`}
-                    className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 inline-block text-center ${
-                      plan.isBestOffer
-                        ? 'bg-purple-600 hover:bg-purple-700 text-white'
-                        : index === 1
-                        ? 'bg-orange-600 hover:bg-orange-700 text-white'
-                        : 'bg-blue-600 hover:bg-blue-700 text-white'
-                    }`}
-                  >
-                    {t.subscribe} {plan.name} {isAnnual ? t.yearly : t.monthly}
-                  </Link>
-                )}
-              </div>
+                {/* Plan Header */}
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                  
+                  {/* Perfect For Description */}
+                  <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                    <span className="font-medium">Perfect for:</span> {plan.perfectFor}
+                  </p>
+                  
+                  {planKey === 'freemium' ? (
+                    <div className="mb-4">
+                      <div className="text-4xl font-bold text-white">
+                        {currency} 0
+                      </div>
+                      <div className="text-gray-400 mt-2">
+                        {t.perYear}
+                      </div>
+                      <div className="text-gray-500 text-sm mt-2">
+                        {t.freeForever}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mb-4">
+                      <div className="text-4xl font-bold text-white mb-2">
+                        {planData ? `${currency} ${formatPrice(getDisplayPrice(planData))}` : plan.annualPrice}
+                      </div>
+                      <div className="text-gray-400">
+                        {t.perYear} 
+                        {isAnnual && planData && (
+                          <span className="text-gray-500 line-through ml-2">
+                            {currency}{formatPrice(planData.monthlyPrice * 12)}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-sm text-gray-400 mt-2">
+                        {t.nextYear}: {planData ? `${currency}${formatPrice(getDisplayPrice(planData))}` : plan.annualPrice} {isAnnual && t.annualDiscount}
+                      </div>
+                      <div className="text-gray-500 text-xs mt-1">
+                        {t.cancelAnytime}
+                      </div>
+                    </div>
+                  )}
 
-              {/* Credits and Cost */}
-              {!plan.isFree && (
-                <div className="mb-6 text-center">
-                  <div className="text-2xl font-bold text-white mb-1">
-                    {plan.credits} {t.creditsPerMonth}
-                  </div>
-                  <div className="text-gray-400 text-sm">
-                    {currency}{formatPrice(plan.costPer100Credits)} {t.per100Credits}
-                  </div>
+                  {/* Subscribe Button */}
+                  {planKey === 'freemium' ? (
+                    <button
+                      disabled
+                      className="w-full py-3 px-6 bg-gray-600 text-gray-400 rounded-lg font-medium cursor-not-allowed"
+                    >
+                      {t.current}
+                    </button>
+                  ) : (
+                    <Link
+                      href={`/${locale}/auth/signup?plan=${planKey}&billing=${isAnnual ? 'annual' : 'monthly'}`}
+                      className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-300 inline-block text-center ${
+                        planKey === 'pro'
+                          ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                          : 'bg-orange-600 hover:bg-orange-700 text-white'
+                      }`}
+                    >
+                      {t.subscribe} {plan.name} {isAnnual ? t.yearly : t.monthly}
+                    </Link>
+                  )}
                 </div>
-              )}
 
-              {/* Features */}
-              <div className="space-y-3">
-                {plan.features.map((feature, featureIndex) => (
-                  <div key={featureIndex} className="flex items-center space-x-3">
-                    <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-                    <span className="text-gray-300 text-sm">
-                      {t.features[feature as keyof typeof t.features]}
-                    </span>
+                {/* Credits and Cost - mantém para compatibilidade */}
+                {planKey !== 'freemium' && planData && (
+                  <div className="mb-6 text-center">
+                    <div className="text-2xl font-bold text-white mb-1">
+                      {planData.credits} {t.creditsPerMonth}
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      {currency}{formatPrice(planData.costPer100Credits)} {t.per100Credits}
+                    </div>
                   </div>
-                ))}
+                )}
+
+                {/* Features */}
+                <div className="space-y-3">
+                  {plan.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-start space-x-3">
+                      <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-gray-300 text-sm leading-relaxed">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                  
+                  {/* Blocked Features */}
+                  {'blockedFeatures' in plan && plan.blockedFeatures && plan.blockedFeatures.map((feature, featureIndex) => (
+                    <div key={`blocked-${featureIndex}`} className="flex items-start space-x-3 opacity-60">
+                      <div className="w-5 h-5 flex-shrink-0 mt-0.5 flex items-center justify-center">
+                        <div className="w-3 h-3 rounded-full bg-gray-600"></div>
+                      </div>
+                      <span className="text-gray-500 text-sm leading-relaxed line-through">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                  
+                  {/* Fair Use Notice for Pro */}
+                  {planKey === 'pro' && 'fairUse' in plan && (
+                    <div className="mt-4 pt-4 border-t border-gray-700">
+                      <p className="text-gray-400 text-xs italic">
+                        *{plan.fairUse}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

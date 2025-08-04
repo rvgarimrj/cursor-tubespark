@@ -320,7 +320,7 @@
     "perYear": "por Año",
     "freeForever": "Gratuito para siempre",
     "nextYear": "Próximo Año",
-    "annualDiscount": "(34% Descuento)",
+    "annualDiscount": "(17% Descuento)",
     "cancelAnytime": "Cancela cuando quieras",
     "current": "Actual",
     "subscribe": "Suscribirse",
@@ -337,6 +337,76 @@
       "video_extension": "Extensión de video",
       "image_upscaling": "Mejora de imagen",
       "priority_access_to_new_features": "Acceso prioritario a nuevas funciones"
+    },
+    "plans": {
+      "freemium": {
+        "name": "Gratis",
+        "price": "€0/mes",
+        "perfectFor": "Creadores casuales que quieren explorar IA para YouTube",
+        "features": [
+          "5 ideas personalizadas por mes",
+          "2 guiones básicos por mes",
+          "Análisis básico de tendencias",
+          "Acceso a plantillas predefinidas",
+          "Soporte comunitario"
+        ],
+        "blockedFeatures": [
+          "Guiones premium bloqueados",
+          "Análisis de competidores",
+          "Soporte prioritario"
+        ],
+        "apiCost": "$0.008/mes",
+        "margin": "-€0.007 (inversión en adquisición)"
+      },
+      "starter": {
+        "name": "Starter",
+        "price": "€11/mes",
+        "annualPrice": "€110/año",
+        "discount": "17% descuento",
+        "perfectFor": "Aficionados y entusiastas que crean contenido regularmente",
+        "features": [
+          "100 ideas personalizadas por mes",
+          "20 guiones básicos por mes",
+          "3 guiones premium por mes",
+          "Análisis avanzado de tendencias en tiempo real",
+          "Optimización SEO automática",
+          "1 análisis personalizado del canal",
+          "Soporte por email",
+          "Acceso anticipado a nuevas funciones"
+        ],
+        "blockedFeatures": [
+          "Análisis ilimitado de competidores",
+          "Soporte prioritario"
+        ],
+        "apiCost": "$0.144/mes",
+        "monthlyMargin": "98.7%",
+        "annualMargin": "98.8%"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "€22/mes",
+        "annualPrice": "€220/año",
+        "discount": "17% descuento",
+        "perfectFor": "Creadores profesionales, pequeños negocios y productores de contenido",
+        "features": [
+          "Ideas personalizadas ilimitadas*",
+          "Guiones básicos ilimitados*",
+          "25 guiones premium por mes",
+          "Análisis ilimitado de competidores",
+          "Optimización SEO avanzada con palabras clave",
+          "10 análisis detallados del canal por mes",
+          "Planificación de contenido con calendario",
+          "Análisis predictivo de rendimiento",
+          "Soporte prioritario (respuesta en 2h)",
+          "Acceso beta a funciones experimentales",
+          "Integración con YouTube Analytics",
+          "Informes mensuales de crecimiento"
+        ],
+        "fairUse": "Política de uso justo: estimado 200 ideas + 50 guiones básicos/mes",
+        "apiCost": "$0.46/mes",
+        "monthlyMargin": "97.9%",
+        "annualMargin": "98.0%"
+      }
     }
   },
   "landing": {

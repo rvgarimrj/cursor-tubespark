@@ -320,7 +320,7 @@
     "perYear": "per Year",
     "freeForever": "Free forever",
     "nextYear": "Next Year",
-    "annualDiscount": "(34% Off)",
+    "annualDiscount": "(17% Off)",
     "cancelAnytime": "Cancel Anytime",
     "current": "Current",
     "subscribe": "Subscribe",
@@ -337,6 +337,76 @@
       "video_extension": "Video extension",
       "image_upscaling": "Image upscaling",
       "priority_access_to_new_features": "Priority access to new features"
+    },
+    "plans": {
+      "freemium": {
+        "name": "Free",
+        "price": "$0/month",
+        "perfectFor": "Casual creators who want to explore AI for YouTube",
+        "features": [
+          "5 personalized ideas per month",
+          "2 basic scripts per month",
+          "Basic trend analysis",
+          "Access to preset templates",
+          "Community support"
+        ],
+        "blockedFeatures": [
+          "Premium scripts locked",
+          "Competitor analysis",
+          "Priority support"
+        ],
+        "apiCost": "$0.008/month",
+        "margin": "-$0.008 (acquisition investment)"
+      },
+      "starter": {
+        "name": "Starter",
+        "price": "$12/month",
+        "annualPrice": "$120/year",
+        "discount": "17% off",
+        "perfectFor": "Hobbyists and enthusiasts who create regularly",
+        "features": [
+          "100 personalized ideas per month",
+          "20 basic scripts per month",
+          "3 premium scripts per month",
+          "Real-time advanced trend analysis",
+          "Automatic SEO optimization",
+          "1 personalized channel analysis",
+          "Email support",
+          "Early access to new features"
+        ],
+        "blockedFeatures": [
+          "Unlimited competitor analysis",
+          "Priority support"
+        ],
+        "apiCost": "$0.144/month",
+        "monthlyMargin": "98.8%",
+        "annualMargin": "98.9%"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "$24/month",
+        "annualPrice": "$240/year",
+        "discount": "17% off",
+        "perfectFor": "Professional creators, small businesses, and content producers",
+        "features": [
+          "Unlimited personalized ideas*",
+          "Unlimited basic scripts*",
+          "25 premium scripts per month",
+          "Unlimited competitor analysis",
+          "Advanced SEO optimization with keywords",
+          "10 detailed channel analyses per month",
+          "Content planning with calendar",
+          "Predictive performance analysis",
+          "Priority support (2h response time)",
+          "Beta access to experimental features",
+          "YouTube Analytics integration",
+          "Monthly growth reports"
+        ],
+        "fairUse": "Fair use policy: estimated 200 ideas + 50 basic scripts/month",
+        "apiCost": "$0.46/month",
+        "monthlyMargin": "98.1%",
+        "annualMargin": "98.2%"
+      }
     }
   },
   "landing": {

@@ -320,7 +320,7 @@
     "perYear": "por Ano",
     "freeForever": "Gratuito para sempre",
     "nextYear": "Próximo Ano",
-    "annualDiscount": "(34% Off)",
+    "annualDiscount": "(17% Off)",
     "cancelAnytime": "Cancele a qualquer momento",
     "current": "Atual",
     "subscribe": "Assinar",
@@ -337,6 +337,76 @@
       "video_extension": "Extensão de vídeo",
       "image_upscaling": "Upscaling de imagem",
       "priority_access_to_new_features": "Acesso prioritário a novos recursos"
+    },
+    "plans": {
+      "freemium": {
+        "name": "Gratuito",
+        "price": "R$0/mês",
+        "perfectFor": "Criadores iniciantes que querem experimentar IA para YouTube",
+        "features": [
+          "5 ideias personalizadas por mês",
+          "2 roteiros básicos por mês",
+          "Análise básica de tendências",
+          "Acesso a templates pré-definidos",
+          "Suporte via comunidade"
+        ],
+        "blockedFeatures": [
+          "Roteiros premium bloqueados",
+          "Análise de competidores",
+          "Suporte prioritário"
+        ],
+        "apiCost": "$0.008/mês",
+        "margin": "-R$0,05 (investimento em aquisição)"
+      },
+      "starter": {
+        "name": "Starter",
+        "price": "R$47/mês",
+        "annualPrice": "R$470/ano",
+        "discount": "17% desconto",
+        "perfectFor": "YouTubers consistentes que criam conteúdo regularmente",
+        "features": [
+          "100 ideias personalizadas por mês",
+          "20 roteiros básicos por mês",
+          "3 roteiros premium por mês",
+          "Análise avançada de tendências em tempo real",
+          "Otimização SEO automática",
+          "1 análise de canal personalizada",
+          "Suporte por email",
+          "Acesso antecipado a novas features"
+        ],
+        "blockedFeatures": [
+          "Análise ilimitada de competidores",
+          "Suporte prioritário"
+        ],
+        "apiCost": "$0.144/mês",
+        "monthlyMargin": "98,2%",
+        "annualMargin": "98,4%"
+      },
+      "pro": {
+        "name": "Pro",
+        "price": "R$97/mês",
+        "annualPrice": "R$970/ano",
+        "discount": "17% desconto",
+        "perfectFor": "Criadores profissionais, pequenos negócios e produtores de conteúdo",
+        "features": [
+          "Ideias ilimitadas personalizadas*",
+          "Roteiros básicos ilimitados*",
+          "25 roteiros premium por mês",
+          "Análise completa de competidores ilimitada",
+          "Otimização SEO avançada com keywords",
+          "10 análises de canal detalhadas por mês",
+          "Planejamento de conteúdo com calendário",
+          "Análise de performance preditiva",
+          "Suporte prioritário (resposta em 2h)",
+          "Acesso beta a features experimentais",
+          "Integração com YouTube Analytics",
+          "Relatórios mensais de crescimento"
+        ],
+        "fairUse": "Fair use policy: estimativa 200 ideias + 50 roteiros básicos/mês",
+        "apiCost": "$0.46/mês",
+        "monthlyMargin": "97,2%",
+        "annualMargin": "97,4%"
+      }
     }
   },
   "landing": {
