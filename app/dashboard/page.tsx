@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   BarChart3,
   Calendar,
@@ -12,69 +13,17 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth";
+import { IdeasService } from "@/lib/supabase/ideas";
+import type { SavedIdea } from "@/types/ideas";
 
-// Mock data - later this will come from API
-const stats = [
-  {
-    name: "Ideas Generated",
-    value: "24",
-    change: "+12%",
-    changeType: "positive" as const,
-    icon: Lightbulb,
-    href: "/ideas",
-  },
-  {
-    name: "Avg. Trend Score",
-    value: "87",
-    change: "+5%",
-    changeType: "positive" as const,
-    icon: TrendingUp,
-    href: "/analytics",
-  },
-  {
-    name: "Videos Planned",
-    value: "8",
-    change: "+3",
-    changeType: "positive" as const,
-    icon: Calendar,
-    href: "/calendar",
-  },
-  {
-    name: "Est. Total Views",
-    value: "156K",
-    change: "+23%",
-    changeType: "positive" as const,
-    icon: Eye,
-    href: "/analytics",
-  },
-];
-
-const recentIdeas = [
-  {
-    id: 1,
-    title: "10 AI Tools That Will Change Video Editing Forever",
-    category: "Technology",
-    trendScore: 92,
-    estimatedViews: 45000,
-    createdAt: "2 hours ago",
-  },
-  {
-    id: 2,
-    title: "Why Everyone is Switching to This New Social Media Platform",
-    category: "Entertainment",
-    trendScore: 87,
-    estimatedViews: 38000,
-    createdAt: "4 hours ago",
-  },
-  {
-    id: 3,
-    title: "The Secret to Getting 1M Subscribers in 6 Months",
-    category: "Education",
-    trendScore: 94,
-    estimatedViews: 62000,
-    createdAt: "1 day ago",
-  },
-];
+interface DashboardStats {
+  name: string;
+  value: string;
+  change: string;
+  changeType: "positive" | "negative" | "neutral";
+  icon: any;
+  href: string;
+}
 
 const trendingTopics = [
   { keyword: "AI video editing", searchVolume: 125000, trend: "rising" },
@@ -85,6 +34,93 @@ const trendingTopics = [
 
 export default function DashboardPage() {
   const { user } = useAuth();
+  const [stats, setStats] = useState<DashboardStats[]>([]);
+  const [recentIdeas, setRecentIdeas] = useState<SavedIdea[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load dashboard data
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      if (!user?.id) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Get user stats and recent ideas in parallel
+        const [userStats, userIdeas] = await Promise.all([
+          IdeasService.getUserStats(user.id),
+          IdeasService.getUserIdeas(user.id)
+        ]);
+
+        // Calculate real statistics
+        const avgTrendScore = userIdeas.length > 0 
+          ? Math.round(userIdeas.reduce((sum, idea) => sum + (idea.trendScore || 0), 0) / userIdeas.length)
+          : 0;
+
+        const totalEstimatedViews = userIdeas.reduce((sum, idea) => {
+          const views = parseInt(idea.estimatedViews.replace(/[^\d]/g, '')) || 0;
+          return sum + views;
+        }, 0);
+
+        const formatViews = (views: number) => {
+          if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M`;
+          if (views >= 1000) return `${(views / 1000).toFixed(0)}K`;
+          return views.toString();
+        };
+
+        // Build real stats
+        const realStats: DashboardStats[] = [
+          {
+            name: "Ideas Generated",
+            value: userStats.totalIdeas.toString(),
+            change: `+${userStats.ideasThisMonth}`,
+            changeType: userStats.ideasThisMonth > 0 ? "positive" : "neutral",
+            icon: Lightbulb,
+            href: "/ideas",
+          },
+          {
+            name: "Avg. Trend Score",
+            value: avgTrendScore.toString(),
+            change: avgTrendScore >= 80 ? "+High Quality" : avgTrendScore >= 60 ? "Good" : "Improving",
+            changeType: avgTrendScore >= 70 ? "positive" : "neutral",
+            icon: TrendingUp,
+            href: "/analytics",
+          },
+          {
+            name: "Videos Planned",
+            value: userStats.plannedIdeas.toString(),
+            change: `+${userStats.draftIdeas} drafts`,
+            changeType: userStats.plannedIdeas > 0 ? "positive" : "neutral",
+            icon: Calendar,
+            href: "/calendar",
+          },
+          {
+            name: "Est. Total Views",
+            value: formatViews(totalEstimatedViews),
+            change: userIdeas.length > 0 ? "From all ideas" : "Generate ideas",
+            changeType: totalEstimatedViews > 0 ? "positive" : "neutral",
+            icon: Eye,
+            href: "/analytics",
+          },
+        ];
+
+        setStats(realStats);
+        setRecentIdeas(userIdeas.slice(0, 3)); // Get latest 3 ideas
+      } catch (err) {
+        console.error('Error loading dashboard data:', err);
+        setError('Falha ao carregar dados do dashboard. Tente novamente.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, [user?.id]);
 
   return (
     <div className="space-y-6">
@@ -107,8 +143,32 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center py-12">
+          <div className="animate-spin h-8 w-8 border-4 border-red-500 border-t-transparent rounded-full"></div>
+          <span className="ml-3 text-gray-600">Carregando dashboard...</span>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex items-center">
+            <div className="text-red-600 mr-3">⚠️</div>
+            <div>
+              <p className="text-red-800 font-medium">Erro</p>
+              <p className="text-red-600 text-sm">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dashboard Content */}
+      {!loading && !error && (
+        <>
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
           <Link
             key={stat.name}
@@ -155,33 +215,46 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="divide-y divide-gray-200">
-            {recentIdeas.map((idea) => (
-              <div key={idea.id} className="p-6 hover:bg-gray-50">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h3 className="text-sm font-medium text-gray-900 mb-1">
-                      {idea.title}
-                    </h3>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {idea.category}
-                      </span>
-                      <span className="flex items-center">
-                        <TrendingUp className="h-3 w-3 mr-1" />
-                        {idea.trendScore}
-                      </span>
-                      <span className="flex items-center">
-                        <Eye className="h-3 w-3 mr-1" />
-                        {idea.estimatedViews.toLocaleString()}
-                      </span>
+            {recentIdeas.length > 0 ? (
+              recentIdeas.map((idea) => (
+                <div key={idea.id} className="p-6 hover:bg-gray-50">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h3 className="text-sm font-medium text-gray-900 mb-1">
+                        {idea.title}
+                      </h3>
+                      <div className="flex items-center space-x-4 text-sm text-gray-500">
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                          {idea.niche}
+                        </span>
+                        <span className="flex items-center">
+                          <TrendingUp className="h-3 w-3 mr-1" />
+                          {idea.trendScore}
+                        </span>
+                        <span className="flex items-center">
+                          <Eye className="h-3 w-3 mr-1" />
+                          {idea.estimatedViews}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-400 mt-2">
+                        {new Date(idea.savedAt).toLocaleDateString('pt-BR')}
+                      </p>
                     </div>
-                    <p className="text-xs text-gray-400 mt-2">
-                      {idea.createdAt}
-                    </p>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="p-6 text-center text-gray-500">
+                <Lightbulb className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                <p>Nenhuma ideia gerada ainda</p>
+                <Link 
+                  href="/ideas" 
+                  className="text-red-600 hover:text-red-700 text-sm font-medium"
+                >
+                  Gerar primeira ideia
+                </Link>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -279,6 +352,8 @@ export default function DashboardPage() {
           </Link>
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }

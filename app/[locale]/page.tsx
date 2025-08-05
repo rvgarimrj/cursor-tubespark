@@ -1,10 +1,11 @@
-import { Sparkles, TrendingUp, Users, Zap, Play, BarChart3, Calendar, FileText, Target, Settings, Star } from "lucide-react";
+import { Sparkles, TrendingUp, Users, Zap, Play, BarChart3, Calendar, FileText, Target, Settings, Star, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from "@/lib/i18n/config";
 import { LanguageSelector } from "@/components/language-selector";
 import { LandingAnimations } from "@/components/landing/LandingAnimations";
 import { PricingSectionServer } from "@/components/pricing/PricingSectionServer";
+import MobileHeader from './mobile-header';
 
 export default async function LocaleHomePage({
   params: { locale }
@@ -17,18 +18,20 @@ export default async function LocaleHomePage({
     <div className="flex min-h-screen flex-col bg-gray-900 text-white overflow-x-hidden">
       {/* Header */}
       <header className="fixed w-full top-0 z-50 bg-gray-900/80 backdrop-blur-lg border-b border-gray-800/50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 gradient-primary rounded-xl flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
+            {/* Logo */}
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 gradient-primary rounded-lg sm:rounded-xl flex items-center justify-center">
+                <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 TubeSpark
               </span>
             </div>
             
-            <nav className="hidden md:flex space-x-8">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex space-x-8">
               <a href="#problema" className="text-gray-300 hover:text-white transition-colors">
                 {t('navigation.problem')}
               </a>
@@ -43,7 +46,8 @@ export default async function LocaleHomePage({
               </a>
             </nav>
             
-            <div className="flex items-center space-x-4">
+            {/* Desktop Actions */}
+            <div className="hidden lg:flex items-center space-x-4">
               <LanguageSelector />
               <Link
                 href={`/${locale}/auth/signin`}
@@ -57,6 +61,30 @@ export default async function LocaleHomePage({
               >
                 {t('navigation.getStarted')}
               </Link>
+            </div>
+
+            {/* Mobile Actions */}
+            <div className="flex lg:hidden items-center space-x-2">
+              <div className="scale-90">
+                <LanguageSelector />
+              </div>
+              <Link
+                href={`/${locale}/auth/signup`}
+                className="btn-primary px-3 py-1.5 text-sm rounded-md font-medium transition-all duration-300 whitespace-nowrap"
+              >
+                {t('navigation.getStarted')}
+              </Link>
+              <MobileHeader 
+                locale={locale} 
+                navigationLabels={{
+                  problem: t('navigation.problem'),
+                  solution: t('navigation.solution'),
+                  howItWorks: t('navigation.howItWorks'),
+                  results: t('navigation.results'),
+                  signin: t('navigation.signin'),
+                  getStarted: t('navigation.getStarted')
+                }}
+              />
             </div>
           </div>
         </div>
@@ -204,7 +232,7 @@ export default async function LocaleHomePage({
         </div>
         
         {/* Side Stats */}
-        <div className="absolute top-40 left-10 float-animation hidden lg:block">
+        <div className="absolute top-40 left-10 float-animation hidden xl:block">
           <div className="stats-card p-4 rounded-xl bg-gradient-to-br from-blue-600/20 to-blue-800/20 border border-blue-500/30">
             <div className="text-blue-400 font-bold text-lg">+180%</div>
             <div className="text-gray-400 text-xs">
@@ -217,7 +245,7 @@ export default async function LocaleHomePage({
           </div>
         </div>
         
-        <div className="absolute top-32 right-10 float-animation hidden lg:block" style={{ animationDelay: '2s' }}>
+        <div className="absolute top-32 right-10 float-animation hidden xl:block" style={{ animationDelay: '2s' }}>
           <div className="stats-card p-4 rounded-xl bg-gradient-to-br from-green-600/20 to-green-800/20 border border-green-500/30">
             <div className="text-green-400 font-bold text-lg">3.2x</div>
             <div className="text-gray-400 text-xs">

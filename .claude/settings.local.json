@@ -38,7 +38,10 @@
       "mcp__upstash-context-7-mcp__resolve-library-id",
       "Bash(grep:*)",
       "Bash(git rm:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(python3:*)",
+      "Bash(npx tsc:*)",
+      "Bash(PORT=3002 npm run dev)"
     ],
     "deny": []
   }

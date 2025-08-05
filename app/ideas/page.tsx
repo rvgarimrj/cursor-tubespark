@@ -17,77 +17,44 @@ import {
 } from "lucide-react";
 import ScriptGenerationModal from "@/components/scripts/ScriptGenerationModal";
 import { useAuth } from "@/lib/auth";
-
-const mockIdeas = [
-  {
-    id: "1",
-    title: "10 AI Tools That Will Change Video Editing Forever",
-    description: "Explore the latest AI-powered video editing tools that are revolutionizing content creation for YouTubers.",
-    category: "Technology",
-    channelType: "tech" as const,
-    niche: "Technology",
-    trendScore: 92,
-    estimatedViews: "45K",
-    difficulty: "Médio" as const,
-    tags: ["AI", "Video Editing", "Tools", "Tech"],
-    hooks: ["You won't believe what AI can do for video editing now"],
-    duration: "8-12 min",
-    thumbnailIdea: "Split screen showing before/after AI editing",
-    createdAt: "2 hours ago",
-    status: "generated" as const,
-    isFavorited: false,
-    engagementScore: 0,
-    timeSpent: 0,
-  },
-  {
-    id: "2", 
-    title: "Why Everyone is Switching to This New Social Media Platform",
-    description: "Dive into the emerging social media platform that's capturing everyone's attention and what it means for creators.",
-    category: "Entertainment",
-    channelType: "entertainment" as const,
-    niche: "Social Media",
-    trendScore: 87,
-    estimatedViews: "38K",
-    difficulty: "Fácil" as const,
-    tags: ["Social Media", "Trends", "Platform"],
-    hooks: ["This new platform is killing Instagram and TikTok"],
-    duration: "6-10 min",
-    thumbnailIdea: "Shocked face with platform logos",
-    createdAt: "4 hours ago",
-    status: "generated" as const,
-    isFavorited: false,
-    engagementScore: 0,
-    timeSpent: 0,
-  },
-  {
-    id: "3",
-    title: "The Secret to Getting 1M Subscribers in 6 Months", 
-    description: "Learn the proven strategies and tactics that successful YouTubers use to rapidly grow their subscriber base.",
-    category: "Education",
-    channelType: "educational" as const,
-    niche: "YouTube Growth",
-    trendScore: 94,
-    estimatedViews: "62K",
-    difficulty: "Médio" as const,
-    tags: ["Growth", "YouTube", "Strategy"],
-    hooks: ["I gained 1M subscribers in 6 months - here's exactly how"],
-    duration: "10-15 min",
-    thumbnailIdea: "Before/after subscriber count with arrow",
-    createdAt: "1 day ago",
-    status: "generated" as const,
-    isFavorited: true,
-    engagementScore: 15,
-    timeSpent: 0,
-  },
-];
+import { IdeasService } from "@/lib/supabase/ideas";
+import { createClient } from "@/lib/supabase/client";
+import type { VideoIdea, SavedIdea } from "@/types/ideas";
 
 export default function IdeasPage() {
   const { user } = useAuth();
-  const [ideas, setIdeas] = useState(mockIdeas);
+  const [ideas, setIdeas] = useState<SavedIdea[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const supabase = createClient();
   const [isGenerating, setIsGenerating] = useState(false);
   const [showScriptModal, setShowScriptModal] = useState(false);
-  const [selectedIdea, setSelectedIdea] = useState<typeof mockIdeas[0] | null>(null);
+  const [selectedIdea, setSelectedIdea] = useState<SavedIdea | null>(null);
   const [engagementTimers, setEngagementTimers] = useState<Record<string, number>>({});
+
+  // Load user ideas from Supabase
+  useEffect(() => {
+    const loadIdeas = async () => {
+      if (!user?.id) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+        const userIdeas = await IdeasService.getUserIdeas(user.id);
+        setIdeas(userIdeas);
+      } catch (err) {
+        console.error('Error loading ideas:', err);
+        setError('Falha ao carregar ideias. Tente novamente.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadIdeas();
+  }, [user?.id]);
 
   // Track time spent on ideas
   useEffect(() => {
@@ -119,18 +86,38 @@ export default function IdeasPage() {
   };
 
   const handleFavorite = async (ideaId: string) => {
+    if (!user?.id) return;
+    
     const idea = ideas.find(i => i.id === ideaId);
     if (!idea) return;
 
-    const newFavoriteState = !idea.isFavorited;
+    const newFavoriteState = !idea.isFavorite;
     
-    setIdeas(prev => prev.map(i => 
-      i.id === ideaId 
-        ? { ...i, isFavorited: newFavoriteState, engagementScore: newFavoriteState ? i.engagementScore + 5 : i.engagementScore - 5 }
-        : i
-    ));
+    try {
+      // Update in Supabase
+      const { error } = await supabase
+        .from('video_ideas')
+        .update({ is_favorited: newFavoriteState })
+        .eq('id', ideaId)
+        .eq('user_id', user.id);
+        
+      if (error) {
+        console.error('Error updating favorite:', error);
+        return;
+      }
 
-    await trackEngagement(ideaId, 'favorite', { favorited: newFavoriteState });
+      // Update local state
+      setIdeas(prev => prev.map(i => 
+        i.id === ideaId 
+          ? { ...i, isFavorite: newFavoriteState }
+          : i
+      ));
+
+      // Track engagement
+      await trackEngagement(ideaId, 'favorite', { favorited: newFavoriteState });
+    } catch (error) {
+      console.error('Error favoriting idea:', error);
+    }
   };
 
   const handleShare = async (ideaId: string, platform: string = 'copy_link') => {
@@ -169,18 +156,22 @@ export default function IdeasPage() {
   };
 
   const handleScriptGenerated = (scriptId: string) => {
-    // Update engagement score for successful script generation
+    // Track successful script generation
     if (selectedIdea) {
-      setIdeas(prev => prev.map(i => 
-        i.id === selectedIdea.id ? { ...i, engagementScore: i.engagementScore + 10 } : i
-      ));
+      trackEngagement(selectedIdea.id, 'script_generated', { scriptId });
     }
   };
 
   const generateNewIdea = async () => {
+    if (!user?.id) {
+      alert('Você precisa estar logado para gerar ideias.');
+      return;
+    }
+
     setIsGenerating(true);
     
     try {
+      // Generate idea via API
       const response = await fetch('/api/ideas/generate', {
         method: 'POST',
         headers: {
@@ -204,41 +195,26 @@ export default function IdeasPage() {
       const data = await response.json();
       
       if (data.success && data.ideas && data.ideas.length > 0) {
-        // Save each idea to the database
-        const savedIdeas = [];
+        // Save ideas using IdeasService
+        const savedIdeas: SavedIdea[] = [];
+        
         for (const idea of data.ideas) {
           try {
-            const saveResponse = await fetch('/api/ideas/save', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ idea }),
-            });
-            
-            if (saveResponse.ok) {
-              const savedData = await saveResponse.json();
-              savedIdeas.push({
-                ...savedData.idea,
-                createdAt: "Just now",
-                status: "generated" as const,
-                isFavorited: false,
-                engagementScore: 0,
-                timeSpent: 0,
-              });
-            }
+            const savedIdea = await IdeasService.saveIdea(idea, user.id);
+            savedIdeas.push(savedIdea);
           } catch (error) {
             console.error('Error saving idea:', error);
           }
         }
         
         if (savedIdeas.length > 0) {
-          setIdeas([...savedIdeas, ...ideas]);
+          // Add new ideas to the beginning of the list
+          setIdeas(prev => [...savedIdeas, ...prev]);
         }
       }
     } catch (error) {
       console.error('Error generating ideas:', error);
-      alert('Failed to generate ideas. Please try again.');
+      setError('Falha ao gerar ideias. Tente novamente.');
     } finally {
       setIsGenerating(false);
     }
@@ -247,15 +223,15 @@ export default function IdeasPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Video Ideas</h1>
-          <p className="text-gray-600">AI-powered video ideas tailored for your channel</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Video Ideas</h1>
+          <p className="text-sm sm:text-base text-gray-600">AI-powered video ideas tailored for your channel</p>
         </div>
         <button
           onClick={generateNewIdea}
           disabled={isGenerating}
-          className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
         >
           {isGenerating ? (
             <>
@@ -271,25 +247,46 @@ export default function IdeasPage() {
         </button>
       </div>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center items-center py-12">
+          <div className="animate-spin h-8 w-8 border-4 border-red-500 border-t-transparent rounded-full"></div>
+          <span className="ml-3 text-gray-600">Carregando ideias...</span>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <div className="flex items-center">
+            <div className="text-red-600 mr-3">⚠️</div>
+            <div>
+              <p className="text-red-800 font-medium">Erro</p>
+              <p className="text-red-600 text-sm">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Ideas Grid */}
-      <div className="grid gap-6">
+      {!loading && !error && (
+        <div className="grid gap-4 sm:gap-6">
         {ideas.map((idea) => (
-          <div key={idea.id} className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow relative">
-            {/* Engagement Score Badge */}
-            {idea.engagementScore > 0 && (
-              <div className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                <Heart className="w-3 h-3" />
-                {idea.engagementScore}
-              </div>
-            )}
+          <div key={idea.id} className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 hover:shadow-lg transition-shadow relative">
+            {/* Idea Status Badge */}
+            <div className="absolute -top-2 -right-2 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+              {idea.status === 'saved' ? 'Salva' : 'Nova'}
+            </div>
 
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
-                <div className="flex items-center space-x-2 mb-2">
+                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                    {idea.category}
+                    {idea.niche}
                   </span>
-                  <span className="text-xs text-gray-500">{idea.createdAt}</span>
+                  <span className="text-xs text-gray-500">
+                    {new Date(idea.savedAt).toLocaleDateString('pt-BR')}
+                  </span>
                   <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                     idea.difficulty === 'Fácil' ? 'bg-green-100 text-green-800' :
                     idea.difficulty === 'Médio' ? 'bg-yellow-100 text-yellow-800' :
@@ -324,8 +321,8 @@ export default function IdeasPage() {
             </div>
 
             {/* Metrics */}
-            <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-              <div className="flex items-center space-x-6 text-sm text-gray-500">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 border-t border-gray-200 gap-3">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500">
                 <div className="flex items-center">
                   <TrendingUp className="h-4 w-4 mr-1 text-green-500" />
                   <span className="font-medium text-green-600">{idea.trendScore}</span>
@@ -344,19 +341,19 @@ export default function IdeasPage() {
             </div>
 
             {/* Engagement Actions */}
-            <div className="flex items-center justify-between pt-4 border-t border-gray-200 mt-4">
-              <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 border-t border-gray-200 mt-4 gap-3">
+              <div className="flex items-center gap-2">
                 {/* Favorite Button */}
                 <button 
                   onClick={() => handleFavorite(idea.id)}
                   className={`p-2 rounded-lg transition-all ${
-                    idea.isFavorited 
+                    idea.isFavorite 
                       ? 'bg-yellow-100 text-yellow-600 hover:bg-yellow-200' 
                       : 'text-gray-400 hover:bg-gray-100 hover:text-yellow-500'
                   }`}
                   title="Favoritar ideia"
                 >
-                  <Star className={`w-4 h-4 ${idea.isFavorited ? 'fill-current' : ''}`} />
+                  <Star className={`w-4 h-4 ${idea.isFavorite ? 'fill-current' : ''}`} />
                 </button>
 
                 {/* Share Button */}
@@ -378,11 +375,11 @@ export default function IdeasPage() {
                 </button>
               </div>
               
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center justify-end sm:justify-start">
                 {/* Create Script Button - Main CTA */}
                 <button 
                   onClick={() => handleCreateScript(idea)}
-                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-medium hover:from-purple-700 hover:to-purple-800 transition-all shadow-md hover:shadow-lg"
+                  className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg font-medium hover:from-purple-700 hover:to-purple-800 transition-all shadow-md hover:shadow-lg w-full sm:w-auto justify-center"
                 >
                   <FileText className="h-4 w-4 mr-2" />
                   Criar Roteiro
@@ -391,19 +388,21 @@ export default function IdeasPage() {
             </div>
           </div>
         ))}
-      </div>
+        </div>
+      )}
 
-      {ideas.length === 0 && (
-        <div className="text-center py-12">
-          <Lightbulb className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No ideas yet</h3>
-          <p className="text-gray-600 mb-4">Generate your first AI-powered video idea to get started</p>
+      {/* Empty State */}
+      {!loading && !error && ideas.length === 0 && (
+        <div className="text-center py-8 sm:py-12 px-4">
+          <Lightbulb className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400 mb-4" />
+          <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">Nenhuma ideia ainda</h3>
+          <p className="text-sm sm:text-base text-gray-600 mb-4">Gere sua primeira ideia com IA para começar</p>
           <button
             onClick={generateNewIdea}
-            className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors"
+            className="inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors w-full sm:w-auto"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Generate Your First Idea
+            Gerar Primeira Ideia
           </button>
         </div>
       )}
@@ -416,7 +415,7 @@ export default function IdeasPage() {
             setShowScriptModal(false);
             setSelectedIdea(null);
           }}
-          idea={selectedIdea as any}
+          idea={selectedIdea}
           onScriptGenerated={handleScriptGenerated}
         />
       )}
