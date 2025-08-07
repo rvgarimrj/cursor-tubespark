@@ -19,6 +19,7 @@ import {
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
 import { SavedIdea } from '@/types/ideas';
+import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
 // Importando componentes do design system
 import {
@@ -43,6 +44,7 @@ interface DashboardStats {
   videosPlanned: number;
   trendsTracked: number;
   competitors: number;
+  viralScore: number;
   usage: {
     used: number;
     limit: number;
@@ -59,6 +61,7 @@ export default function DashboardPage() {
     videosPlanned: 0,
     trendsTracked: 0,
     competitors: 0,
+    viralScore: 0,
     usage: { used: 0, limit: 10 }
   });
   const [loading, setLoading] = useState(true);
@@ -78,18 +81,62 @@ export default function DashboardPage() {
     }
   }, [user]);
 
+  // Listen for favorite changes from other pages
+  useEffect(() => {
+    const handleFavoriteChange = (event: CustomEvent) => {
+      const { ideaId, isFavorite } = event.detail;
+      
+      if (isFavorite) {
+        // If favorited, reload favorites to show new item
+        loadRecentIdeas();
+      } else {
+        // If unfavorited, remove from current list
+        setRecentIdeas(prev => prev.filter(idea => idea.id !== ideaId));
+      }
+    };
+
+    window.addEventListener('favoriteChanged' as any, handleFavoriteChange);
+    
+    return () => {
+      window.removeEventListener('favoriteChanged' as any, handleFavoriteChange);
+    };
+  }, []);
+
   const loadStats = async () => {
+    console.log('🔥 [DASHBOARD DEBUG] loadStats called');
+    console.log('👤 [DASHBOARD DEBUG] Current user:', {
+      id: user?.id,
+      email: user?.primaryEmail,
+      displayName: user?.displayName
+    });
+    
     try {
-      const response = await fetch('/api/dashboard/stats');
+      console.log('📡 [DASHBOARD DEBUG] Fetching /api/dashboard/stats...');
+      const response = await fetch('/api/dashboard/stats', {
+        // Force no cache
+        cache: 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+      
+      console.log('📥 [DASHBOARD DEBUG] Response status:', response.status);
       const data = await response.json();
+      console.log('📦 [DASHBOARD DEBUG] Response data:', JSON.stringify(data, null, 2));
       
       if (data.success) {
+        console.log('✅ [DASHBOARD DEBUG] Setting stats in state:', data.stats);
         setStats(data.stats);
+        console.log('✅ [DASHBOARD DEBUG] Stats set successfully');
+      } else {
+        console.log('❌ [DASHBOARD DEBUG] API returned success: false');
       }
     } catch (error) {
-      console.error('Error loading stats:', error);
+      console.error('❌ [DASHBOARD DEBUG] Error loading stats:', error);
     } finally {
       setLoading(false);
+      console.log('🏁 [DASHBOARD DEBUG] loadStats finished');
     }
   };
 
@@ -113,7 +160,8 @@ export default function DashboardPage() {
       userId: dbIdea.user_id,
       savedAt: dbIdea.created_at,
       notes: dbIdea.script_outline,
-      scheduledDate: dbIdea.best_posting_time
+      scheduledDate: dbIdea.best_posting_time,
+      isFavorite: dbIdea.is_favorited || false
     };
   };
 
@@ -152,13 +200,14 @@ export default function DashboardPage() {
         }
       }
       
-      // Now query with user filter
+      // Now query with user filter - ONLY FAVORITES
       const { data, error } = await supabase
         .from('video_ideas')
         .select('*')
         .eq('user_id', user.id)
+        .eq('is_favorited', true) // Only show favorited ideas
         .order('created_at', { ascending: false })
-        .limit(3); // Show only 3 most recent ideas
+        .limit(3); // Show only 3 most recent favorite ideas
 
       if (error) {
         console.error('❌ Dashboard: Error loading recent ideas:', error);
@@ -179,6 +228,18 @@ export default function DashboardPage() {
     } finally {
       setIdeasLoading(false);
       console.log('🏁 Dashboard: Recent ideas loading finished');
+    }
+  };
+
+  const handleFavoriteToggle = (ideaId: string, newState: boolean) => {
+    if (newState) {
+      // Idea was favorited - update local state
+      setRecentIdeas(prev => prev.map(idea => 
+        idea.id === ideaId ? { ...idea, isFavorite: true } : idea
+      ));
+    } else {
+      // Idea was unfavorited - remove from favorites list
+      setRecentIdeas(prev => prev.filter(idea => idea.id !== ideaId));
     }
   };
 
@@ -247,6 +308,7 @@ export default function DashboardPage() {
   return (
     <div className="lg:ml-[280px] min-h-screen bg-[#0f172a] text-[#f8fafc] p-4 lg:p-6">
       <div className="space-y-6 lg:space-y-8">
+
         {/* Usage Progress */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
@@ -288,7 +350,7 @@ export default function DashboardPage() {
           />
           <MetricsCard
             title={tDashboard('home.stats.viralScore')}
-            value="94%"
+            value={loading ? "..." : `${stats.viralScore}%`}
             change={tDashboard('home.stats.changes.excellent')}
             icon={<Sparkles className="w-5 h-5" />}
           />
@@ -348,12 +410,12 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Recent Ideas */}
+        {/* Favorite Ideas */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-[#f8fafc]">💡 {tDashboard('home.recentIdeas.title')}</h2>
-            <Link href={`/${locale}/dashboard/ideas`} className="text-blue-400 hover:text-blue-300 font-medium">
-              {tDashboard('home.recentIdeas.viewAll')} →
+            <h2 className="text-xl font-bold text-[#f8fafc]">⭐ Suas Ideias Favoritas</h2>
+            <Link href={`/${locale}/ideas?filter=favorites`} className="text-blue-400 hover:text-blue-300 font-medium">
+              Ver todas →
             </Link>
           </div>
           
@@ -368,10 +430,10 @@ export default function DashboardPage() {
                 <Lightbulb className="h-8 w-8 text-gray-400" />
               </div>
               <h2 className="mb-2 text-lg text-[#f8fafc]">
-                {tDashboard('home.recentIdeas.noIdeas')}
+                Nenhuma ideia favoritada ainda
               </h2>
               <p className="text-[#94a3b8] mb-6">
-                {tDashboard('home.recentIdeas.generateFirst')}
+                Favorite suas melhores ideias para vê-las aqui rapidamente
               </p>
               <Link
                 href={`/${locale}/dashboard/ideas/new`}
@@ -383,15 +445,83 @@ export default function DashboardPage() {
           ) : (
             <div className="space-y-4">
               {recentIdeas.map((idea) => (
-                <IdeaCard
+                <div
                   key={idea.id}
-                  title={idea.title}
-                  description={idea.description}
-                  viralScore={idea.trendScore}
-                  estimatedViews={idea.estimatedViews}
-                  tags={idea.tags}
-                  date={new Date(idea.savedAt).toLocaleDateString('pt-BR')}
-                />
+                  className="bg-white/5 backdrop-filter backdrop-blur-20 border border-white/10 rounded-2xl p-4 transition-all duration-300 hover:bg-white/8 hover:border-blue-500/30"
+                >
+                  <div className="flex items-start gap-4">
+                    {/* Idea Icon */}
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#ff6b6b] to-[#ff8e53] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-white font-bold text-xl">💡</span>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="text-lg font-bold text-[#f8fafc] leading-tight line-clamp-2">
+                          {idea.title}
+                        </h3>
+                        
+                        {/* Favorite Button */}
+                        <FavoriteButton
+                          ideaId={idea.id}
+                          isFavorite={idea.isFavorite || false}
+                          onToggle={handleFavoriteToggle}
+                          size="sm"
+                        />
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-[#94a3b8] text-sm mb-3 line-clamp-2 leading-relaxed">
+                        {idea.description}
+                      </p>
+
+                      {/* Metrics */}
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold border ${
+                          idea.trendScore >= 80 ? 'text-green-400 bg-green-500/15 border-green-500/20' :
+                          idea.trendScore >= 60 ? 'text-yellow-400 bg-yellow-500/15 border-yellow-500/20' :
+                          'text-gray-400 bg-gray-500/15 border-gray-500/20'
+                        }`}>
+                          <TrendingUp className="w-3 h-3" />
+                          <span>{idea.trendScore}/100</span>
+                        </div>
+                        
+                        <div className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-500/15 border border-blue-500/20 text-blue-400 text-xs font-medium">
+                          <Eye className="w-3 h-3" />
+                          <span>{idea.estimatedViews}</span>
+                        </div>
+                      </div>
+
+                      {/* Tags */}
+                      {idea.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mb-3">
+                          {idea.tags.slice(0, 3).map((tag, index) => (
+                            <span
+                              key={`${idea.id}-tag-${index}`}
+                              className="bg-white/10 border border-white/10 text-gray-300 text-xs px-2 py-1 rounded-md font-medium"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                          {idea.tags.length > 3 && (
+                            <span className="text-xs text-gray-400 px-2 py-1">
+                              +{idea.tags.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Date */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1 text-xs text-[#94a3b8]">
+                          <Calendar className="h-3 w-3" />
+                          <span>{new Date(idea.savedAt).toLocaleDateString('pt-BR')}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           )}

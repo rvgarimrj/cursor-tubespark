@@ -4,14 +4,17 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from '@/lib/i18n/use-translation';
 import { SavedIdea } from '@/types/ideas';
 import { useUser } from '@stackframe/stack';
-import { Lightbulb, Plus, Calendar, Eye, TrendingUp, Save, Trash2, Search, Grid, List } from 'lucide-react';
+import { Lightbulb, Plus, Calendar, Eye, TrendingUp, Save, Trash2, Search, Grid, List, Star } from 'lucide-react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/client';
+import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
 export default function IdeasPage({
-  params: { locale }
+  params: { locale },
+  searchParams
 }: {
   params: { locale: string };
+  searchParams?: { filter?: string };
 }) {
   const { t, tDashboard, tCommon } = useTranslation();
   const user = useUser();
@@ -20,7 +23,7 @@ export default function IdeasPage({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilter, setActiveFilter] = useState(searchParams?.filter || 'all');
   const [sortBy, setSortBy] = useState('newest');
   const [viewMode, setViewMode] = useState('list');
 
@@ -29,6 +32,20 @@ export default function IdeasPage({
       loadIdeas();
     }
   }, [user]);
+
+  // Listen for favorite changes from other pages
+  useEffect(() => {
+    const handleFavoriteChange = (event: CustomEvent) => {
+      const { ideaId, isFavorite } = event.detail;
+      handleFavoriteToggle(ideaId, isFavorite);
+    };
+
+    window.addEventListener('favoriteChanged' as any, handleFavoriteChange);
+    
+    return () => {
+      window.removeEventListener('favoriteChanged' as any, handleFavoriteChange);
+    };
+  }, []);
 
   // Helper function to map database idea to SavedIdea
   const mapDatabaseToIdea = (dbIdea: any): SavedIdea => {
@@ -50,7 +67,8 @@ export default function IdeasPage({
       userId: dbIdea.user_id,
       savedAt: dbIdea.created_at,
       notes: dbIdea.script_outline,
-      scheduledDate: dbIdea.best_posting_time
+      scheduledDate: dbIdea.best_posting_time,
+      isFavorite: dbIdea.is_favorited || false
     };
   };
 
@@ -126,8 +144,7 @@ export default function IdeasPage({
         filteredIdeas = filteredIdeas.filter(idea => idea.trendScore >= 70);
         break;
       case 'favorites':
-        // For now, we'll use high trend score as favorites
-        filteredIdeas = filteredIdeas.filter(idea => idea.trendScore >= 80);
+        filteredIdeas = filteredIdeas.filter(idea => idea.isFavorite === true);
         break;
       case 'recent':
         const oneWeekAgo = new Date();
@@ -177,6 +194,15 @@ export default function IdeasPage({
       console.error('Error deleting idea:', error);
       setError('Erro ao excluir ideia');
     }
+  };
+
+  const handleFavoriteToggle = (ideaId: string, newState: boolean) => {
+    // Update local state
+    setIdeas(prev => prev.map(idea => 
+      idea.id === ideaId 
+        ? { ...idea, isFavorite: newState }
+        : idea
+    ));
   };
 
   if (loading) {
@@ -396,7 +422,15 @@ export default function IdeasPage({
                         </h3>
                         
                         {/* Action Menu */}
-                        <div className="relative self-center sm:self-start">
+                        <div className="flex items-center gap-2 self-center sm:self-start">
+                          {/* Favorite Button */}
+                          <FavoriteButton
+                            ideaId={idea.id}
+                            isFavorite={idea.isFavorite || false}
+                            onToggle={handleFavoriteToggle}
+                          />
+                          
+                          {/* Delete Button */}
                           <button 
                             onClick={() => handleDeleteIdea(idea.id)}
                             className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-700/50 transition-colors"
